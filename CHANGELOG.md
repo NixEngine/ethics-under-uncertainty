@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added Portuguese and English adoption maps that preserve the protocol's
+  falsifiability, claim boundary, privacy, and non-coercion constraints while
+  giving readers, researchers, developers, automated systems, and public-interest
+  groups a concrete entry point.
+
 ## 0.1.1 — Rights and public-challenge clarification
 
 - Clarified the narrow non-commercial evaluation permission without granting a general reuse license.

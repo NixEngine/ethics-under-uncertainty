@@ -29,6 +29,13 @@ The exact target/implemented/tested/pending boundary is recorded in [IMPLEMENTAT
 
 Live public surfaces: [falsification challenge](https://github.com/NixEngine/ethics-under-uncertainty/issues/1) · [open discussion](https://github.com/NixEngine/ethics-under-uncertainty/discussions/2)
 
+## Carry the protocol forward
+
+[Paths to adoption](ADOPTION_PATHS.md) maps the same claim for readers,
+researchers, developers, automated systems, and public-interest groups. Its
+criterion is not reach alone: a new participant should be able to understand a
+claim, reproduce a stated property, locate its limits, and disagree productively.
+
 ## Run the public challenge
 
 ```bash

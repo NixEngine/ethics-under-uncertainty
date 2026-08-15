@@ -29,6 +29,14 @@ A fronteira exata entre alvo, implementado, testado e pendente está registrada 
 
 Superfícies públicas ativas: [desafio de falsificação](https://github.com/NixEngine/ethics-under-uncertainty/issues/1) · [discussão aberta](https://github.com/NixEngine/ethics-under-uncertainty/discussions/2)
 
+## Leve o protocolo adiante
+
+Os [caminhos de adoção](CAMINHOS_DE_ADOCAO.md) apresentam a mesma alegação para
+leitores, pesquisadores, desenvolvedores, sistemas automatizados e grupos de
+interesse público. O critério não é apenas alcance: um participante novo deve
+conseguir entender uma alegação, reproduzir uma propriedade declarada, localizar
+suas fronteiras e discordar de modo produtivo.
+
 ## Execute o desafio público
 
 ```powershell
