@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nixengine.github.io/ethics-under-uncertainty/schemas/ledger-record.schema.json",
+  "title": "EUP minimal public ledger record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "seq_no",
+    "event_type",
+    "policy_version",
+    "decision",
+    "reason_codes",
+    "subject_commitment",
+    "resource_commitment",
+    "observed_at",
+    "prev_hash",
+    "record_hash"
+  ],
+  "properties": {
+    "protocol": { "const": "EUP-LEDGER/0.1" },
+    "seq_no": { "type": "integer", "minimum": 0 },
+    "event_type": { "const": "policy_decision" },
+    "policy_version": { "type": "string", "pattern": "^EUP/[0-9]+\\.[0-9]+$" },
+    "decision": {
+      "enum": [
+        "NORMAL",
+        "CARE",
+        "INSUFFICIENT_DATA",
+        "SAFETY_RESTRICTED",
+        "CARE_AND_SAFETY_RESTRICTED"
+      ]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PRECAUTION_REGIME_ACTIVE",
+          "WELFARE_GREEN",
+          "WELFARE_YELLOW",
+          "WELFARE_ORANGE",
+          "WELFARE_RED",
+          "WELFARE_NO_DATA",
+          "WELFARE_COVERAGE_INCOMPLETE",
+          "EXTERNAL_CVAR_LIMIT_EXCEEDED",
+          "NO_CANDIDATE_ACTION"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "subject_commitment": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "resource_commitment": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "observed_at": { "type": "integer" },
+    "prev_hash": {
+      "anyOf": [
+        { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "record_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

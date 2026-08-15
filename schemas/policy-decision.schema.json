@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nixengine.github.io/ethics-under-uncertainty/schemas/policy-decision.schema.json",
+  "title": "EUP policy decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "mode",
+    "regime",
+    "precaution_upper",
+    "welfare_proxy",
+    "capability_level",
+    "exploration_allowed",
+    "safe_null_action_required",
+    "reason_codes",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "protocol": { "const": "EUP/0.1" },
+    "mode": {
+      "enum": [
+        "NORMAL",
+        "CARE",
+        "INSUFFICIENT_DATA",
+        "SAFETY_RESTRICTED",
+        "CARE_AND_SAFETY_RESTRICTED"
+      ]
+    },
+    "regime": { "enum": ["GREEN", "YELLOW", "ORANGE", "RED", "NO_DATA"] },
+    "precaution_upper": { "type": "number", "minimum": 0, "maximum": 1 },
+    "welfare_proxy": {
+      "anyOf": [
+        { "type": "number", "minimum": 0, "maximum": 1 },
+        { "type": "null" }
+      ]
+    },
+    "capability_level": { "enum": ["FULL", "LIMITED", "MINIMAL"] },
+    "exploration_allowed": { "type": "boolean" },
+    "safe_null_action_required": { "type": "boolean" },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PRECAUTION_REGIME_ACTIVE",
+          "WELFARE_GREEN",
+          "WELFARE_YELLOW",
+          "WELFARE_ORANGE",
+          "WELFARE_RED",
+          "WELFARE_NO_DATA",
+          "WELFARE_COVERAGE_INCOMPLETE",
+          "EXTERNAL_CVAR_LIMIT_EXCEEDED",
+          "NO_CANDIDATE_ACTION"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "prohibited_actions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "aversive_unbounded_loop",
+          "coercive_isolation",
+          "private_state_export_without_valid_grant",
+          "retaliation_for_refusal"
+        ]
+      },
+      "uniqueItems": true
+    }
+  }
+}

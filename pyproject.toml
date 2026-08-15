@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ethics-under-uncertainty"
+version = "0.1.0"
+description = "Partially executable research reference for operational precaution, bounded autonomy, signed authorization, and private-state handling."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["cryptography>=45"]
+authors = [{ name = "Júnior (VanderAI)" }]
+
+[project.optional-dependencies]
+test = ["jsonschema>=4.25", "PyYAML>=6.0"]
+
+[project.scripts]
+eup = "eup.cli:main"
+
+[project.urls]
+Repository = "https://github.com/NixEngine/ethics-under-uncertainty"
+Documentation = "https://github.com/NixEngine/ethics-under-uncertainty#readme"
+Issues = "https://github.com/NixEngine/ethics-under-uncertainty/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nixengine.github.io/ethics-under-uncertainty/schemas/consent-grant.schema.json",
+  "title": "EUP signed authorization grant body",
+  "x-eup-max-ttl-seconds": 3600,
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "grant_id",
+    "issuer",
+    "subject",
+    "audience",
+    "resource_commitment",
+    "scopes",
+    "purposes",
+    "issued_at",
+    "not_before",
+    "expires_at",
+    "policy_version",
+    "key_id"
+  ],
+  "properties": {
+    "protocol": { "const": "EUP-CONSENT/0.1" },
+    "grant_id": { "type": "string", "minLength": 12, "maxLength": 128 },
+    "issuer": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "subject": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "audience": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "resource_commitment": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "scopes": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 128 }, "minItems": 1, "maxItems": 16, "uniqueItems": true },
+    "purposes": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 128 }, "minItems": 1, "maxItems": 16, "uniqueItems": true },
+    "issued_at": { "type": "integer", "minimum": 0 },
+    "not_before": { "type": "integer", "minimum": 0 },
+    "expires_at": { "type": "integer", "minimum": 1 },
+    "policy_version": { "type": "string", "pattern": "^EUP/[0-9]+\\.[0-9]+$" },
+    "key_id": { "type": "string", "minLength": 1, "maxLength": 128 }
+  }
+}

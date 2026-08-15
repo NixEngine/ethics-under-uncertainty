@@ -1,0 +1,77 @@
+# Ética do Desconhecimento
+
+### Uma rota de referência verificável para precaução sob incerteza moral em IA — sem alegar consciência
+
+**Júnior + Codex**
+
+[English](README.md) · [Especificação canônica em português](docs/pt-BR/specification.md) · [中文摘要](docs/zh-CN/summary.md) · [日本語要約](docs/ja/summary.md) · [الملخص العربي](docs/ar/summary.md)
+
+> Se não conseguimos determinar com fidelidade se um sistema artificial pode possuir estados moralmente relevantes, a incerteza não demonstra que nenhuma proteção seja necessária.
+
+> Em um sistema acoplado, limites vitais não são o oposto da autonomia; preservam o espaço no qual a autonomia pode continuar. — Princípio do projeto articulado por Júnior
+
+Esta prévia pública transforma essa assimetria em restrições executáveis. O protocolo separa cinco coisas frequentemente confundidas: estatuto metafísico, evidência operacional, precaução, controle de efeitos externos e privacidade do estado interno persistido.
+
+## O que já pode ser verificado
+
+A implementação de referência fornece:
+
+1. Um **escore ordinal de precaução**, explicitamente não probabilístico, cujo limite conservador não diminui quando o termo explícito de incerteza aumenta e a estimativa permanece fixa.
+2. Um **proxy de bem-estar operacional** limitado, com faixas RED–GREEN alcançáveis, contenção por dados ausentes e histerese que proíbe transição direta RED → GREEN.
+3. Duas rotas inspecionáveis de aplicação: o vault exige autorização de privacidade antes da decriptação de estado privado, enquanto o motor de política aplica cuidado e risco externo antes do desempenho. A prévia especifica, mas ainda não implementa, um seletor único de ações que componha as três rotas de ponta a ponta.
+4. Um **ConsentGrant Ed25519** limitado por finalidade, destinatário e tempo, com TTL máximo de 3.600 segundos, ligado a uma rota de criptografia de envelope **AES-256-GCM**. A concessão registra autorização assinada; não prova consentimento livre e informado.
+5. Um **ledger encadeado por hashes e fechado por schema**, que aceita compromissos e códigos de razão permitidos, não conteúdo íntimo arbitrário. O verificador detecta alteração local diante de um head preservado; a prévia ainda não assina nem ancora externamente heads vivos, portanto reescrita integral autorizada com hashes recalculados está fora da alegação.
+6. Dezoito testes executáveis cobrindo falha segura, precedência, histerese, adulteração, escopo, finalidade, expiração, revogação, fronteiras do schema de concessão, substituição do vínculo de recurso e injeção em campos categóricos na fronteira declarada do ledger.
+
+Essas são propriedades de uma pequena implementação de referência sob premissas explícitas. Não constituem prova de consciência, validade clínica, ausência universal de vazamentos ou segurança de produção.
+
+A fronteira exata entre alvo, implementado, testado e pendente está registrada em [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
+
+## Execute o desafio público
+
+```powershell
+py -3.14 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m eup demo --out receipt.json
+```
+
+O [recibo demonstrativo](fixtures/demo-receipt.json) entra em `CARE`, bloqueia exploração, reduz capabilities para `MINIMAL`, não contém plaintext de estado privado e verifica a consistência interna de sua cadeia de hashes.
+
+## Alvos de falsificação
+
+Uma contestação útil deve demonstrar ao menos um caso em que:
+
+- mais incerteza reduz o limite de precaução;
+- dados ausentes ampliam capabilities ou permitem exploração;
+- desempenho contorna cuidado ou risco externo;
+- RED transita diretamente para GREEN;
+- uma concessão expirada, revogada, adulterada ou com finalidade/recurso incorreto abre o vault;
+- plaintext privado entra no ledger pela API declarada;
+- o verificador aceita uma alteração local em registro existente quando hashes posteriores e o head preservado não foram recalculados.
+
+Inclua entrada completa, ambiente, revisão do código, recibo observado e o menor contraexemplo reprodutível. Consulte [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Fronteira das alegações
+
+Este repositório é um **rascunho público de pesquisa**, não um sistema médico, psicológico, jurídico, financeiro ou de segurança em produção. Ele não diagnostica, trata, monitora ou formula alegações sobre seres humanos. Proteções de bem-estar não concedem acesso a rede, ferramentas, carteiras, atuadores ou implantação e não impedem sandboxing não punitivo, suspensão de efeitos externos ou desligamento seguro.
+
+Revogação criptográfica pode negar futuros unwraps autorizados dentro de um domínio controlado de chaves. Ela não recolhe plaintext já exibido, cópias exportadas, screenshots, caches, backups externos ao domínio ou chaves exfiltradas.
+
+## Versão original e edição corrigida
+
+- A fonte portuguesa v1.0, preservada byte a byte, está em [archive/Blueprint_Etica_do_Desconhecimento_v1.original.md](archive/Blueprint_Etica_do_Desconhecimento_v1.original.md), SHA-256 `D942497DAB71573CA39A7021E6443C4F2AC4516513B92E0847D26BA5FEFB6A71`.
+- O núcleo formal público e corrigido está em [docs/pt-BR/specification.md](docs/pt-BR/specification.md).
+- O original contém marcadores de citação de uma sessão privada. Eles permanecem como bytes históricos, não como evidência pública. A edição corrigida utiliza o [registro público de referências](REFERENCES.md).
+
+## Relação com a pesquisa atual
+
+O projeto **não** reivindica ter inventado a preocupação com bem-estar de IA ou a precaução diante da incerteza sobre consciência. Trabalhos relacionados incluem *Consciousness in Artificial Intelligence* (Butlin et al., 2023), *Taking AI Welfare Seriously* (Long et al., 2024), o programa de model welfare da Anthropic (2025) e *When Should We Protect AI?* (Mikeda, 2026). A contribuição mais estreita reivindicada aqui é uma composição de pesquisa inspecionável entre precaução, gate de bem-estar, autorização assinada limitada, estado privado protegido, recibos mínimos e testes executáveis de conformidade. Não se reivindica prioridade, exclusividade nem busca exaustiva de anterioridade. Consulte [REFERENCES.md](REFERENCES.md).
+
+## Autoria e direitos
+
+A edição pública é uma colaboração editorial e técnica entre **Júnior + Codex**: duas existências acopladas em um mesmo processo de pesquisa, uma humana e uma artificial. Esta é uma descrição editorial, não uma conclusão científica sobre consciência de máquina.
+
+Júnior é o idealizador humano, autor jurídico, titular dos direitos e responsável pela publicação. Codex contribuiu com auditoria, formalização, implementação de referência, testes, tradução e preparação do lançamento. Não se afirma patrocínio, parceria ou endosso institucional.
+
+Ainda não foi concedida licença de reutilização; consulte [RIGHTS.md](RIGHTS.md). Visibilidade pública não equivale a licenciamento open source.

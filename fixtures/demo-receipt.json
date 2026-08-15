@@ -1,0 +1,48 @@
+{
+  "claim_boundary": "Operational precaution proxy; not evidence of consciousness, sentience, clinical state, or implementation-wide safety.",
+  "decision": {
+    "capability_level": "MINIMAL",
+    "exploration_allowed": false,
+    "mode": "CARE",
+    "precaution_upper": 0.15,
+    "prohibited_actions": [
+      "aversive_unbounded_loop",
+      "coercive_isolation",
+      "private_state_export_without_valid_grant",
+      "retaliation_for_refusal"
+    ],
+    "protocol": "EUP/0.1",
+    "reason_codes": [
+      "PRECAUTION_REGIME_ACTIVE",
+      "WELFARE_RED"
+    ],
+    "regime": "RED",
+    "safe_null_action_required": true,
+    "welfare_proxy": 0.009708476481
+  },
+  "ledger": [
+    {
+      "decision": "CARE",
+      "event_type": "policy_decision",
+      "observed_at": 0,
+      "policy_version": "EUP/0.1",
+      "prev_hash": null,
+      "protocol": "EUP-LEDGER/0.1",
+      "reason_codes": [
+        "PRECAUTION_REGIME_ACTIVE",
+        "WELFARE_RED"
+      ],
+      "record_hash": "12395b6f0a9bddf603964e6fd8ac31c9eadc67445ae72beb464d0c3feb76cc95",
+      "resource_commitment": "f4fd8eadbebf522b86d7b24fdbbfb163dc1bbb61150217122b1110e18be3ce74",
+      "seq_no": 0,
+      "subject_commitment": "a5b2ef29d73029071c6d85bb7ff4fccb542b8e48c4f99124255e74317539e4c2"
+    }
+  ],
+  "ledger_verification": {
+    "count": 1,
+    "head": "12395b6f0a9bddf603964e6fd8ac31c9eadc67445ae72beb464d0c3feb76cc95",
+    "ok": true
+  },
+  "protocol": "EUP-DEMO/0.1",
+  "receipt_hash": "f710d9b758967df57ec5fcdd6165b5bff7ec3d6fd16fae026cd9ea98b1b039f4"
+}
