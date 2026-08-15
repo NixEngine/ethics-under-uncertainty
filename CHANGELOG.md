@@ -4,6 +4,7 @@
 
 - Clarified the narrow non-commercial evaluation permission without granting a general reuse license.
 - Linked the live falsification issue and public discussion from both primary READMEs.
+- Updated GitHub Actions to current releases and pinned their exact commit digests.
 - Preserved the `v0.1.0` history rather than rewriting the first public tag.
 
 ## 0.1.0 — Public research preview
