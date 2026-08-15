@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — Rights and public-challenge clarification
+
+- Clarified the narrow non-commercial evaluation permission without granting a general reuse license.
+- Linked the live falsification issue and public discussion from both primary READMEs.
+- Preserved the `v0.1.0` history rather than rewriting the first public tag.
+
 ## 0.1.0 — Public research preview
 
 - Preserved the original Portuguese v1.0 source and its SHA-256 digest.

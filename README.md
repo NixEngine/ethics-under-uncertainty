@@ -27,6 +27,8 @@ These are properties of a small reference path under its stated assumptions. The
 
 The exact target/implemented/tested/pending boundary is recorded in [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 
+Live public surfaces: [falsification challenge](https://github.com/NixEngine/ethics-under-uncertainty/issues/1) · [open discussion](https://github.com/NixEngine/ethics-under-uncertainty/discussions/2)
+
 ## Run the public challenge
 
 ```bash
@@ -83,4 +85,4 @@ The public edition is an editorial and technical collaboration between **Júnior
 
 Júnior is the human originator, legal author, rights holder, and responsible publisher. Codex contributed audit, formalization, reference implementation, tests, translation, and release preparation. No institutional sponsorship, partnership, or endorsement is claimed.
 
-No reuse license has yet been granted; see [RIGHTS.md](RIGHTS.md). Public visibility is not the same as open-source licensing.
+No general reuse license has been granted. [RIGHTS.md](RIGHTS.md) provides only a narrow permission to execute an unmodified local copy for non-commercial evaluation and falsification. Public visibility is not the same as open-source licensing.

@@ -3,7 +3,7 @@ message: >-
   If you use this research preview, please cite the software and acknowledge
   Codex as the AI technical collaborator described in AUTHORS.md.
 title: "Ethics Under Uncertainty"
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-08-15
 type: software
 authors:

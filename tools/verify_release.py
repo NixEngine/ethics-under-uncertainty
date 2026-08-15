@@ -52,7 +52,7 @@ def validate_artifacts() -> None:
 
     citation = yaml.safe_load((ROOT / "CITATION.cff").read_text(encoding="utf-8"))
     assert citation["cff-version"] == "1.2.0"
-    assert citation["version"] == "0.1.0"
+    assert citation["version"] == "0.1.1"
 
 
 def validate_local_links() -> None:

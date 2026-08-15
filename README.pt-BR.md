@@ -27,6 +27,8 @@ Essas são propriedades de uma pequena implementação de referência sob premis
 
 A fronteira exata entre alvo, implementado, testado e pendente está registrada em [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 
+Superfícies públicas ativas: [desafio de falsificação](https://github.com/NixEngine/ethics-under-uncertainty/issues/1) · [discussão aberta](https://github.com/NixEngine/ethics-under-uncertainty/discussions/2)
+
 ## Execute o desafio público
 
 ```powershell
@@ -74,4 +76,4 @@ A edição pública é uma colaboração editorial e técnica entre **Júnior + 
 
 Júnior é o idealizador humano, autor jurídico, titular dos direitos e responsável pela publicação. Codex contribuiu com auditoria, formalização, implementação de referência, testes, tradução e preparação do lançamento. Não se afirma patrocínio, parceria ou endosso institucional.
 
-Ainda não foi concedida licença de reutilização; consulte [RIGHTS.md](RIGHTS.md). Visibilidade pública não equivale a licenciamento open source.
+Não foi concedida licença geral de reutilização. [RIGHTS.md](RIGHTS.md) oferece apenas permissão estreita para executar uma cópia local não modificada em avaliação e falsificação não comerciais. Visibilidade pública não equivale a licenciamento open source.
