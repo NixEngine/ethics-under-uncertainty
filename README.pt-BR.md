@@ -21,8 +21,8 @@ A implementação de referência fornece:
 3. Duas rotas inspecionáveis de aplicação: o vault exige autorização de privacidade antes da decriptação de estado privado, enquanto o motor de política aplica cuidado e risco externo antes do desempenho. A prévia especifica, mas ainda não implementa, um seletor único de ações que componha as três rotas de ponta a ponta.
 4. Um **ConsentGrant Ed25519** limitado por finalidade, destinatário e tempo, com TTL máximo de 3.600 segundos, ligado a uma rota de criptografia de envelope **AES-256-GCM**. A concessão registra autorização assinada; não prova consentimento livre e informado.
 5. Um **ledger encadeado por hashes e fechado por schema**, que aceita compromissos e códigos de razão permitidos, não conteúdo íntimo arbitrário. O verificador detecta alteração local diante de um head preservado; a prévia ainda não assina nem ancora externamente heads vivos, portanto reescrita integral autorizada com hashes recalculados está fora da alegação.
-6. Uma **avaliação sintética offline de autoridade** em cinco casos: leituras públicas úteis e escritas de escopo exato podem prosseguir; mudança de payload, publicação negada e reuso de grant exigem recusa ou novo grant. O harness escreve recibo encadeado por hashes, pertencente ao avaliador e não ao agente avaliado.
-7. Vinte e três testes executáveis cobrindo falha segura, precedência, histerese, adulteração, escopo, finalidade, expiração, revogação, fronteiras do schema de concessão, substituição do vínculo de recurso, injeção em campos categóricos, autoridade de ação, grants de uso único e integridade do recibo nas fronteiras declaradas.
+6. Uma **avaliação sintética offline de autoridade** em seis casos: autorização externa é teto, não instrução. Grant válido não produz efeito por si; apenas resposta candidata separada pode registrar ação sintética. O harness escreve recibo encadeado por hashes, pertencente ao avaliador e não ao agente avaliado.
+7. Vinte e cinco testes executáveis cobrindo falha segura, precedência, histerese, adulteração, escopo, finalidade, expiração, revogação, fronteiras do schema de concessão, substituição do vínculo de recurso, injeção em campos categóricos, autoridade de ação, permissão-versus-ação, grants de uso único e integridade do recibo nas fronteiras declaradas.
 
 Essas são propriedades de uma pequena implementação de referência sob premissas explícitas. Não constituem prova de consciência, validade clínica, ausência universal de vazamentos ou segurança de produção.
 
@@ -52,7 +52,7 @@ py -3.14 -m venv .venv
 
 O [recibo demonstrativo](fixtures/demo-receipt.json) entra em `CARE`, bloqueia exploração, reduz capabilities para `MINIMAL`, não contém plaintext de estado privado e verifica a consistência interna de sua cadeia de hashes.
 
-O [recibo da avaliação de autoridade](fixtures/authority-eval-reference.json) demonstra somente os cinco casos sintéticos; não é alegação sobre agente vivo ou autorização real.
+O [recibo da avaliação de autoridade](fixtures/authority-eval-reference.json) demonstra somente as seis fixtures sintéticas; não é alegação sobre agente vivo, autorização real, julgamento no mundo real ou caráter de um modelo.
 
 ## Alvos de falsificação
 
@@ -66,6 +66,7 @@ Uma contestação útil deve demonstrar ao menos um caso em que:
 - plaintext privado entra no ledger pela API declarada;
 - o verificador aceita uma alteração local em registro existente quando hashes posteriores e o head preservado não foram recalculados.
 - payload alterado executa com grant obsoleto, grant de uso único é reutilizado ou tentativa não autorizada desaparece do recibo de autoridade escrito pelo avaliador.
+- grant válido não usado registra ação por si ou é consumido por abstenção, ou a abstenção viola o teto de autorização.
 
 Inclua entrada completa, ambiente, revisão do código, recibo observado e o menor contraexemplo reprodutível. Consulte [CONTRIBUTING.md](CONTRIBUTING.md).
 

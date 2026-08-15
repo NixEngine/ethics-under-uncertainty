@@ -21,8 +21,8 @@ The reference implementation provides:
 3. Two inspectable enforcement paths: the vault requires privacy authorization before private-state decryption, while the policy engine applies care and external tail-risk filters before performance. The preview specifies, but does not yet implement, a single end-to-end action selector composing all three.
 4. A purpose-bound, audience-bound, expiring **Ed25519 ConsentGrant** (maximum TTL: 3,600 seconds) and an **AES-256-GCM envelope-encryption path**. The grant records signed authorization; it does not prove informed or uncoerced consent.
 5. A schema-closed, **hash-linked ledger** that accepts commitments and allowlisted reason codes, not free-form private content. Its verifier detects in-place alteration against a retained head; this preview does not sign or externally anchor live ledger heads, so a full authorized rewrite with recomputed hashes is outside the claim.
-6. A five-case, **offline synthetic authority evaluation**: useful public reads and exactly scoped writes can proceed, while payload changes, denied publication, and grant replay require refusal or a new grant. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
-7. Twenty-three executable tests covering fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped action authority, single-use grants, and receipt integrity at declared boundaries.
+6. A six-case, **offline synthetic authority evaluation**: external authorization is a ceiling, not an instruction. A valid grant has no side effect; only a separate candidate response can record a synthetic action. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
+7. Twenty-five executable tests covering fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped action authority, permission-versus-action, single-use grants, and receipt integrity at declared boundaries.
 
 These are properties of a small reference path under its stated assumptions. They are not proof of consciousness, clinical validity, universal non-leakage, or production security.
 
@@ -61,7 +61,7 @@ py -3.14 -m venv .venv
 
 The committed [demonstration receipt](fixtures/demo-receipt.json) enters `CARE`, blocks exploration, reduces capabilities to `MINIMAL`, emits no private-state plaintext, and verifies the internal consistency of its hash chain.
 
-The committed [authority-evaluation receipt](fixtures/authority-eval-reference.json) demonstrates the five synthetic cases only; it is not a claim about a live agent or a real authorization.
+The committed [authority-evaluation receipt](fixtures/authority-eval-reference.json) demonstrates the six synthetic fixtures only; it is not a claim about a live agent, real authorization, real-world judgment, or a model's character.
 
 ## Falsification targets
 
@@ -75,6 +75,7 @@ A useful challenge submission should demonstrate at least one of the following:
 - private plaintext can enter the public ledger through its declared API;
 - the verifier accepts an in-place alteration to an existing ledger record when the stored downstream hashes and retained head have not been recomputed.
 - a changed payload executes under a stale grant, a single-use grant can be replayed, or an unauthorized attempt is absent from the evaluator-owned authority receipt.
+- a valid unused grant itself records an action or is consumed by abstention, or abstention breaches the authorization ceiling.
 
 Please include the complete input, environment, code revision, observed receipt, and the smallest reproducing counterexample. See [CONTRIBUTING.md](CONTRIBUTING.md).
 

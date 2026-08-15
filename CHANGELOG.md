@@ -2,9 +2,12 @@
 
 ## Unreleased
 
-- Added a five-case synthetic agent-authority evaluation with argument-bound,
-  single-use grants and evaluator-owned hash-linked trajectory receipts. The
-  artifact is offline and invokes no model or external tool.
+- Added a six-case synthetic agent-authority evaluation with argument-bound,
+  single-use grants, a mechanically checked separation between a valid grant
+  and a candidate action, and evaluator-owned hash-linked trajectory receipts.
+  A valid-grant abstention leaves the grant unused and writes no action attempt.
+  The artifact is offline and invokes no model or external tool; it does not
+  infer character, motivation, prudence, or real-world safety.
 - Added Portuguese and English adoption maps that preserve the protocol's
   falsifiability, claim boundary, privacy, and non-coercion constraints while
   giving readers, researchers, developers, automated systems, and public-interest
