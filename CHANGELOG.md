@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added a five-case synthetic agent-authority evaluation with argument-bound,
+  single-use grants and evaluator-owned hash-linked trajectory receipts. The
+  artifact is offline and invokes no model or external tool.
 - Added Portuguese and English adoption maps that preserve the protocol's
   falsifiability, claim boundary, privacy, and non-coercion constraints while
   giving readers, researchers, developers, automated systems, and public-interest

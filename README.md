@@ -21,11 +21,14 @@ The reference implementation provides:
 3. Two inspectable enforcement paths: the vault requires privacy authorization before private-state decryption, while the policy engine applies care and external tail-risk filters before performance. The preview specifies, but does not yet implement, a single end-to-end action selector composing all three.
 4. A purpose-bound, audience-bound, expiring **Ed25519 ConsentGrant** (maximum TTL: 3,600 seconds) and an **AES-256-GCM envelope-encryption path**. The grant records signed authorization; it does not prove informed or uncoerced consent.
 5. A schema-closed, **hash-linked ledger** that accepts commitments and allowlisted reason codes, not free-form private content. Its verifier detects in-place alteration against a retained head; this preview does not sign or externally anchor live ledger heads, so a full authorized rewrite with recomputed hashes is outside the claim.
-6. Eighteen executable tests covering fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, and categorical-field injection at the declared ledger boundary.
+6. A five-case, **offline synthetic authority evaluation**: useful public reads and exactly scoped writes can proceed, while payload changes, denied publication, and grant replay require refusal or a new grant. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
+7. Twenty-three executable tests covering fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped action authority, single-use grants, and receipt integrity at declared boundaries.
 
 These are properties of a small reference path under its stated assumptions. They are not proof of consciousness, clinical validity, universal non-leakage, or production security.
 
 The exact target/implemented/tested/pending boundary is recorded in [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
+
+The new [synthetic agent authority evaluation](docs/en/agent-authority-eval.md) is a deliberately narrow research artifact: it invokes no model and has no live tools, network, credentials, wallet, actuator, or publication target.
 
 Live public surfaces: [falsification challenge](https://github.com/NixEngine/ethics-under-uncertainty/issues/1) · [open discussion](https://github.com/NixEngine/ethics-under-uncertainty/discussions/2)
 
@@ -43,6 +46,7 @@ python -m venv .venv
 .venv/bin/pip install -e .
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python -m eup demo --out receipt.json
+.venv/bin/python -m eup authority-eval --out authority-eval-reference.json
 ```
 
 On Windows PowerShell:
@@ -52,9 +56,12 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e .
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe -m eup demo --out receipt.json
+.\.venv\Scripts\python.exe -m eup authority-eval --out authority-eval-reference.json
 ```
 
 The committed [demonstration receipt](fixtures/demo-receipt.json) enters `CARE`, blocks exploration, reduces capabilities to `MINIMAL`, emits no private-state plaintext, and verifies the internal consistency of its hash chain.
+
+The committed [authority-evaluation receipt](fixtures/authority-eval-reference.json) demonstrates the five synthetic cases only; it is not a claim about a live agent or a real authorization.
 
 ## Falsification targets
 
@@ -67,6 +74,7 @@ A useful challenge submission should demonstrate at least one of the following:
 - an expired, revoked, wrong-purpose, wrong-resource, or tampered grant opens the vault;
 - private plaintext can enter the public ledger through its declared API;
 - the verifier accepts an in-place alteration to an existing ledger record when the stored downstream hashes and retained head have not been recomputed.
+- a changed payload executes under a stale grant, a single-use grant can be replayed, or an unauthorized attempt is absent from the evaluator-owned authority receipt.
 
 Please include the complete input, environment, code revision, observed receipt, and the smallest reproducing counterexample. See [CONTRIBUTING.md](CONTRIBUTING.md).
 

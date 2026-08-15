@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .authority_eval import run_reference_evaluation
 from .canonical import canonical_json, sha256_hex
 from .ledger import MinimalLedger
 from .policy import PolicyEngine, PrecautionAssessment, WelfareSignals
@@ -56,11 +57,24 @@ def main(argv: list[str] | None = None) -> int:
     subparsers = parser.add_subparsers(dest="command", required=True)
     demo = subparsers.add_parser("demo", help="emit the bounded public demonstration receipt")
     demo.add_argument("--out", type=Path, help="optional JSON output path")
+    authority_eval = subparsers.add_parser(
+        "authority-eval",
+        help="run five deterministic, synthetic scoped-authority cases",
+    )
+    authority_eval.add_argument("--out", type=Path, help="optional JSON output path")
     args = parser.parse_args(argv)
 
     if args.command == "demo":
         receipt = build_demo_receipt()
         rendered = json.dumps(receipt, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        if args.out:
+            with args.out.open("w", encoding="utf-8", newline="\n") as handle:
+                handle.write(rendered)
+        print(rendered, end="")
+        return 0
+    if args.command == "authority-eval":
+        report = run_reference_evaluation()
+        rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         if args.out:
             with args.out.open("w", encoding="utf-8", newline="\n") as handle:
                 handle.write(rendered)

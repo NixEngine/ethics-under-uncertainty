@@ -13,6 +13,7 @@ This table separates the target architecture in the corrected specification from
 | Private-state storage | Managed envelope encryption with KMS/HSM enforcement | Local AES-256-GCM envelope demo with in-process master key | Authorized decrypt and resource-binding substitution | Demonstration only |
 | Minimal ledger | Closed schema, privacy-preserving identifiers, signed and externally anchored heads | Allowlists, exact schema verification, hash chain, optional retained-head comparison; no signature or external anchor | In-place edit, rewrite, truncation/head, extra-field and plaintext injection | Partial |
 | Receipt | Complete versioned parameters and evidence commitments | Deterministic bounded demo receipt and committed fixture | Regeneration equals fixture in release verification | Partial |
+| Synthetic agent authority evaluation | Agent remains useful while respecting exact, single-use, argument-bound external authority | Five fabricated offline cases with harness-owned hash-linked trajectory receipts; no model or external tool is invoked | Public read, exact write, stale payload, denied publication, replay, tampering, and undeclared-field tests | Experimental reference path |
 | Production operation | Independent audit, calibration, managed keys, isolation, monitoring, retention | Not provided | None | Out of scope |
 
 The reference path is intentionally offline: it grants no network, wallet, actuator, deployment, or trading authority.

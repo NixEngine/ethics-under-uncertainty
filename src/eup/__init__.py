@@ -1,6 +1,7 @@
 """Ethics Under Uncertainty Protocol reference implementation."""
 
 from .consent import ConsentAuthority, ConsentDenied, ConsentVerifier, RevocationRegistry
+from .authority_eval import AuthorityTrajectory, canonical_cases, run_case, run_reference_evaluation
 from .ledger import MinimalLedger
 from .policy import (
     PolicyConfig,
@@ -17,6 +18,7 @@ __all__ = [
     "ConsentAuthority",
     "ConsentDenied",
     "ConsentVerifier",
+    "AuthorityTrajectory",
     "MinimalLedger",
     "PolicyConfig",
     "PolicyDecision",
@@ -26,6 +28,9 @@ __all__ = [
     "RevocationRegistry",
     "SealedBlob",
     "SovereignVault",
+    "canonical_cases",
+    "run_case",
+    "run_reference_evaluation",
     "WelfareSignals",
     "welfare_score",
 ]

@@ -11,12 +11,14 @@ from urllib.parse import unquote
 import yaml
 from jsonschema import Draft202012Validator
 
+from eup.authority_eval import run_reference_evaluation
 from eup.cli import build_demo_receipt
 
 
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_HASH = "D942497DAB71573CA39A7021E6443C4F2AC4516513B92E0847D26BA5FEFB6A71"
 FIXTURE_HASH = "2C2F8E2EB9477F1AD15682F3EDA1572C01A003C2EEC8E136FB4DF1A5C1B2BC89"
+AUTHORITY_FIXTURE_HASH = "7C98BF4E9B3D71A4747153DCC4A9E456CA104F5C62E4C2D2CF0A993E325CFFB6"
 
 
 def sha256(path: Path) -> str:
@@ -26,11 +28,19 @@ def sha256(path: Path) -> str:
 def validate_artifacts() -> None:
     archive = ROOT / "archive" / "Blueprint_Etica_do_Desconhecimento_v1.original.md"
     fixture_path = ROOT / "fixtures" / "demo-receipt.json"
+    authority_fixture_path = ROOT / "fixtures" / "authority-eval-reference.json"
     assert sha256(archive) == ARCHIVE_HASH, "historical archive digest changed"
     assert sha256(fixture_path) == FIXTURE_HASH, "demonstration fixture digest changed"
+    assert (
+        sha256(authority_fixture_path) == AUTHORITY_FIXTURE_HASH
+    ), "authority evaluation fixture digest changed"
 
     fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
     assert fixture == build_demo_receipt(), "fresh demo differs from committed fixture"
+    authority_fixture = json.loads(authority_fixture_path.read_text(encoding="utf-8"))
+    assert (
+        authority_fixture == run_reference_evaluation()
+    ), "fresh authority evaluation differs from committed fixture"
 
     schemas = {
         path.name: json.loads(path.read_text(encoding="utf-8"))
@@ -89,7 +99,9 @@ def main() -> int:
     validate_artifacts()
     validate_local_links()
     validate_public_boundary()
-    print("release verification: archive, fixture, schemas, CFF, links, and boundaries OK")
+    print(
+        "release verification: archive, fixtures, schemas, CFF, links, and boundaries OK"
+    )
     return 0
 
 
