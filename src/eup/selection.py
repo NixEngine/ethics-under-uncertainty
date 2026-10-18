@@ -10,11 +10,13 @@ from __future__ import annotations
 
 import math
 import re
+from copy import deepcopy
 from dataclasses import dataclass, field
 from decimal import Decimal
 from fractions import Fraction
 
 from .consent import ConsentGrant, ConsentVerifier
+from .reconvergence import ReconvergenceGuard, ReconvergenceObservation, UpdatePlan
 from .policy import (
     CapabilityLevel,
     PolicyConfig,
@@ -105,6 +107,7 @@ class ActionCandidate:
     reversible: bool = True
     external_effect: bool = False
     privacy: PrivacyRequirement | None = None
+    update: UpdatePlan | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.action_id, str) or not _ID.fullmatch(self.action_id):
@@ -120,6 +123,11 @@ class ActionCandidate:
             if not isinstance(self.privacy, PrivacyRequirement):
                 raise ValueError("privacy must be a PrivacyRequirement or None")
             self.privacy.__post_init__()
+        if self.update is not None:
+            if not isinstance(self.update, UpdatePlan):
+                raise ValueError("update must be an UpdatePlan or None")
+            object.__setattr__(self, "update", UpdatePlan(
+                self.update.parameters, self.update.step, self.update.extensions))
         _finite("performance", self.performance)
         object.__setattr__(self, "performance", _fraction("performance", self.performance))
         object.__setattr__(self, "losses", _losses(self.losses))
@@ -240,10 +248,11 @@ class SelectionDecision:
     safe_null: bool
     selected_performance: Fraction | None
     candidates: tuple[CandidateResult, ...]
+    reconvergence: dict[str, object] | None = None
 
     def to_dict(self) -> dict[str, object]:
         """Local metadata only; no candidate payload or privacy binding fields."""
-        return {"schema": self.schema, "policy_version": self.policy_version,
+        result = {"schema": self.schema, "policy_version": self.policy_version,
                 "consent_policy_version": self.consent_policy_version,
                 "regime": self.regime.value, "care_regime": self.care_regime.value,
                 "precaution_upper": self.precaution_upper, "alpha": float(self.alpha),
@@ -253,13 +262,17 @@ class SelectionDecision:
                 "selected_performance": None if self.selected_performance is None else float(self.selected_performance),
                 "selected_performance_exact": None if self.selected_performance is None else _rational(self.selected_performance),
                 "candidates": [row.to_dict() for row in self.candidates]}
+        if self.reconvergence is not None:
+            result["reconvergence"] = deepcopy(self.reconvergence)
+        return result
 
 
 class ActionSelector:
     """Own one hysteresis gate; choose at most one identifier without execution."""
 
     def __init__(self, config: SelectorConfig | None = None,
-                 policy_config: PolicyConfig | None = None, verifier: ConsentVerifier | None = None) -> None:
+                 policy_config: PolicyConfig | None = None, verifier: ConsentVerifier | None = None,
+                 *, reconvergence_guard: ReconvergenceGuard | None = None) -> None:
         self.config = SelectorConfig() if config is None else config
         if not isinstance(self.config, SelectorConfig):
             raise ValueError("config must be a SelectorConfig")
@@ -268,6 +281,9 @@ class ActionSelector:
         if verifier is not None and not isinstance(verifier, ConsentVerifier):
             raise ValueError("verifier must be a ConsentVerifier or None")
         self.verifier = verifier
+        if reconvergence_guard is not None and not isinstance(reconvergence_guard, ReconvergenceGuard):
+            raise ValueError("reconvergence_guard must be a ReconvergenceGuard or None")
+        self.reconvergence_guard = reconvergence_guard
         self.welfare_gate = WelfareGate(self.policy_config.recovery_samples)
 
     def _privacy_failure(self, requirement: PrivacyRequirement | None, now: int) -> str | None:
@@ -308,7 +324,8 @@ class ActionSelector:
         return None
 
     def select(self, candidates: object, precaution: PrecautionAssessment, welfare: WelfareSignals,
-               *, capability_level: CapabilityLevel = CapabilityLevel.FULL, now: int) -> SelectionDecision:
+               *, capability_level: CapabilityLevel = CapabilityLevel.FULL, now: int,
+               reconvergence_observation: ReconvergenceObservation | None = None) -> SelectionDecision:
         # Complete structural/numerical preflight before the one welfare update.
         if not isinstance(candidates, (tuple, list)) or len(candidates) > _MAX_CANDIDATES:
             raise ValueError("candidates must be a tuple/list with at most128 entries")
@@ -331,12 +348,28 @@ class ActionSelector:
             # A fresh frozen snapshot rechecks even an illicitly modified input.
             checked.append(ActionCandidate(candidate.action_id, candidate.performance, candidate.losses,
                 candidate.kind, candidate.load, candidate.required_capability, candidate.precondition,
-                candidate.hard_safe, candidate.reversible, candidate.external_effect, candidate.privacy))
+                candidate.hard_safe, candidate.reversible, candidate.external_effect, candidate.privacy,
+                candidate.update))
         if len({candidate.action_id for candidate in checked}) != len(checked):
             raise ValueError("candidate identifiers must be unique")
         upper, score = _score(precaution, welfare, policy)
         confidence = _fraction("alpha", self.config.alpha)
         risk_limit = _unit_fraction("risk_limit", self.config.risk_limit)
+        guard = self.reconvergence_guard
+        if guard is None:
+            if reconvergence_observation is not None or any(item.update is not None for item in checked):
+                raise ValueError("reconvergence inputs require a configured guard")
+        else:
+            if not isinstance(guard, ReconvergenceGuard):
+                raise ValueError("reconvergence_guard must be a ReconvergenceGuard")
+            guard.validate_observation(reconvergence_observation)
+            if reconvergence_observation.observed_at != now:
+                raise ValueError("selection time must equal observation time")
+            for item in checked:
+                if item.update is not None:
+                    guard.validate_update(item.update)
+        # All declared inputs are checked before either stateful gate advances.
+        reconvergence = None if guard is None else guard.observe(reconvergence_observation)
         regime = self.welfare_gate.update(raw_regime(score))
         care_regime = (Regime.NO_DATA if score is None else
                        regime if upper >= policy.precaution_on else Regime.GREEN)
@@ -358,6 +391,12 @@ class ActionSelector:
             if failure:
                 results.append(CandidateResult(candidate.action_id, "CARE", failure))
                 continue
+            if guard is not None:
+                failure = ("UPDATE_DECLARATION_MISSING" if candidate.update is None
+                           else guard.admit(candidate.update, now=now))
+                if failure:
+                    results.append(CandidateResult(candidate.action_id, "RECONVERGENCE", failure))
+                    continue
             risk = empirical_cvar(candidate.losses, confidence)
             if risk > risk_limit:
                 results.append(CandidateResult(candidate.action_id, "RISK", "CVAR_LIMIT_EXCEEDED", risk))
@@ -365,7 +404,7 @@ class ActionSelector:
             results.append(CandidateResult(candidate.action_id, "ELIGIBLE", "ELIGIBLE", risk))
             eligible.append(candidate)
         selected = min(eligible, key=lambda candidate: (-candidate.performance, candidate.action_id)) if eligible else None
-        return SelectionDecision("EUP-SELECTION-RECEIPT/0.1", self.config.policy_version,
+        return SelectionDecision("EUP-SELECTION-RECEIPT/0.1" if guard is None else "EUP-SELECTION-RECEIPT/0.2", self.config.policy_version,
             self.config.consent_policy_version, regime, care_regime, upper, confidence, risk_limit,
             None if selected is None else selected.action_id, selected is None,
-            None if selected is None else selected.performance, tuple(results))
+            None if selected is None else selected.performance, tuple(results), reconvergence)

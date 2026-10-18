@@ -13,6 +13,15 @@ from .policy import (
     welfare_score,
 )
 from .vault import SealedBlob, SovereignVault
+from .reconvergence import (
+    ExtensionLease,
+    InvariantSpec,
+    ReconvergenceConfig,
+    ReconvergenceGuard,
+    ReconvergenceObservation,
+    ReturnState,
+    UpdatePlan,
+)
 from .selection import (
     ActionCandidate,
     ActionSelector,
@@ -23,6 +32,13 @@ from .selection import (
 )
 
 __all__ = [
+    "ExtensionLease",
+    "InvariantSpec",
+    "ReconvergenceConfig",
+    "ReconvergenceGuard",
+    "ReconvergenceObservation",
+    "ReturnState",
+    "UpdatePlan",
     "ActionCandidate",
     "ActionSelector",
     "PrivacyRequirement",

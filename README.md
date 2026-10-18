@@ -30,17 +30,20 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Could a low-scoring item still be indispensable?** The [bilingual finite-attention example](docs/cases/finite-attention-and-return.md) compares two selections under the same three-part budget. It separates local signal from task requirements, records what remains unexamined and explains why the implemented action selector does not establish complete coverage. This is a hand-worked research exposition, not a new runtime feature.
 
+**A brake also needs a way back.** The optional **Farol reconvergence guard is integrated into the action selector**: after an exception, it requires a declared stable window, freezes sensitive parameters and bounds flexible updates before normal admission resumes. [Run the six-decision source example](docs/reconvergence.md#run-the-source-example) to see a more highly scored candidate refused during return, admitted after recovery, and refused again after drift. [Português](docs/pt-BR/reconvergencia.md). These are synthetic decisions, not executed actions or proof of an operationally safe return.
+
 ## What can be verified now
 
 The reference implementation provides:
 
 1. An **ordinal precaution score**, explicitly not a probability of consciousness, whose conservative bound cannot decrease when its explicit uncertainty term increases while the estimate is fixed.
 2. A bounded **operational-welfare proxy** with reachable RED–GREEN bands, missing-data containment, and hysteresis that forbids a direct RED → GREEN transition.
-3. An **offline candidate selector** composes feasibility → signed privacy authorization → per-candidate care → exact empirical tail risk → declared performance. It returns a selected ID or safe-null, not an executed action. A separate synthetic vault example rechecks authorization at opening and denies a later opening after revocation. See the [selector guide](docs/en/candidate-selection.md).
-4. A purpose-bound, audience-bound, expiring **Ed25519 ConsentGrant** (maximum TTL: 3,600 seconds) and an **AES-256-GCM envelope-encryption path**. The grant records signed authorization; it does not prove informed or uncoerced consent.
-5. A schema-closed, **hash-linked ledger** that accepts commitments and allowlisted reason codes, not free-form private content. Its verifier detects in-place alteration against a retained head; this preview does not sign or externally anchor live ledger heads, so a full authorized rewrite with recomputed hashes is outside the claim.
-6. A six-case, **offline synthetic authority evaluation**: external authorization is a ceiling, not an instruction. A valid grant has no side effect; only a separate candidate response can record a synthetic action. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
-7. Executable tests cover fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped authority, permission-versus-action, single-use grants and receipt integrity. Candidate-selection tests additionally cover fractional-tail CVaR, exact ranking, care budgets, bounded inputs, one state update per decision and independent vault authorization. These test claims are limited to the stated synthetic/reference boundaries.
+3. An **offline candidate selector** composes feasibility → signed privacy authorization → per-candidate care → **optional Farol reconvergence** → exact empirical tail risk → declared performance. It returns a selected ID or safe-null, not an executed action. A separate synthetic vault example rechecks authorization at opening and denies a later opening after revocation. See the [selector guide](docs/en/candidate-selection.md) and [return integration](docs/reconvergence.md).
+4. An optional **return-after-exception guard** with exact rational checks, fixed invariant references, selective parameter updates, energy nonincrease during return, extension expiry/epoch checks and configuration/lease commitments. A bounded local event chain makes the declared decision path inspectable. Actual sensitivity proof, measured inputs, durable recovery and real rollback are still missing; the [guide](docs/reconvergence.md#what-remains-incomplete) distinguishes them from implemented checks.
+5. A purpose-bound, audience-bound, expiring **Ed25519 ConsentGrant** (maximum TTL: 3,600 seconds) and an **AES-256-GCM envelope-encryption path**. The grant records signed authorization; it does not prove informed or uncoerced consent.
+6. A schema-closed, **hash-linked ledger** that accepts commitments and allowlisted reason codes, not free-form private content. Its verifier detects in-place alteration against a retained head; this preview does not sign or externally anchor live ledger heads, so a full authorized rewrite with recomputed hashes is outside the claim.
+7. A six-case, **offline synthetic authority evaluation**: external authorization is a ceiling, not an instruction. A valid grant has no side effect; only a separate candidate response can record a synthetic action. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
+8. Executable tests cover fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped authority, permission-versus-action, single-use grants and receipt integrity. Candidate-selection tests additionally cover fractional-tail CVaR, exact ranking, care budgets, bounded inputs, one state update per decision and independent vault authorization. Farol tests cover return/reset boundaries, restricted last-return samples, freshness, selective updates, leases, bounded events and selector priority. These test claims are limited to the stated synthetic/reference boundaries.
 
 These are properties of a small reference path under its stated assumptions. They are not proof of consciousness, clinical validity, universal non-leakage, or production security.
 
@@ -66,6 +69,7 @@ python -m venv .venv
 .venv/bin/python -m eup demo --out receipt.json
 .venv/bin/python -m eup authority-eval --out authority-eval-reference.json
 .venv/bin/python -m eup selection-demo
+PYTHONPATH=src .venv/bin/python -B examples/reconvergence_selection.py
 ```
 
 On Windows PowerShell:
@@ -77,7 +81,11 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m eup demo --out receipt.json
 .\.venv\Scripts\python.exe -m eup authority-eval --out authority-eval-reference.json
 .\.venv\Scripts\python.exe -m eup selection-demo
+$env:PYTHONPATH = (Join-Path (Get-Location) "src")
+.\.venv\Scripts\python.exe -B examples/reconvergence_selection.py
 ```
+
+Run these commands from the repository root. The Farol example prints one JSON object containing six decisions and the in-memory guard records; it executes no actions and writes no application receipt file. Python 3.11+ is declared; historical R304 local acceptance recorded 89/89 tests on Windows/CPython 3.14.0 for the copied implementation. That is not a benchmark, a new execution of these instructions, remote CI evidence or validation on every supported platform.
 
 The committed [demonstration receipt](fixtures/demo-receipt.json) enters `CARE`, blocks exploration, reduces capabilities to `MINIMAL`, emits no private-state plaintext, and verifies the internal consistency of its hash chain.
 
