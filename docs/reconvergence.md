@@ -1,6 +1,6 @@
 # Farol: a brake with a way back
 
-[Português brasileiro](pt-BR/reconvergencia.md) · [Implementation coverage](../IMPLEMENTATION_STATUS.md) · [Selector](en/candidate-selection.md)
+[Português brasileiro](pt-BR/reconvergencia.md) · [Implementation coverage](../IMPLEMENTATION_STATUS.md) · [Selector](en/candidate-selection.md) · [Snapshot/recovery](recovery.md)
 
 The optional **Farol reconvergence guard is integrated into EUP's existing action selector**. It makes a useful distinction: interrupting an update, deciding when a restricted return is admissible, and admitting normal updates again are different steps. A candidate's higher declared performance cannot skip those steps.
 
@@ -103,13 +103,22 @@ These are **bindings, not signatures or proof that the declarations are true**. 
 
 ## What remains incomplete
 
+Explicit [guard snapshot/recovery](recovery.md) now covers a bounded part of the
+persistence requirement: canonical configuration/state/chain snapshots, exclusive
+local file saves, caller-supplied full snapshot digest and ledger head, and a
+recorded RESTORE boundary. It preserves window progress and accepted energy but
+discards cached admission and all leases, requiring a new observation and new
+lease registrations. It does not restore the independent welfare/consent gates
+or the whole selector. This is new implementation, not a claim that the historical
+proposal already contained an executable disk protocol.
+
 | Requirement | Implemented reference check | Still required for an operational claim |
 | --- | --- | --- |
 | Sensitivity partition | Disjoint declared IDs and a required evidence commitment | Actual sensitivity proof, reviewed units/assumptions and a verifier of that evidence |
 | Observation input | Type, coverage, ordering, tolerance and rational budget checks | A measured input adapter and justified provenance, timing and coverage |
-| Persistence and recovery | Bounded in-memory hash chain, append before associated state change, independent JSON-safe record copies | Durable storage, reviewed restart/recovery and any needed retained-head anchoring/authentication |
+| Persistence and recovery | Bounded event chain plus explicit canonical guard snapshots and exclusive local files; full digest/head/config checks, state-coherence checks and RESTORE with cache/lease invalidation | Operational crash/power-loss policy, trustworthy anchor publication/freshness, any needed authentication and whole-selector recovery |
 | Impact and rollback | Declared impact commitment, epoch, TTL, summed cost and opaque rollback route | Review of actual impact and a real rollback whose execution and outcome can be checked |
 
-Bounds are 64 invariants, 128 partitioned parameters, 64 registered extension IDs, 4,096 events and window 1–10,000. A full event chain refuses mutation; structural errors leave state and ledger unchanged. The chain is ordinary local integrity, not durable storage or hostile-tamper resistance, and the separate `MinimalLedger` schema is unchanged.
+Bounds are 64 invariants, 128 partitioned parameters, 64 registered extension IDs, 4,096 events and window 1–10,000. A full event chain refuses mutation, including restoration without a free RESTORE slot; structural errors leave the original guard unchanged. Snapshot serialization adds 8 MiB/256-bit bounds described in the [recovery contract](recovery.md). File flush/fsync is not atomic publication of anchors, anti-rollback, hostile-tamper resistance or a power-loss guarantee. The separate `MinimalLedger` schema is unchanged.
 
 The Farol integration is a constructive return mechanism under declared assumptions. It does not complete the full normative specification or establish physical, clinical, moral-status or production-security claims. Report a small public synthetic counterexample under [CONTRIBUTING.md](../CONTRIBUTING.md), without confidential data. No additional reuse license or institutional endorsement is implied.

@@ -1,6 +1,6 @@
 # Farol: um freio com caminho de volta
 
-[English](../reconvergence.md) · [Cobertura da implementação](../../IMPLEMENTATION_STATUS.md) · [Seletor](selecao-de-acoes.md)
+[English](../reconvergence.md) · [Cobertura da implementação](../../IMPLEMENTATION_STATUS.md) · [Seletor](selecao-de-acoes.md) · [Snapshot/recuperação](../recovery.md#resumo-em-português)
 
 A **guarda opcional de reconvergência do Farol está integrada ao seletor de ações existente do EUP**. Ela torna útil uma distinção: interromper um ajuste, decidir quando o retorno restrito é admissível e voltar a admitir ajustes normais são etapas diferentes. A pontuação de desempenho maior de um candidato não pode pulá-las.
 
@@ -103,13 +103,22 @@ São **vínculos, não assinaturas nem prova de que as declarações são verdad
 
 ## O que continua incompleto
 
+A [recuperação explícita da guarda](../recovery.md#resumo-em-português) cobre agora
+uma parcela limitada da persistência: snapshots canônicos de configuração,
+estado e cadeia, gravação local exclusiva, SHA-256 completo e head esperados
+fornecidos pelo chamador, e fronteira RESTORE registrada. Preserva janela e
+energia aceita, mas descarta admissão em cache e todas as leases; exige nova
+observação e novos registros de extensões. Não restaura os gates independentes
+de bem-estar/consentimento nem o seletor inteiro. É implementação nova, não
+alegação de que a proposta histórica já contivesse um protocolo de disco executável.
+
 | Requisito | Verificação de referência implementada | Ainda necessário para uma alegação operacional |
 | --- | --- | --- |
 | Partição de sensibilidade | IDs declarados disjuntos e compromisso obrigatório da evidência | Prova real de sensibilidade, unidades/premissas revisadas e verificador da evidência |
 | Entrada de observação | Tipo, cobertura, ordem, tolerância e limites racionais | Adaptador de entradas medidas e justificativa de proveniência, tempo e cobertura |
-| Persistência e recuperação | Cadeia limitada em memória, acréscimo antes da mudança de estado associada e cópias independentes de registros JSON-safe | Armazenamento durável, reinício/recuperação revisados e eventual ancoragem/autenticação do head retido |
+| Persistência e recuperação | Cadeia limitada mais snapshots canônicos explícitos da guarda e arquivos locais exclusivos; checagens de hash completo/head/configuração, coerência do estado e RESTORE com invalidação de cache/leases | Política operacional de falha/queda de energia, publicação e atualidade confiáveis das âncoras, eventual autenticação e recuperação do seletor completo |
 | Impacto e rollback | Compromisso declarado do impacto, época, TTL, custo somado e rota opaca de rollback | Revisão do impacto real e rollback efetivo com execução e resultado verificáveis |
 
-Os limites são 64 invariantes, 128 parâmetros particionados, 64 IDs de extensão registrados, 4.096 eventos e janela de 1 a 10.000. Uma cadeia cheia recusa mutação; erros estruturais preservam estado e ledger. A cadeia oferece integridade local comum, não armazenamento durável ou resistência a adulteração hostil, e o schema separado de `MinimalLedger` permanece inalterado.
+Os limites são 64 invariantes, 128 parâmetros particionados, 64 IDs de extensão registrados, 4.096 eventos e janela de 1 a 10.000. Uma cadeia cheia recusa mutação, inclusive restauração sem lugar para RESTORE; erros estruturais preservam a guarda original. A serialização acrescenta os limites de 8 MiB/256 bits descritos no [contrato de recuperação](../recovery.md#resumo-em-português). Flush/fsync do arquivo não significa publicação atômica das âncoras, antirrollback, resistência a adulteração hostil ou garantia contra queda de energia. O schema separado de `MinimalLedger` permanece inalterado.
 
 A integração Farol é um mecanismo construtivo de retorno sob premissas declaradas. Não completa a especificação normativa inteira nem estabelece alegações físicas, clínicas, de estatuto moral ou segurança de produção. Envie um pequeno contraexemplo sintético publicável conforme [CONTRIBUTING.md](../../CONTRIBUTING.md), sem dados confidenciais. Não implica nova licença de reutilização ou endosso institucional.
