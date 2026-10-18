@@ -26,6 +26,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **A informação útil chegará enquanto ainda for possível agir?** O [exemplo bilíngue sobre prazo](docs/cases/information-and-deadline.md) separa o que uma consulta pode revelar do tempo e da permissão disponíveis para usar a resposta. Oito situações verificáveis à mão mostram por que a mesma inspeção correta pode ajudar com dois instantes restantes e consumir toda a oportunidade quando resta apenas um.
 
+**Um número correto ainda pode deixar a decisão em aberto?** Nosso [exemplo bilíngue](docs/cases/when-numbers-need-meaning.md) parte do mesmo deslocamento de 02:15 e de duas referências possíveis. Mostra quais verificações podem avançar, como uma ação urgente pode explicitar sua premissa e como um esclarecimento posterior altera apenas resultados dependentes. A conta é sintética e conferível à mão, não uma nova função de software.
+
 ## O que já pode ser verificado
 
 A implementação de referência fornece:

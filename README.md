@@ -26,6 +26,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Will useful information arrive while action is still possible?** The [bilingual deadline example](docs/cases/information-and-deadline.md) separates what a check can reveal from the time and permission left to use it. Eight hand-checkable situations show why the same accurate inspection can help with two instants remaining and consume the entire opportunity with only one.
 
+**Can a correct number still leave the decision unresolved?** Our [bilingual worked example](docs/cases/when-numbers-need-meaning.md) starts with the same 02:15 offset and two possible reference times. It shows which checks can proceed, how an urgent action can state its assumption, and how a later clarification changes only dependent results. The arithmetic is synthetic and hand-checkable, not a new software capability.
+
 ## What can be verified now
 
 The reference implementation provides:
