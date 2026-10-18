@@ -14,6 +14,8 @@ This public research preview turns that asymmetry into executable constraints. I
 
 ## From principles to a reviewable result
 
+**Have a CSV import that needs a checkable result?** We are opening conversations about [scoped paid validation pilots](PILOTS.md): agreed rules, located findings and preserved evidence. Explore the synthetic demonstration first; share only public-safe examples when enquiring. Scope, price and acceptance are agreed separately.
+
 **[Open the interactive CSV results](<https://zero-px-exactness-demo.junior-gpt.chatgpt.site/csv-case-explorer.html>).** No package download or file upload required: filter the five findings and inspect the separate recorded size observations in Portuguese or English. This viewer presents saved synthetic results; it does not validate a new file.
 
 **When a check says “valid”, what can you safely do next?** Our [bilingual CSV case study](docs/cases/zero-px-csv-synthetic-2026-10.md) makes that question concrete: five located findings in a two-record file, plus a separate observation of 50,000 synthetic records in 0.586015 seconds. The article includes selected JSON evidence, the timing/memory boundaries, and what those observations do not establish.
