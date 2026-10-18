@@ -24,6 +24,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Um estado salvo responde a uma pergunta que mudou?** Nosso [exemplo bilíngue verificável à mão](docs/cases/when-the-question-changes.md) mostra duas histórias com o mesmo resumo e contagens de auditoria diferentes. O retorno sob incerteza vira uma escolha concreta: responder o que o resumo sustenta, buscar a distinção faltante ou iniciar uma medição com fronteira explícita.
 
+**A informação útil chegará enquanto ainda for possível agir?** O [exemplo bilíngue sobre prazo](docs/cases/information-and-deadline.md) separa o que uma consulta pode revelar do tempo e da permissão disponíveis para usar a resposta. Oito situações verificáveis à mão mostram por que a mesma inspeção correta pode ajudar com dois instantes restantes e consumir toda a oportunidade quando resta apenas um.
+
 ## O que já pode ser verificado
 
 A implementação de referência fornece:

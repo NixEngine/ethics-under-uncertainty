@@ -24,6 +24,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Can a checkpoint answer a newly changed question?** Our [bilingual, hand-checkable example](docs/cases/when-the-question-changes.md) shows two histories with the same retained state but different audit counts. It turns return-under-uncertainty into a practical choice: answer what the summary supports, seek the missing distinction, or begin a new measurement with an explicit boundary.
 
+**Will useful information arrive while action is still possible?** The [bilingual deadline example](docs/cases/information-and-deadline.md) separates what a check can reveal from the time and permission left to use it. Eight hand-checkable situations show why the same accurate inspection can help with two instants remaining and consume the entire opportunity with only one.
+
 ## What can be verified now
 
 The reference implementation provides:
