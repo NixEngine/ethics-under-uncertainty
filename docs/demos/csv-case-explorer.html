@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23185644'/%3E%3Cpath d='M9 9h14L9 23h14' fill='none' stroke='%23e5efdf' stroke-width='3'/%3E%3C/svg%3E">
+  <title>Zero Px · Explorador de um caso CSV</title>
+  <style>
+    :root{--paper:#f6f7f1;--ink:#172c2c;--muted:#526565;--line:#d8e0d7;--white:#fff;--forest:#185644;--forest-light:#e5efe4;--violet:#5b3e83;--violet-light:#f0eaf8;--sand:#f3edda;--focus:#b04c16;--radius:22px;--shadow:0 12px 38px #17372c08}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.6}button,select{font:inherit}button,a,select{touch-action:manipulation}a{color:var(--forest);text-underline-offset:4px}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}button:focus:not(:focus-visible){outline:none}h1,h2,h3,p{margin:0}h1,h2,h3{line-height:1.15;letter-spacing:-.035em}h1{font-size:clamp(2.7rem,6.5vw,5.5rem);font-weight:650;max-width:14ch}h2{font-size:clamp(1.8rem,3.4vw,2.7rem);font-weight:650}h3{font-size:1.18rem;letter-spacing:-.02em}code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}code{font-size:.86em;overflow-wrap:anywhere}button,select,code,a,p,dd,dt,li,h1,h2,h3{overflow-wrap:anywhere}button{border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);min-height:44px;padding:10px 15px;transition:background .15s,border-color .15s,transform .15s}button:hover{background:#edf2e9;border-color:#9bad9e}button:active{transform:translateY(1px)}button.primary{background:var(--forest);border-color:var(--forest);color:white}button.primary:hover{background:#103e32}button.quiet{background:transparent}select{width:100%;max-width:100%;min-height:46px;border:1px solid #9cac9e;background:var(--white);color:var(--ink);border-radius:10px;padding:10px 36px 10px 12px}.skip{position:absolute;top:-100px;left:20px;background:white;padding:10px 18px;z-index:10}.skip:focus{top:12px}.wrap{width:min(1180px,calc(100% - 64px));margin-inline:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:26px;border-bottom:1px solid var(--line)}.brand{font-size:1.24rem;font-weight:750;letter-spacing:-.04em}.brand span{font-weight:400;color:var(--muted);margin-left:12px;font-size:.82rem;letter-spacing:.03em}.header-right{display:flex;align-items:center;gap:28px;flex-wrap:wrap}.nav{display:flex;gap:20px;flex-wrap:wrap;font-size:.9rem}.nav a{text-decoration:none;color:var(--muted)}.nav a:hover{text-decoration:underline;color:var(--ink)}.language{display:flex;border:1px solid var(--line);padding:3px;border-radius:12px;background:#edf1e8;gap:3px}.language button{min-width:44px;min-height:36px;padding:4px 10px;border:0;background:transparent;border-radius:8px;font-size:.83rem;font-weight:700}.language button[aria-pressed="true"]{background:white;box-shadow:0 2px 5px #12332412}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:60px;padding:68px 0 60px;align-items:center}.eyebrow{color:var(--forest);font-weight:750;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:9px}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--forest);flex:0 0 auto}.lead{font-size:1.16rem;color:var(--muted);max-width:54ch;margin-top:24px}.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.tag{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:99px;padding:5px 10px;font-size:.75rem;color:var(--muted);background:#ffffff70}.hero-note{border-radius:var(--radius);background:var(--forest);color:#fff;padding:30px;position:relative;box-shadow:var(--shadow)}.hero-note .overline{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#cbddc7}.steps{list-style:none;padding:0;margin:28px 0 24px;display:grid;gap:20px}.steps li{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;align-items:start}.step-num{border:1px solid #7ea18a;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:.78rem;color:#d7e8d2}.steps strong{display:block;font-size:1.15rem;line-height:1.3;letter-spacing:-.02em}.steps p{font-size:.87rem;line-height:1.5;color:#d6e4d5;margin-top:3px}.hero-note>p{font-size:.8rem;color:#d6e4d5;border-top:1px solid #567968;padding-top:18px}.section{padding:44px 0 46px;border-top:1px solid var(--line)}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:26px}.section-number{font-size:.75rem;color:var(--muted);font-weight:700;letter-spacing:.1em;margin-bottom:12px}.section-intro{color:var(--muted);max-width:65ch;margin-top:14px}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:99px;padding:5px 11px;font-size:.75rem;font-weight:750;letter-spacing:.04em}.pill:before{content:"";height:6px;width:6px;border-radius:50%;background:currentColor}.pill.findings{background:var(--violet-light);color:var(--violet)}.pill.clean{background:var(--forest-light);color:var(--forest)}.summary-strip{display:flex;align-items:center;gap:14px 28px;flex-wrap:wrap;background:white;border:1px solid var(--line);border-radius:16px;padding:17px 22px;margin-bottom:20px;font-size:.87rem}.summary-strip strong{font-size:1.3rem;margin-right:5px;letter-spacing:-.03em}.summary-strip .scope{color:var(--muted);margin-left:auto}.findings-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:20px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;min-width:0}.field-label{display:block;font-size:.81rem;font-weight:700;margin-bottom:8px}.hint{font-size:.8rem;color:var(--muted);margin-top:8px}.diagnostic-list{display:grid;gap:9px;margin-top:20px}.diagnostic-button{display:grid;grid-template-columns:30px minmax(0,1fr) 18px;align-items:center;gap:10px;text-align:left;padding:13px 14px;background:#fafbf7}.diagnostic-button[aria-pressed="true"]{background:var(--violet-light);border-color:var(--violet);color:#36264a}.diagnostic-button .number{font-size:.76rem;color:var(--muted)}.diagnostic-button .item-title{display:block;font-weight:700;font-size:.9rem}.diagnostic-button code{display:block;font-size:.7rem;line-height:1.4;color:var(--muted);margin-top:2px}.diagnostic-button .arrow{font-size:1.1rem}.detail-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.detail-top .mono{font-size:.83rem;font-weight:700;color:var(--violet)}.detail-top .detail-count{font-size:.75rem;color:var(--muted)}.detail-title{font-size:1.9rem;font-weight:650;letter-spacing:-.04em}.detail-description{color:var(--muted);margin-top:12px;font-size:.95rem}.positions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:24px 0}.positions>div{padding:14px 16px;background:#f8faf5;min-width:0}.positions dt{color:var(--muted);font-size:.72rem}.positions dd{font-size:1.03rem;font-weight:650;margin:4px 0 0;line-height:1.45}.source-message{padding:16px;border-left:3px solid #b7a4cd;background:#faf7fd;border-radius:0 10px 10px 0}.source-message .caption{font-size:.73rem;color:var(--violet);font-weight:700;margin-bottom:6px}.source-message p{font-size:.85rem}.source-missing{background:var(--sand);border:1px solid #e3d9b9;border-radius:12px;padding:14px 16px;font-size:.82rem;color:#574d33;margin-top:20px}.source-missing strong{display:block;margin-bottom:3px}.duplicate-note{color:var(--muted);font-size:.82rem;margin-top:12px}.scale-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:20px}.size-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:26px}.size-button{text-align:left;padding:14px 16px;background:#fafbf7}.size-button[aria-pressed="true"]{background:var(--forest-light);border-color:var(--forest)}.size-button strong{font-size:1.45rem;letter-spacing:-.04em;display:block}.size-button span{font-size:.72rem;color:var(--muted)}.measurement-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}.measurement-head h3{font-size:1rem;font-weight:600;letter-spacing:0}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px}.metric dt{font-size:.76rem;color:var(--muted)}.metric dd{margin:4px 0 0;line-height:1.2;font-size:clamp(1.5rem,3vw,2.5rem);letter-spacing:-.05em;font-weight:650}.metric dd small{font-size:.5em;letter-spacing:0;color:var(--muted);margin-left:5px}.run-detail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;border-top:1px solid var(--line);margin-top:24px;padding-top:18px}.run-detail dt{font-size:.71rem;color:var(--muted)}.run-detail dd{font-size:.88rem;font-weight:650;margin:4px 0 0}.small-note{font-size:.79rem;color:var(--muted);margin-top:18px}.boundary-panel{background:#edf2e8}.boundary-panel h3{font-size:1.3rem}.boundary-panel ul{padding-left:20px;color:var(--muted);font-size:.86rem;margin:18px 0 0}.boundary-panel li+li{margin-top:12px}.case-separation{border-top:1px solid #c9d4c5;margin-top:20px;padding-top:16px;font-size:.82rem;color:var(--ink);font-weight:600}.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.principle{padding:24px;border:1px solid var(--line);border-radius:18px}.principle .symbol{font-size:.78rem;letter-spacing:.1em;color:var(--forest);margin-bottom:22px;font-weight:750}.principle p{font-size:.88rem;color:var(--muted);margin-top:13px}.data-panel{background:#172f2f;border-radius:var(--radius);padding:28px;color:#edf4eb;min-width:0}.data-panel .field-label{color:#d0e0cd}.data-panel select{background:#203f3d;border-color:#65847a;color:white}.data-toolbar{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}.data-choice{min-width:0;width:330px;max-width:100%}.data-panel button{background:#e5efdf;border-color:#e5efdf;color:#173c30}.data-panel button:hover{background:#d5e4ce}.data-panel .hint{color:#c1d2c3;max-width:85ch;margin-top:18px}.json-panel{margin-top:22px;border-top:1px solid #4d6a64;padding-top:18px}.json-panel summary{cursor:pointer;font-weight:650;font-size:.9rem;padding:4px 0}.json-panel pre{white-space:pre;overflow:auto;max-height:420px;margin:16px 0 0;padding:18px;background:#102322;border:1px solid #45645c;border-radius:12px;color:#dcf1d8;font-size:.76rem;line-height:1.65;max-width:100%;tab-size:2}.json-panel code{font-size:inherit;overflow-wrap:normal}.dataset-note{color:#c1d2c3;font-size:.78rem;margin-top:14px}.download-status{color:#d6e8cc;font-size:.8rem;min-height:1.6em;margin-top:16px}.closing{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:60px;margin-top:32px}.closing h3{font-size:1.35rem}.closing p{font-size:.88rem;color:var(--muted);margin-top:12px}.source-links{display:flex;flex-direction:column;gap:12px;align-items:flex-start}.source-links a{font-weight:650;font-size:.9rem}.source-links p{margin:0;font-size:.77rem}.footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:24px 0 36px;color:var(--muted);font-size:.75rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none!important}
+    @media(max-width:850px){.hero{gap:30px;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);padding-block:48px}.hero-note{padding:24px}.header-right{gap:18px}.findings-grid,.scale-layout{grid-template-columns:1fr}.principles{gap:12px}.principle{padding:20px}.closing{gap:28px}.summary-strip .scope{margin-left:0}}
+    @media(max-width:600px){.wrap{width:calc(100% - 36px)}.topbar{gap:18px;padding-block:18px}.brand span{display:none}.header-right{width:100%;justify-content:space-between;gap:12px}.nav{gap:14px;font-size:.79rem}.hero{grid-template-columns:1fr;padding-block:34px;gap:28px}.hero h1{font-size:3rem;max-width:13ch}.lead{font-size:1.01rem}.hero-note{padding:23px}.steps{gap:17px;margin-block:22px}.section{padding-block:32px}.section-head{gap:18px}.section-head>button{width:100%}.summary-strip{padding:16px;gap:10px 20px;font-size:.8rem}.summary-strip strong{font-size:1.1rem}.summary-strip .scope{flex-basis:100%}.panel{padding:20px;border-radius:18px}.positions{margin-block:20px}.positions>div{padding:12px}.size-options{gap:7px}.size-button{padding:12px 9px}.size-button strong{font-size:1.13rem}.size-button span{font-size:.68rem}.metrics{gap:20px 12px}.metric dd{font-size:1.8rem}.run-detail{gap:10px}.run-detail dt{font-size:.67rem}.run-detail dd{font-size:.81rem}.principles{grid-template-columns:1fr}.principle .symbol{margin-bottom:12px}.data-panel{padding:20px}.data-toolbar{gap:16px}.data-choice{width:100%}.data-toolbar>button{width:100%}.data-panel .hint{font-size:.77rem}.json-panel pre{font-size:.7rem;padding:12px}.closing{grid-template-columns:1fr;gap:24px}.footer{gap:10px}.detail-title{font-size:1.65rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Ir ao conteúdo</a>
+  <header class="wrap topbar">
+    <div class="brand">ZERO / Px <span data-i18n="brand">PESQUISA → PRÁTICA</span></div>
+    <div class="header-right">
+      <nav class="nav" aria-label="Seções" data-i18n-aria="navigation">
+        <a href="#findings" data-i18n="navFindings">Achados</a>
+        <a href="#observations" data-i18n="navObservations">Observações</a>
+        <a href="#published-data" data-i18n="navData">Dados publicados</a>
+      </nav>
+      <div class="language" role="group" aria-label="Idioma / Language">
+        <button type="button" id="language-pt" lang="pt-BR" aria-label="Português" aria-pressed="true">PT</button>
+        <button type="button" id="language-en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+  <main class="wrap" id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">EXPLORADOR DE CASO · CSV SINTÉTICO</p>
+        <h1 id="hero-title" data-i18n="heroTitle">Da regra ao ponto de revisão.</h1>
+        <p class="lead" data-i18n="heroLead">Explore cinco achados localizados e três observações de tamanho. Veja o que os registros permitem afirmar — e o que continua fora do recorte.</p>
+        <div class="hero-tags"><span class="tag" data-i18n="tagOffline">Offline, sem upload</span><span class="tag" data-i18n="tagHistorical">Dados históricos publicados</span><span class="tag" data-i18n="tagNoRun">Não executa o validador</span></div>
+      </div>
+      <aside class="hero-note" aria-label="Como ler o caso" data-i18n-aria="readCase">
+        <div class="overline" data-i18n="heroCardLabel">UM RESULTADO ÚTIL, COM CONTORNO</div>
+        <ol class="steps">
+          <li><span class="step-num">01</span><div><strong data-i18n="stepRule">Regra declarada</strong><p data-i18n="stepRuleBody">Qual formato foi verificado?</p></div></li>
+          <li><span class="step-num">02</span><div><strong data-i18n="stepLocation">Posição para revisar</strong><p data-i18n="stepLocationBody">Qual registro, linha e campo?</p></div></li>
+          <li><span class="step-num">03</span><div><strong data-i18n="stepReturn">Retorno e decisão</strong><p data-i18n="stepReturnBody">O que precisa de inspeção antes de agir?</p></div></li>
+        </ol>
+        <p data-i18n="heroCardFoot">Um apontamento não corrige silenciosamente a fonte. Passar nas regras não torna os dados verdadeiros.</p>
+      </aside>
+    </section>
+
+    <section class="section" id="findings" aria-labelledby="findings-title">
+      <div class="section-head">
+        <div><p class="section-number" data-i18n="sectionOne">01 / CASO DE INVENTÁRIO</p><h2 id="findings-title" data-i18n="findingsTitle">Cinco motivos para olhar de perto.</h2><p class="section-intro" data-i18n="findingsIntro">Selecione um achado. A localização vem do resultado salvo; a explicação ao lado é uma leitura editorial dessa regra.</p></div>
+        <button type="button" id="open-findings-json" class="quiet" data-i18n="viewCaseJson">Ver JSON do caso ↗</button>
+      </div>
+      <div class="summary-strip"><span class="pill findings">FINDINGS</span><span><strong>2</strong> <span data-i18n="validatedRecords">registros validados</span></span><span><strong>5</strong> <span data-i18n="findingsCount">achados</span></span><span class="scope" data-i18n="completeResult">Leitura e validação completas</span></div>
+      <div class="findings-grid">
+        <div class="panel">
+          <label class="field-label" for="diagnostic-filter" data-i18n="filterLabel">Filtrar por regra</label>
+          <select id="diagnostic-filter">
+            <option value="all" data-i18n="filterAll">Todas as regras · 5 achados</option>
+            <option value="TYPE_INTEGER">TYPE_INTEGER</option><option value="TYPE_DECIMAL">TYPE_DECIMAL</option><option value="TYPE_DATE">TYPE_DATE</option><option value="TYPE_EMAIL">TYPE_EMAIL</option><option value="DUPLICATE_KEY">DUPLICATE_KEY</option>
+          </select>
+          <p class="hint" id="filter-status" role="status" aria-live="polite"></p>
+          <div class="diagnostic-list" id="diagnostic-list" role="group" aria-label="Selecionar achado" data-i18n-aria="chooseFinding"></div>
+        </div>
+        <article class="panel" id="diagnostic-detail" aria-labelledby="diagnostic-title">
+          <div class="detail-top"><span class="mono" id="diagnostic-code"></span><span class="detail-count" id="diagnostic-position"></span></div>
+          <h3 class="detail-title" id="diagnostic-title"></h3>
+          <p class="detail-description" id="diagnostic-explanation"></p>
+          <dl class="positions">
+            <div><dt data-i18n="logicalRecord">Registro lógico</dt><dd id="diagnostic-logical"></dd></div>
+            <div><dt data-i18n="physicalLines">Linha física</dt><dd id="diagnostic-physical"></dd></div>
+            <div><dt data-i18n="fieldName">Campo</dt><dd id="diagnostic-field"></dd></div>
+            <div><dt data-i18n="fieldIndex">Índice do campo</dt><dd id="diagnostic-field-index"></dd></div>
+          </dl>
+          <div class="source-message"><p class="caption" data-i18n="literalMessage">MENSAGEM LITERAL DO RESULTADO · INGLÊS</p><p id="diagnostic-message" lang="en"></p></div>
+          <p id="duplicate-note" class="duplicate-note" hidden></p>
+          <div class="source-missing"><strong data-i18n="missingValues">Valores de origem não incluídos neste recorte.</strong><span data-i18n="missingValuesBody">O CSV de entrada não foi publicado. Nenhum valor de célula é reconstruído ou inventado aqui.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="observations" aria-labelledby="observations-title">
+      <div class="section-head"><div><p class="section-number" data-i18n="sectionTwo">02 / OUTRO ARQUIVO, OUTRA PERGUNTA</p><h2 id="observations-title" data-i18n="observationsTitle">Três tamanhos. Três observações.</h2><p class="section-intro" data-i18n="observationsIntro">Escolha um porte para examinar o registro histórico. Uma execução por porte, sem média e sem gerar uma medição nova.</p></div><button type="button" id="open-performance-json" class="quiet" data-i18n="viewObservationsJson">Ver JSON das observações ↗</button></div>
+      <div class="scale-layout">
+        <div class="panel">
+          <div class="size-options" id="size-options" role="group" aria-label="Selecionar porte observado" data-i18n-aria="chooseSize">
+            <button type="button" class="size-button" data-records="1000" aria-pressed="true"><strong id="size-1000">1.000</strong><span data-i18n="records">registros</span></button>
+            <button type="button" class="size-button" data-records="10000" aria-pressed="false"><strong id="size-10000">10.000</strong><span data-i18n="records">registros</span></button>
+            <button type="button" class="size-button" data-records="50000" aria-pressed="false"><strong id="size-50000">50.000</strong><span data-i18n="records">registros</span></button>
+          </div>
+          <div class="measurement-head"><h3 id="measurement-label"></h3><span class="pill clean">CLEAN · <span data-i18n="complete">completo</span></span></div>
+          <dl class="metrics">
+            <div class="metric"><dt data-i18n="wallTime">Tempo observado do CLI</dt><dd><span id="measurement-time"></span><small>s</small></dd></div>
+            <div class="metric"><dt data-i18n="peakMemory">Pico residente do CLI</dt><dd><span id="measurement-memory"></span><small>MiB</small></dd></div>
+          </dl>
+          <dl class="run-detail"><div><dt data-i18n="inputBytes">Bytes de entrada</dt><dd id="measurement-bytes"></dd></div><div><dt data-i18n="validated">Validados</dt><dd id="measurement-validated"></dd></div><div><dt data-i18n="diagnostics">Diagnósticos</dt><dd id="measurement-diagnostics"></dd></div></dl>
+          <p class="small-note" data-i18n="rounding">Exibição arredondada a 6 casas no tempo e 3 na memória. O JSON preserva os valores numéricos publicados.</p>
+          <p class="sr-only" id="measurement-status" role="status" aria-live="polite"></p>
+        </div>
+        <aside class="panel boundary-panel"><h3 data-i18n="scopeTitle">O contorno da observação</h3><ul><li data-i18n="scopeEnvironment">Windows, CPython 3.14.0, x64. Dados sintéticos ASCII: codigo, nome, email.</li><li data-i18n="scopeTiming">Tempo de parede: da preparação do lançamento até a conclusão do processo, com sobrecarga do monitoramento. Inclui início do Python, leitura, validação e relatórios; exclui GUI e revisão posterior.</li><li data-i18n="scopeMemory">Memória do processo CLI, não do host, navegador, servidor ou coletor.</li><li data-i18n="scopeRules">Regras declaradas: obrigatórios, inteiro, texto limitado, e-mail básico e chave sem repetição.</li></ul><p class="case-separation" data-i18n="separateCases">Os cinco achados pertencem ao inventário de 2 registros — não a estas execuções CLEAN de 1.000, 10.000 e 50.000 registros.</p></aside>
+      </div>
+      <p class="small-note" data-i18n="measurementLimits">Não há afirmação de cache frio, distribuição de ensaios, replicação independente, aceite de cliente, comparação com concorrentes ou escalabilidade geral.</p>
+    </section>
+
+    <section class="section" aria-labelledby="principles-title">
+      <div class="section-head"><div><p class="section-number" data-i18n="sectionThree">03 / PESQUISA QUE ORIENTA A PRÁTICA</p><h2 id="principles-title" data-i18n="principlesTitle">Não esconder o que falta saber.</h2></div></div>
+      <div class="principles">
+        <article class="principle"><p class="symbol">01 / <span data-i18n="principleLabel">PRINCÍPIO</span></p><h3 data-i18n="ethicsTitle">Ética do Desconhecimento</h3><p data-i18n="ethicsBody">Separar “passou nas regras” de “é verdadeiro”. E-mail básico não comprova existência ou entrega. Um hash READ_BUFFER identifica bytes lidos, não autenticidade ou origem.</p></article>
+        <article class="principle"><p class="symbol">02 / <span data-i18n="principleLabel">PRINCÍPIO</span></p><h3 data-i18n="bridgesTitle">Engenharia de Pontes</h3><p data-i18n="bridgesBody">Conectar uma regra ao achado e à sua posição, sem preencher a lacuna com dados inventados. O leitor pode voltar ao JSON publicado para examinar o vínculo.</p></article>
+        <article class="principle"><p class="symbol">03 / <span data-i18n="principleLabel">PRINCÍPIO</span></p><h3 data-i18n="brakeTitle">Freio Técnico da Cognição Finita</h3><p data-i18n="brakeBody">Agir num recorte útil, observar o retorno e rever a decisão quando as condições mudam. Nem exigir certeza impossível antes de usar, nem esconder os limites depois.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="published-data" aria-labelledby="data-title">
+      <div class="section-head"><div><p class="section-number" data-i18n="sectionFour">04 / VOLTAR À EVIDÊNCIA</p><h2 id="data-title" data-i18n="dataTitle">O dado publicado, à vista.</h2><p class="section-intro" data-i18n="dataIntro">Abra cada conjunto JSON usado nesta página. O download junta o conjunto publicado à seleção atual, num envelope que se identifica como projeção editorial.</p></div></div>
+      <div class="data-panel">
+        <div class="data-toolbar"><div class="data-choice"><label class="field-label" for="json-source-select" data-i18n="datasetLabel">Conjunto publicado</label><select id="json-source-select"><option value="findings" data-i18n="datasetFindings">Inventário · resultado com 5 achados</option><option value="observations" data-i18n="datasetObservations">Porte · 3 observações históricas</option></select></div><button type="button" id="download-projection" data-i18n="downloadProjection">Baixar projeção editorial · JSON ↓</button></div>
+        <p class="hint" data-i18n="downloadHint">Nenhum motor é executado. O arquivo baixado declara a fonte, conserva os dois conjuntos JSON publicados e inclui a seleção feita nesta interface — não é um novo resultado de validação nem um novo benchmark.</p>
+        <details class="json-panel" id="json-panel"><summary id="json-summary" data-i18n="openJson">Abrir JSON publicado selecionado</summary><pre tabindex="0" aria-label="JSON publicado" data-i18n-aria="publishedJson"><code id="json-text"></code></pre></details>
+        <p class="dataset-note" id="dataset-note"></p>
+        <p class="download-status" id="download-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="closing">
+        <div><h3 data-i18n="attributionTitle">Pesquisa independente, atribuição explícita.</h3><p data-i18n="attribution">Júnior, com engenharia e documentação assistidas por Codex. Este explorador visual é uma apresentação editorial. O código original do motor permanece privado: esta página não o publica, não o torna open source e não lhe concede nova licença. Mantém-se o regime de direitos existente.</p></div>
+        <div class="source-links"><a id="pinned-case-link" href="https://github.com/NixEngine/ethics-under-uncertainty/blob/bcc08602f806b0332dbef41c3c0ff9d51200d9d2/docs/cases/zero-px-csv-synthetic-2026-10.md" target="_blank" rel="noopener noreferrer" data-i18n="pinnedLink">Ler o caso na versão fixada ↗</a><a id="discussion-link" href="https://github.com/NixEngine/ethics-under-uncertainty/issues/3" target="_blank" rel="noopener noreferrer" data-i18n="discussionLink">Propor uma regra na discussão pública ↗</a><p data-i18n="discussionHint">Links externos abrem apenas por ação sua. Use exemplos sintéticos publicáveis, sem dados de clientes ou segredos. Nenhum compromisso de entrega.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer"><span>ZERO / Px · <span data-i18n="footerEdition">Explorador editorial R283</span></span><span data-i18n="footerOffline">Sem rede automática · sem armazenamento · sem upload</span></footer>
+  <noscript><p class="wrap">Esta interface precisa de JavaScript local para selecionar e exibir os JSON. Não há execução do motor CSV. / This interface needs local JavaScript to select and display the JSON. It does not run the CSV engine.</p></noscript>
+
+  <script type="application/json" id="performance-data">
+{
+  "schema": "zero-px.public-synthetic-observation.r279.v1",
+  "scope": "Selected data from saved R271 observations, not a rerun or full telemetry export.",
+  "environment": "Windows, CPython 3.14.0, x64.",
+  "timing_boundary": "CLI wall time from before process launch to completion, with monitoring overhead; Python start/read/validate/write included, GUI and later integrity review excluded.",
+  "runs_per_size": 1,
+  "measurements": [
+    {
+      "records": 1000,
+      "input_bytes": 51911,
+      "input_sha256": "f897ee9fc8de5b919eef1a9dbfe1ef1135d18426b6432ba610c5a40b7db5ef62",
+      "cli_wall_seconds": 0.15482389996759593,
+      "os_peak_working_set_last_known_bytes": 29839360,
+      "os_peak_working_set_mib": 28.45703125,
+      "result_summary": {
+        "schema": "zero-px.csv-service.summary.v1",
+        "status": "CLEAN",
+        "complete": true,
+        "refusal_code": null,
+        "exit_code": 0,
+        "records_read": 1000,
+        "records_validated": 1000,
+        "diagnostic_count": 0
+      }
+    },
+    {
+      "records": 10000,
+      "input_bytes": 528912,
+      "input_sha256": "c48125ff86e9674571946871fdc72cad06fccaa9a42bebbd25235ce22c21a127",
+      "cli_wall_seconds": 0.2345107999863103,
+      "os_peak_working_set_last_known_bytes": 30302208,
+      "os_peak_working_set_mib": 28.8984375,
+      "result_summary": {
+        "schema": "zero-px.csv-service.summary.v1",
+        "status": "CLEAN",
+        "complete": true,
+        "refusal_code": null,
+        "exit_code": 0,
+        "records_read": 10000,
+        "records_validated": 10000,
+        "diagnostic_count": 0
+      }
+    },
+    {
+      "records": 50000,
+      "input_bytes": 2688912,
+      "input_sha256": "2029eb4a270585332a938c7b79070a5eaf5809c1f1dc2e1df655cadd6abdb747",
+      "cli_wall_seconds": 0.5860145000042394,
+      "os_peak_working_set_last_known_bytes": 48160768,
+      "os_peak_working_set_mib": 45.9296875,
+      "result_summary": {
+        "schema": "zero-px.csv-service.summary.v1",
+        "status": "CLEAN",
+        "complete": true,
+        "refusal_code": null,
+        "exit_code": 0,
+        "records_read": 50000,
+        "records_validated": 50000,
+        "diagnostic_count": 0
+      }
+    }
+  ],
+  "limits": [
+    "No cold-cache assertion",
+    "No repeated-trial distribution",
+    "CLI memory excludes browser, server, collector and other processes",
+    "Not independent replication or a customer acceptance test"
+  ]
+}
+  </script>
+  <script type="application/json" id="findings-data">
+{
+  "profile": "zero-px.csv-service.r267.v1",
+  "version": 1,
+  "status": "FINDINGS",
+  "complete": true,
+  "refusal_code": null,
+  "exit_code": 1,
+  "source": {
+    "basename": "inventory_findings_r273.csv",
+    "bytes_read": 106,
+    "sha256": "4fa2fda2170babb258194f93d8ae8d84bc76ec8bd14f35f0e5c59cefd0b55982",
+    "complete_read": true,
+    "hash_scope": "READ_BUFFER"
+  },
+  "header_span": {
+    "physical_start_line": 1,
+    "physical_end_line": 1
+  },
+  "counters": {
+    "records_read": 2,
+    "records_validated": 2
+  },
+  "diagnostics": [
+    {
+      "rule_code": "TYPE_INTEGER",
+      "message": "Value does not have the declared ASCII integer format.",
+      "logical_record": 2,
+      "physical_start_line": 3,
+      "physical_end_line": 3,
+      "field_index": 2,
+      "field_name": "quantity"
+    },
+    {
+      "rule_code": "TYPE_DECIMAL",
+      "message": "Value does not have the declared finite ASCII decimal format.",
+      "logical_record": 2,
+      "physical_start_line": 3,
+      "physical_end_line": 3,
+      "field_index": 3,
+      "field_name": "mass_kg"
+    },
+    {
+      "rule_code": "TYPE_DATE",
+      "message": "Value is not a valid date in YYYY-MM-DD format.",
+      "logical_record": 2,
+      "physical_start_line": 3,
+      "physical_end_line": 3,
+      "field_index": 4,
+      "field_name": "received"
+    },
+    {
+      "rule_code": "TYPE_EMAIL",
+      "message": "Value does not meet the declared basic email format.",
+      "logical_record": 2,
+      "physical_start_line": 3,
+      "physical_end_line": 3,
+      "field_index": 5,
+      "field_name": "contact"
+    },
+    {
+      "rule_code": "DUPLICATE_KEY",
+      "message": "Exact key tuple repeats an earlier correct-arity record.",
+      "logical_record": 2,
+      "physical_start_line": 3,
+      "physical_end_line": 3,
+      "field_index": null,
+      "field_name": null,
+      "first_logical_record": 1
+    }
+  ]
+}
+  </script>
+  <script>
+  'use strict';
+  (() => {
+    const raw = {
+      findings: document.getElementById('findings-data').textContent.trim(),
+      observations: document.getElementById('performance-data').textContent.trim()
+    };
+    const data = { findings: JSON.parse(raw.findings), observations: JSON.parse(raw.observations) };
+    const caseUrl = 'https://github.com/NixEngine/ethics-under-uncertainty/blob/bcc08602f806b0332dbef41c3c0ff9d51200d9d2/docs/cases/zero-px-csv-synthetic-2026-10.md';
+    const dictionary = {
+      pt: {
+        skip:'Ir ao conteúdo',brand:'PESQUISA → PRÁTICA',navigation:'Seções',navFindings:'Achados',navObservations:'Observações',navData:'Dados publicados',
+        eyebrow:'EXPLORADOR DE CASO · CSV SINTÉTICO',heroTitle:'Da regra ao ponto de revisão.',heroLead:'Explore cinco achados localizados e três observações de tamanho. Veja o que os registros permitem afirmar — e o que continua fora do recorte.',tagOffline:'Offline, sem upload',tagHistorical:'Dados históricos publicados',tagNoRun:'Não executa o validador',readCase:'Como ler o caso',heroCardLabel:'UM RESULTADO ÚTIL, COM CONTORNO',stepRule:'Regra declarada',stepRuleBody:'Qual formato foi verificado?',stepLocation:'Posição para revisar',stepLocationBody:'Qual registro, linha e campo?',stepReturn:'Retorno e decisão',stepReturnBody:'O que precisa de inspeção antes de agir?',heroCardFoot:'Um apontamento não corrige silenciosamente a fonte. Passar nas regras não torna os dados verdadeiros.',
+        sectionOne:'01 / CASO DE INVENTÁRIO',findingsTitle:'Cinco motivos para olhar de perto.',findingsIntro:'Selecione um achado. A localização vem do resultado salvo; a explicação ao lado é uma leitura editorial dessa regra.',viewCaseJson:'Ver JSON do caso ↗',validatedRecords:'registros validados',findingsCount:'achados',completeResult:'Leitura e validação completas',filterLabel:'Filtrar por regra',filterAll:'Todas as regras · 5 achados',chooseFinding:'Selecionar achado',logicalRecord:'Registro lógico',physicalLines:'Linha física',fieldName:'Campo',fieldIndex:'Índice do campo',literalMessage:'MENSAGEM LITERAL DO RESULTADO · INGLÊS',missingValues:'Valores de origem não incluídos neste recorte.',missingValuesBody:'O CSV de entrada não foi publicado. Nenhum valor de célula é reconstruído ou inventado aqui.',
+        sectionTwo:'02 / OUTRO ARQUIVO, OUTRA PERGUNTA',observationsTitle:'Três tamanhos. Três observações.',observationsIntro:'Escolha um porte para examinar o registro histórico. Uma execução por porte, sem média e sem gerar uma medição nova.',viewObservationsJson:'Ver JSON das observações ↗',chooseSize:'Selecionar porte observado',records:'registros',complete:'completo',wallTime:'Tempo observado do CLI',peakMemory:'Pico residente do CLI',inputBytes:'Bytes de entrada',validated:'Validados',diagnostics:'Diagnósticos',rounding:'Exibição arredondada a 6 casas no tempo e 3 na memória. O JSON preserva os valores numéricos publicados.',scopeTitle:'O contorno da observação',scopeEnvironment:'Windows, CPython 3.14.0, x64. Dados sintéticos ASCII: codigo, nome, email.',scopeTiming:'Tempo de parede: de antes do lançamento até a conclusão do processo, com sobrecarga do monitoramento. Inclui início do Python, leitura, validação e relatórios; exclui GUI e revisão posterior.',scopeMemory:'Memória do processo CLI, não do host, navegador, servidor ou coletor.',scopeRules:'Regras declaradas: obrigatórios, inteiro, texto limitado, e-mail básico e chave sem repetição.',separateCases:'Os cinco achados pertencem ao inventário de 2 registros — não a estas execuções CLEAN de 1.000, 10.000 e 50.000 registros.',measurementLimits:'Não há afirmação de cache frio, distribuição de ensaios, replicação independente, aceite de cliente, comparação com concorrentes ou escalabilidade geral.',
+        sectionThree:'03 / PESQUISA QUE ORIENTA A PRÁTICA',principlesTitle:'Não esconder o que falta saber.',principleLabel:'PRINCÍPIO',ethicsTitle:'Ética do Desconhecimento',ethicsBody:'Separar “passou nas regras” de “é verdadeiro”. E-mail básico não comprova existência ou entrega. Um hash READ_BUFFER identifica bytes lidos, não autenticidade ou origem.',bridgesTitle:'Engenharia de Pontes',bridgesBody:'Conectar uma regra ao achado e à sua posição, sem preencher a lacuna com dados inventados. O leitor pode voltar ao JSON publicado para examinar o vínculo.',brakeTitle:'Freio Técnico da Cognição Finita',brakeBody:'Agir num recorte útil, observar o retorno e rever a decisão quando as condições mudam. Nem exigir certeza impossível antes de usar, nem esconder os limites depois.',
+        sectionFour:'04 / VOLTAR À EVIDÊNCIA',dataTitle:'O dado publicado, à vista.',dataIntro:'Abra cada conjunto JSON usado nesta página. O download junta os dois conjuntos publicados à seleção atual, num envelope que se identifica como projeção editorial.',datasetLabel:'Conjunto publicado',datasetFindings:'Inventário · resultado com 5 achados',datasetObservations:'Porte · 3 observações históricas',downloadProjection:'Baixar projeção editorial · JSON ↓',downloadHint:'Nenhum motor é executado. O arquivo baixado declara a fonte, conserva os dois conjuntos JSON publicados e inclui a seleção feita nesta interface — não é um novo resultado de validação nem um novo benchmark.',openJson:'Abrir JSON publicado selecionado',publishedJson:'JSON publicado',attributionTitle:'Pesquisa independente, atribuição explícita.',attribution:'Júnior, com engenharia e documentação assistidas por Codex. Este explorador visual é uma apresentação editorial. O código original do motor permanece privado: esta página não o publica, não o torna open source e não lhe concede nova licença. Mantém-se o regime de direitos existente.',pinnedLink:'Ler o caso na versão fixada ↗',discussionLink:'Propor uma regra na discussão pública ↗',discussionHint:'Links externos abrem apenas por ação sua. Use exemplos sintéticos publicáveis, sem dados de clientes ou segredos. Nenhum compromisso de entrega.',footerEdition:'Explorador editorial R283',footerOffline:'Sem rede automática · sem armazenamento · sem upload',
+        recordKey:'Chave do registro',notSingleField:'Não atribuída a um campo único',notApplicable:'Não aplicável',shown:'achado(s) exibido(s)',of:'de',selectedObservation:'Observação selecionada',oneRun:'1 execução',firstRecord:'A primeira ocorrência da chave é apontada no registro lógico 1. O valor da chave não está incluído.',inventoryNote:'JSON publicado com formatação editorial. O resultado original reportado tem 1.468 bytes e SHA-256 ea3c2e74807a17779ad33d5a0a37a52d8e341824077eacb80140ca37991d4a6e. Esta representação não preserva esse hash de bytes; não é atestação independente.',observationsNote:'Recorte dos registros salvos de R271, publicado em R279. Não é telemetria completa nem nova execução. Os valores numéricos completos estão acima; os hashes identificam os artefatos reportados, não atestação independente.',downloadRequested:'Download solicitado: ',downloadError:'Não foi possível preparar o download neste navegador. O JSON publicado permanece disponível para leitura.',
+        explanations:{TYPE_INTEGER:['Formato de inteiro','O valor foi sinalizado por não atender ao formato ASCII de inteiro declarado. O resultado localiza a revisão, mas não mostra o valor original.'],TYPE_DECIMAL:['Decimal finito','O valor foi sinalizado por não atender ao formato ASCII de decimal finito declarado. Isso não informa, por si só, qual seria a correção.'],TYPE_DATE:['Data no formato declarado','A regra exige uma data válida em YYYY-MM-DD. O achado não distingue aqui entre um problema de formato e uma data inexistente.'],TYPE_EMAIL:['Formato básico de e-mail','O valor não atende ao formato básico declarado. A regra é sintática: não testa existência da caixa, identidade ou entrega.'],DUPLICATE_KEY:['Repetição exata da chave','O resultado aponta uma tupla de chave que repete exatamente uma ocorrência anterior num registro com aridade correta. Não decide se a repetição é legítima no contexto do negócio.']}
+      },
+      en: {
+        skip:'Skip to content',brand:'RESEARCH → PRACTICE',navigation:'Sections',navFindings:'Findings',navObservations:'Observations',navData:'Published data',
+        eyebrow:'CASE EXPLORER · SYNTHETIC CSV',heroTitle:'From a rule to a review location.',heroLead:'Explore five located findings and three size observations. See what the records support — and what stays outside this selection.',tagOffline:'Offline, no upload',tagHistorical:'Published historical data',tagNoRun:'Does not run the validator',readCase:'How to read this case',heroCardLabel:'A USEFUL RESULT, WITH A BOUNDARY',stepRule:'A declared rule',stepRuleBody:'Which format was checked?',stepLocation:'A review location',stepLocationBody:'Which record, line and field?',stepReturn:'Feedback and decision',stepReturnBody:'What needs inspection before acting?',heroCardFoot:'A finding does not silently rewrite the source. Passing rules does not make data true.',
+        sectionOne:'01 / INVENTORY CASE',findingsTitle:'Five reasons to look closer.',findingsIntro:'Select a finding. Its location comes from the saved result; the explanation beside it is an editorial reading of that rule.',viewCaseJson:'View the case JSON ↗',validatedRecords:'validated records',findingsCount:'findings',completeResult:'Reading and validation complete',filterLabel:'Filter by rule',filterAll:'All rules · 5 findings',chooseFinding:'Select a finding',logicalRecord:'Logical record',physicalLines:'Physical line',fieldName:'Field',fieldIndex:'Field index',literalMessage:'LITERAL RESULT MESSAGE · ENGLISH',missingValues:'Source values are not included in this selection.',missingValuesBody:'The input CSV was not published. No cell value is reconstructed or invented here.',
+        sectionTwo:'02 / A DIFFERENT FILE, A DIFFERENT QUESTION',observationsTitle:'Three sizes. Three observations.',observationsIntro:'Choose a size to examine its historical record. One execution per size, no averages and no new measurement.',viewObservationsJson:'View the observation JSON ↗',chooseSize:'Select an observed size',records:'records',complete:'complete',wallTime:'Observed CLI wall time',peakMemory:'CLI peak resident memory',inputBytes:'Input bytes',validated:'Validated',diagnostics:'Diagnostics',rounding:'Display rounded to 6 decimal places for time and 3 for memory. The JSON retains the published numeric values.',scopeTitle:'The observation boundary',scopeEnvironment:'Windows, CPython 3.14.0, x64. Synthetic ASCII data: codigo, nome, email.',scopeTiming:'Wall time from before process launch to completion, with monitoring overhead. Includes Python startup, reading, validation and reports; excludes the GUI and later review.',scopeMemory:'Memory of the CLI process, not the host, browser, server or collector.',scopeRules:'Declared rules: required fields, integer, bounded text, basic email and no repeated key.',separateCases:'The five findings belong to the 2-record inventory — not these CLEAN runs of 1,000, 10,000 and 50,000 records.',measurementLimits:'No cold-cache assertion, trial distribution, independent replication, customer acceptance, competitive comparison or general scalability claim.',
+        sectionThree:'03 / RESEARCH THAT GUIDES PRACTICE',principlesTitle:'Keep what we do not know visible.',principleLabel:'PRINCIPLE',ethicsTitle:'Ethics of Not Knowing',ethicsBody:'Keep “passed these rules” distinct from “true”. Basic email syntax proves neither existence nor delivery. A READ_BUFFER hash identifies bytes read, not authenticity or provenance.',bridgesTitle:'Bridge Engineering',bridgesBody:'Connect a rule to its finding and location, without filling gaps with invented data. The reader can return to the published JSON to inspect that connection.',brakeTitle:'Technical Brake of Finite Cognition',brakeBody:'Act within a useful boundary, observe the return and revisit decisions as conditions change. Neither demand impossible certainty before use nor hide limits afterward.',
+        sectionFour:'04 / BACK TO THE EVIDENCE',dataTitle:'The published data, in view.',dataIntro:'Open either JSON dataset used by this page. The download combines both published datasets with the current selection, in an envelope labeled as an editorial projection.',datasetLabel:'Published dataset',datasetFindings:'Inventory · result with 5 findings',datasetObservations:'Size · 3 historical observations',downloadProjection:'Download editorial projection · JSON ↓',downloadHint:'No engine is run. The download declares its source, retains both published JSON datasets and includes your interface selection — it is neither a new validation result nor a new benchmark.',openJson:'Open selected published JSON',publishedJson:'Published JSON',attributionTitle:'Independent research, explicit attribution.',attribution:'Júnior, with Codex-assisted engineering and documentation. This visual explorer is an editorial presentation. The original engine code remains private: this page does not publish it, make it open source or grant a new license to it. The existing rights regime remains in place.',pinnedLink:'Read the pinned case version ↗',discussionLink:'Suggest a rule in the public discussion ↗',discussionHint:'External links open only at your request. Use public synthetic examples, without customer data or secrets. No delivery commitment.',footerEdition:'Editorial explorer R283',footerOffline:'No automatic network · no storage · no upload',
+        recordKey:'Record key',notSingleField:'Not assigned to one field',notApplicable:'Not applicable',shown:'finding(s) shown',of:'of',selectedObservation:'Selected observation',oneRun:'1 execution',firstRecord:'The first key occurrence is located at logical record 1. The key value is not included.',inventoryNote:'Published JSON with editorial formatting. The reported original result has 1,468 bytes and SHA-256 ea3c2e74807a17779ad33d5a0a37a52d8e341824077eacb80140ca37991d4a6e. This representation does not retain that byte hash; it is not independent attestation.',observationsNote:'A selection from saved R271 records, published in R279. Not full telemetry or a new execution. Full numeric values appear above; hashes identify reported artifacts, not independent attestation.',downloadRequested:'Download requested: ',downloadError:'This browser could not prepare the download. The published JSON remains available to read.',
+        explanations:{TYPE_INTEGER:['Integer format','The value was flagged for not meeting the declared ASCII integer format. The result locates the review but does not show the source value.'],TYPE_DECIMAL:['Finite decimal','The value was flagged for not meeting the declared finite ASCII decimal format. That alone does not identify a correct replacement.'],TYPE_DATE:['A date in the declared format','The rule requires a valid date in YYYY-MM-DD. The finding here does not distinguish a format issue from a nonexistent date.'],TYPE_EMAIL:['Basic email format','The value does not meet the declared basic format. This is a syntax rule: it does not test mailbox existence, identity or delivery.'],DUPLICATE_KEY:['Exact key repetition','The result locates a key tuple that exactly repeats an earlier occurrence in a correct-arity record. It does not decide whether repetition is legitimate in the business context.']}
+      }
+    };
+    let language = 'pt';
+    let selectedFinding = 0;
+    let selectedRecords = 1000;
+    const byId = id => document.getElementById(id);
+    const t = key => dictionary[language][key];
+    const formatNumber = (value, decimals) => new Intl.NumberFormat(language === 'pt' ? 'pt-BR' : 'en-US', decimals === undefined ? {} : {minimumFractionDigits:decimals,maximumFractionDigits:decimals}).format(value);
+    const setText = (id, value) => { byId(id).textContent = value; };
+
+    function renderFindingList() {
+      const filter = byId('diagnostic-filter').value;
+      const entries = data.findings.diagnostics.map((diagnostic,index) => ({diagnostic,index})).filter(entry => filter === 'all' || entry.diagnostic.rule_code === filter);
+      if (!entries.some(entry => entry.index === selectedFinding) && entries.length) selectedFinding = entries[0].index;
+      const buttons = entries.map(({diagnostic,index}) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'diagnostic-button';
+        button.dataset.diagnosticIndex = String(index);
+        button.setAttribute('aria-pressed',String(index === selectedFinding));
+        button.setAttribute('aria-controls','diagnostic-detail');
+        const number = document.createElement('span'); number.className = 'number'; number.textContent = String(index+1).padStart(2,'0');
+        const body = document.createElement('span');
+        const title = document.createElement('span'); title.className = 'item-title'; title.textContent = diagnostic.field_name === null ? t('recordKey') : diagnostic.field_name;
+        const code = document.createElement('code'); code.textContent = diagnostic.rule_code;
+        body.append(title,code);
+        const arrow = document.createElement('span'); arrow.className = 'arrow'; arrow.textContent = '→'; arrow.setAttribute('aria-hidden','true');
+        button.append(number,body,arrow);
+        button.addEventListener('click',() => {
+          selectedFinding = index;
+          byId('diagnostic-list').querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed',String(Number(item.dataset.diagnosticIndex) === index)));
+          renderFindingDetail();
+          byId('json-source-select').value = 'findings'; renderJson();
+        });
+        return button;
+      });
+      byId('diagnostic-list').replaceChildren(...buttons);
+      setText('filter-status',`${entries.length} ${t('shown')} · ${t('of')} ${data.findings.diagnostics.length}`);
+      renderFindingDetail();
+    }
+    function renderFindingDetail() {
+      const diagnostic = data.findings.diagnostics[selectedFinding];
+      const explanation = t('explanations')[diagnostic.rule_code];
+      setText('diagnostic-code',diagnostic.rule_code);
+      setText('diagnostic-position',`${selectedFinding+1} / ${data.findings.diagnostics.length}`);
+      setText('diagnostic-title',explanation[0]); setText('diagnostic-explanation',explanation[1]);
+      setText('diagnostic-logical',String(diagnostic.logical_record));
+      setText('diagnostic-physical',diagnostic.physical_start_line === diagnostic.physical_end_line ? String(diagnostic.physical_start_line) : `${diagnostic.physical_start_line}–${diagnostic.physical_end_line}`);
+      setText('diagnostic-field',diagnostic.field_name === null ? t('notSingleField') : diagnostic.field_name);
+      setText('diagnostic-field-index',diagnostic.field_index === null ? t('notApplicable') : String(diagnostic.field_index));
+      setText('diagnostic-message',diagnostic.message);
+      byId('duplicate-note').hidden = diagnostic.first_logical_record === undefined;
+      setText('duplicate-note',diagnostic.first_logical_record === undefined ? '' : t('firstRecord'));
+    }
+    function renderObservation() {
+      const observation = data.observations.measurements.find(item => item.records === selectedRecords);
+      byId('size-options').querySelectorAll('button').forEach(button => {
+        button.setAttribute('aria-pressed',String(Number(button.dataset.records) === selectedRecords));
+        button.setAttribute('aria-controls','measurement-label');
+      });
+      [1000,10000,50000].forEach(records => setText(`size-${records}`,formatNumber(records)));
+      setText('measurement-label',`${formatNumber(observation.records)} ${t('records')} · ${t('oneRun')}`);
+      setText('measurement-time',formatNumber(observation.cli_wall_seconds,6));
+      setText('measurement-memory',formatNumber(observation.os_peak_working_set_mib,3));
+      setText('measurement-bytes',formatNumber(observation.input_bytes));
+      setText('measurement-validated',formatNumber(observation.result_summary.records_validated));
+      setText('measurement-diagnostics',String(observation.result_summary.diagnostic_count));
+      setText('measurement-status',`${t('selectedObservation')}: ${formatNumber(observation.records)} ${t('records')}. CLEAN, ${t('complete')}. ${formatNumber(observation.cli_wall_seconds,6)} s; ${formatNumber(observation.os_peak_working_set_mib,3)} MiB.`);
+    }
+    function renderJson() {
+      const dataset = byId('json-source-select').value;
+      setText('json-text',raw[dataset]);
+      setText('dataset-note',t(dataset === 'findings' ? 'inventoryNote' : 'observationsNote'));
+      setText('download-status','');
+    }
+    function openJson(dataset) {
+      byId('json-source-select').value = dataset;
+      renderJson();
+      byId('json-panel').open = true;
+      byId('json-summary').focus();
+      byId('published-data').scrollIntoView({block:'start'});
+    }
+    function setLanguage(next) {
+      language = next;
+      document.documentElement.lang = next === 'pt' ? 'pt-BR' : 'en';
+      document.title = next === 'pt' ? 'Zero Px · Explorador de um caso CSV' : 'Zero Px · A CSV case explorer';
+      document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
+      document.querySelectorAll('[data-i18n-aria]').forEach(node => { node.setAttribute('aria-label',t(node.dataset.i18nAria)); });
+      byId('language-pt').setAttribute('aria-pressed',String(next === 'pt'));
+      byId('language-en').setAttribute('aria-pressed',String(next === 'en'));
+      renderFindingList(); renderObservation(); renderJson();
+    }
+    function downloadProjection() {
+      const dataset = byId('json-source-select').value;
+      const observation = data.observations.measurements.find(item => item.records === selectedRecords);
+      const diagnostic = data.findings.diagnostics[selectedFinding];
+      const envelope = {
+        schema:'zero-px.public-case-editorial-projection.v1',
+        edition:'R283_EDITORIAL_R1',
+        artifact_role:'User-selected editorial projection of previously published historical data. Not a new validation result or benchmark.',
+        source_publication:{
+          case_url:caseUrl,
+          commit:'bcc08602f806b0332dbef41c3c0ff9d51200d9d2',
+          representation:'JSON values from the selected published fenced block; not original artifact bytes or full telemetry.'
+        },
+        interface_language:language === 'pt' ? 'pt-BR' : 'en',
+        selection:dataset === 'findings' ? {dataset:'small_inventory_result',rule_filter:byId('diagnostic-filter').value,diagnostic_index_zero_based:selectedFinding} : {dataset:'historical_size_observations',records:selectedRecords},
+        projection:{kind:dataset === 'findings' ? 'selected_published_diagnostic' : 'selected_published_size_observation',value:dataset === 'findings' ? diagnostic : observation},
+        published_datasets:{findings:data.findings,performance:data.observations},
+        published_json_text:{findings:raw.findings,performance:raw.observations},
+        boundaries:[
+          'No CSV engine, validation, measurement or independent replication was performed by this explorer.',
+          'Source CSV values were not published and are not reconstructed here.',
+          'The 2-record/5-finding inventory is distinct from the 1,000/10,000/50,000-record CLEAN observations.',
+          'Historical size observations have one execution per size, not a repeated-trial distribution or a general performance promise.',
+          'The original engine remains private. This projection grants no new license to it; the existing rights regime remains unchanged.'
+        ]
+      };
+      let url;
+      try {
+        const blob = new Blob([JSON.stringify(envelope,null,2)+'\n'],{type:'application/json;charset=utf-8'});
+        url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        const filename = dataset === 'findings' ? 'zero-px-editorial-inventory-selection.json' : 'zero-px-editorial-size-selection.json';
+        anchor.href = url; anchor.download = filename; anchor.hidden = true;
+        document.body.append(anchor); anchor.click(); anchor.remove();
+        setText('download-status',t('downloadRequested')+filename);
+      } catch (_) { setText('download-status',t('downloadError')); }
+      finally { if (url) window.setTimeout(() => URL.revokeObjectURL(url),1000); }
+    }
+    byId('language-pt').addEventListener('click',() => setLanguage('pt'));
+    byId('language-en').addEventListener('click',() => setLanguage('en'));
+    byId('diagnostic-filter').addEventListener('change',() => { renderFindingList(); byId('json-source-select').value='findings'; renderJson(); });
+    byId('size-options').querySelectorAll('button').forEach(button => button.addEventListener('click',() => { selectedRecords=Number(button.dataset.records); renderObservation(); byId('json-source-select').value='observations'; renderJson(); }));
+    byId('json-source-select').addEventListener('change',renderJson);
+    byId('open-findings-json').addEventListener('click',() => openJson('findings'));
+    byId('open-performance-json').addEventListener('click',() => openJson('observations'));
+    byId('download-projection').addEventListener('click',downloadProjection);
+    setLanguage('pt');
+  })();
+  </script>
+</body>
+</html>
