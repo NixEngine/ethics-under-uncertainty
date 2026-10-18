@@ -1,3 +1,5 @@
+> **[Abrir no navegador / Open in browser](<https://zero-px-exactness-demo.junior-gpt.chatgpt.site/csv-case-explorer.html>)** — sem precisar baixar um pacote ou enviar arquivos / no package download or file upload required. Explore os resultados sintéticos salvos; o motor privado não é executado / explore saved synthetic results; the private engine is not executed.
+
 > **Explore os resultados / Explore the results**  
 > [Demonstração interativa portátil (HTML) / Portable interactive viewer](../demos/csv-case-explorer.html). No GitHub, use **Download raw file**, salve o HTML e abra-o no navegador. Sem instalação ou upload: são observações sintéticas já publicadas, não uma nova validação. / On GitHub, choose **Download raw file**, save the HTML and open it in a browser. No installation or upload: this explores already-published synthetic observations, not a new validation. Aplicam-se os [direitos do repositório / repository rights](../../RIGHTS.md); o motor CSV original permanece privado / the original CSV engine remains private.
 
