@@ -28,6 +28,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Um número correto ainda pode deixar a decisão em aberto?** Nosso [exemplo bilíngue](docs/cases/when-numbers-need-meaning.md) parte do mesmo deslocamento de 02:15 e de duas referências possíveis. Mostra quais verificações podem avançar, como uma ação urgente pode explicitar sua premissa e como um esclarecimento posterior altera apenas resultados dependentes. A conta é sintética e conferível à mão, não uma nova função de software.
 
+**Uma parte com pontuação baixa ainda pode ser indispensável?** O [exemplo bilíngue de atenção finita](docs/cases/finite-attention-and-return.md) compara duas escolhas sob o mesmo orçamento de três partes. Separa sinal local de exigência da tarefa, registra o que ficou sem exame e explica por que o seletor de ações implementado não demonstra cobertura completa. É uma exposição de pesquisa conferível à mão, não uma nova função executável.
+
 ## O que já pode ser verificado
 
 A implementação de referência fornece:
@@ -110,3 +112,4 @@ A edição pública é uma colaboração editorial e técnica entre **Júnior + 
 Júnior é o idealizador humano, autor jurídico, titular dos direitos e responsável pela publicação. Codex contribuiu com auditoria, formalização, implementação de referência, testes, tradução e preparação do lançamento. Não se afirma patrocínio, parceria ou endosso institucional.
 
 Não foi concedida licença geral de reutilização. [RIGHTS.md](RIGHTS.md) oferece apenas permissão estreita para executar uma cópia local não modificada em avaliação e falsificação não comerciais. Visibilidade pública não equivale a licenciamento open source.
+

@@ -28,6 +28,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Can a correct number still leave the decision unresolved?** Our [bilingual worked example](docs/cases/when-numbers-need-meaning.md) starts with the same 02:15 offset and two possible reference times. It shows which checks can proceed, how an urgent action can state its assumption, and how a later clarification changes only dependent results. The arithmetic is synthetic and hand-checkable, not a new software capability.
 
+**Could a low-scoring item still be indispensable?** The [bilingual finite-attention example](docs/cases/finite-attention-and-return.md) compares two selections under the same three-part budget. It separates local signal from task requirements, records what remains unexamined and explains why the implemented action selector does not establish complete coverage. This is a hand-worked research exposition, not a new runtime feature.
+
 ## What can be verified now
 
 The reference implementation provides:
@@ -120,3 +122,4 @@ The public edition is an editorial and technical collaboration between **Júnior
 Júnior is the human originator, legal author, rights holder, and responsible publisher. Codex contributed audit, formalization, reference implementation, tests, translation, and release preparation. No institutional sponsorship, partnership, or endorsement is claimed.
 
 No general reuse license has been granted. [RIGHTS.md](RIGHTS.md) provides only a narrow permission to execute an unmodified local copy for non-commercial evaluation and falsification. Public visibility is not the same as open-source licensing.
+
