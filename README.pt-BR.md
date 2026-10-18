@@ -30,6 +30,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Uma parte com pontuação baixa ainda pode ser indispensável?** O [exemplo bilíngue de atenção finita](docs/cases/finite-attention-and-return.md) compara duas escolhas sob o mesmo orçamento de três partes. Separa sinal local de exigência da tarefa, registra o que ficou sem exame e explica por que o seletor de ações implementado não demonstra cobertura completa. É uma exposição de pesquisa conferível à mão, não uma nova função executável.
 
+**Um sucesso observado resolve a adequação — ou a confiança?** O [caso bilíngue de evidência por tarefa](docs/cases/task-evidence-without-ranking.md) preserva sucesso inicial seguido de queda, prefixo completo, lacuna e patamar não observado. Quatro pares sintéticos públicos de entrada/resultado tornam as distinções examináveis; o motor separado continua privado. Desempenho não mede honestidade ou valor moral.
+
 **Um freio também precisa de um caminho de volta.** A guarda opcional de **reconvergência do Farol está integrada ao seletor de ações**: após uma exceção, exige uma janela estável declarada, congela parâmetros sensíveis e limita ajustes flexíveis antes da admissão normal. [Execute o exemplo de seis decisões a partir do código-fonte](docs/pt-BR/reconvergencia.md#execute-o-exemplo-a-partir-do-código-fonte) para ver um candidato com pontuação maior recusado durante o retorno, admitido após a recuperação e novamente recusado diante de deriva. [English](docs/reconvergence.md). São decisões sintéticas, não ações executadas nem prova de retorno operacional seguro.
 
 ## O que já pode ser verificado

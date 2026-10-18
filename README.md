@@ -30,6 +30,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Could a low-scoring item still be indispensable?** The [bilingual finite-attention example](docs/cases/finite-attention-and-return.md) compares two selections under the same three-part budget. It separates local signal from task requirements, records what remains unexamined and explains why the implemented action selector does not establish complete coverage. This is a hand-worked research exposition, not a new runtime feature.
 
+**Does an observed success settle suitability—or trust?** The [bilingual task-evidence case](docs/cases/task-evidence-without-ranking.md) preserves an initial success followed by decline, a complete prefix, a gap and an unobserved threshold. Four public synthetic input/result pairs make the distinctions inspectable; the separate engine remains private. Task performance is not a measure of honesty or moral worth.
+
 **A brake also needs a way back.** The optional **Farol reconvergence guard is integrated into the action selector**: after an exception, it requires a declared stable window, freezes sensitive parameters and bounds flexible updates before normal admission resumes. [Run the six-decision source example](docs/reconvergence.md#run-the-source-example) to see a more highly scored candidate refused during return, admitted after recovery, and refused again after drift. [Português](docs/pt-BR/reconvergencia.md). These are synthetic decisions, not executed actions or proof of an operationally safe return.
 
 ## What can be verified now

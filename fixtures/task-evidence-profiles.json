@@ -1,0 +1,378 @@
+{
+  "schema": "zero-px.public-task-evidence-case.v1",
+  "authorship": "Junior + Codex",
+  "data_kind": "DELIBERATELY_SYNTHETIC_NOT_MEASURED_SUBJECTS",
+  "method": "Selected original synthetic requests and their unchanged saved result objects from a private reference implementation. This selection does not execute the component.",
+  "reference_implementation_sha256": "9dccf274e71eaa7de118267937bc1320a4aff3f2e49dcc3463564287541eb85b",
+  "meaning_of_n": "Declared nonnegative integer exposure index in an invented task; not elapsed time or a causal learning measure.",
+  "cases": [
+    {
+      "id": "at_zero_then_regression",
+      "request": {
+        "subject_id": "synthetic-at_zero_then_regression",
+        "context": {
+          "task": "synthetic-validation",
+          "environment": "declared-lab-v1",
+          "constraints": "fixed-budget-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "unit": "count",
+          "direction": "maximize",
+          "protocol": "frozen-synthetic-v1"
+        },
+        "threshold": 4,
+        "observations": [
+          {
+            "n": 0,
+            "value": 5,
+            "evidence_id": "at_zero_then_regression-0"
+          },
+          {
+            "n": 1,
+            "value": 2,
+            "evidence_id": "at_zero_then_regression-1"
+          }
+        ]
+      },
+      "saved_profile": {
+        "baseline": {
+          "observation": {
+            "evidence_id": "at_zero_then_regression-0",
+            "n": 0,
+            "value": "5/1"
+          },
+          "state": "OBSERVED"
+        },
+        "context": {
+          "constraints": "fixed-budget-v1",
+          "direction": "maximize",
+          "environment": "declared-lab-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "protocol": "frozen-synthetic-v1",
+          "task": "synthetic-validation",
+          "unit": "count"
+        },
+        "declared_data_sha256": "e81ff0c8a3a3668a45bcc846d2c09f67f7a85706bb240126666d66bf5eef9d69",
+        "digest_basis": "CANONICAL_DECLARED_VALUES_NOT_AUTHENTICATION",
+        "finite_differences": [
+          {
+            "delta_n": 1,
+            "delta_value": "-3/1",
+            "from_n": 0,
+            "intermediate_exposures_observed": true,
+            "to_n": 1,
+            "value_difference_per_exposure": "-3/1"
+          }
+        ],
+        "limits": [
+          "Observed means supplied in the declared data; not independently measured or authenticated.",
+          "Finite differences are not derivatives or causal learning estimates.",
+          "Missing observations are not interpolated; NOT_OBSERVED is not never.",
+          "A threshold witness is not sustained success or a general score.",
+          "No ranking, assignment, innate-talent, trust or moral-worth inference."
+        ],
+        "observation_count": 2,
+        "schema": "zero-px.task-profile.v1",
+        "subject_id": "synthetic-at_zero_then_regression",
+        "threshold": {
+          "exactness_basis": "COMPLETE_OBSERVED_INTEGER_PREFIX",
+          "first_observed_reach": {
+            "evidence_id": "at_zero_then_regression-0",
+            "n": 0,
+            "value": "5/1"
+          },
+          "first_reach_exact": true,
+          "latest_meets_threshold": false,
+          "latest_observation": {
+            "evidence_id": "at_zero_then_regression-1",
+            "n": 1,
+            "value": "2/1"
+          },
+          "state": "REACHED_AT_ZERO",
+          "value": "4/1"
+        }
+      }
+    },
+    {
+      "id": "dense_crossing",
+      "request": {
+        "subject_id": "synthetic-dense_crossing",
+        "context": {
+          "task": "synthetic-validation",
+          "environment": "declared-lab-v1",
+          "constraints": "fixed-budget-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "unit": "count",
+          "direction": "maximize",
+          "protocol": "frozen-synthetic-v1"
+        },
+        "threshold": 5,
+        "observations": [
+          {
+            "n": 0,
+            "value": 1,
+            "evidence_id": "dense_crossing-0"
+          },
+          {
+            "n": 1,
+            "value": 3,
+            "evidence_id": "dense_crossing-1"
+          },
+          {
+            "n": 2,
+            "value": 6,
+            "evidence_id": "dense_crossing-2"
+          }
+        ]
+      },
+      "saved_profile": {
+        "baseline": {
+          "observation": {
+            "evidence_id": "dense_crossing-0",
+            "n": 0,
+            "value": "1/1"
+          },
+          "state": "OBSERVED"
+        },
+        "context": {
+          "constraints": "fixed-budget-v1",
+          "direction": "maximize",
+          "environment": "declared-lab-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "protocol": "frozen-synthetic-v1",
+          "task": "synthetic-validation",
+          "unit": "count"
+        },
+        "declared_data_sha256": "a8247f8a8922e0be8b3ba61ee1e1c1d4a4a6bb3719a080e1f871e18c8ecef70f",
+        "digest_basis": "CANONICAL_DECLARED_VALUES_NOT_AUTHENTICATION",
+        "finite_differences": [
+          {
+            "delta_n": 1,
+            "delta_value": "2/1",
+            "from_n": 0,
+            "intermediate_exposures_observed": true,
+            "to_n": 1,
+            "value_difference_per_exposure": "2/1"
+          },
+          {
+            "delta_n": 1,
+            "delta_value": "3/1",
+            "from_n": 1,
+            "intermediate_exposures_observed": true,
+            "to_n": 2,
+            "value_difference_per_exposure": "3/1"
+          }
+        ],
+        "limits": [
+          "Observed means supplied in the declared data; not independently measured or authenticated.",
+          "Finite differences are not derivatives or causal learning estimates.",
+          "Missing observations are not interpolated; NOT_OBSERVED is not never.",
+          "A threshold witness is not sustained success or a general score.",
+          "No ranking, assignment, innate-talent, trust or moral-worth inference."
+        ],
+        "observation_count": 3,
+        "schema": "zero-px.task-profile.v1",
+        "subject_id": "synthetic-dense_crossing",
+        "threshold": {
+          "exactness_basis": "COMPLETE_OBSERVED_INTEGER_PREFIX",
+          "first_observed_reach": {
+            "evidence_id": "dense_crossing-2",
+            "n": 2,
+            "value": "6/1"
+          },
+          "first_reach_exact": true,
+          "latest_meets_threshold": true,
+          "latest_observation": {
+            "evidence_id": "dense_crossing-2",
+            "n": 2,
+            "value": "6/1"
+          },
+          "state": "REACHED_OBSERVED",
+          "value": "5/1"
+        }
+      }
+    },
+    {
+      "id": "sparse_crossing",
+      "request": {
+        "subject_id": "synthetic-sparse_crossing",
+        "context": {
+          "task": "synthetic-validation",
+          "environment": "declared-lab-v1",
+          "constraints": "fixed-budget-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "unit": "count",
+          "direction": "maximize",
+          "protocol": "frozen-synthetic-v1"
+        },
+        "threshold": 5,
+        "observations": [
+          {
+            "n": 0,
+            "value": 1,
+            "evidence_id": "sparse_crossing-0"
+          },
+          {
+            "n": 3,
+            "value": 7,
+            "evidence_id": "sparse_crossing-1"
+          }
+        ]
+      },
+      "saved_profile": {
+        "baseline": {
+          "observation": {
+            "evidence_id": "sparse_crossing-0",
+            "n": 0,
+            "value": "1/1"
+          },
+          "state": "OBSERVED"
+        },
+        "context": {
+          "constraints": "fixed-budget-v1",
+          "direction": "maximize",
+          "environment": "declared-lab-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "protocol": "frozen-synthetic-v1",
+          "task": "synthetic-validation",
+          "unit": "count"
+        },
+        "declared_data_sha256": "f9d18204849503c4ab955a15312f31780edc03084b536b39e082200d6612daee",
+        "digest_basis": "CANONICAL_DECLARED_VALUES_NOT_AUTHENTICATION",
+        "finite_differences": [
+          {
+            "delta_n": 3,
+            "delta_value": "6/1",
+            "from_n": 0,
+            "intermediate_exposures_observed": false,
+            "to_n": 3,
+            "value_difference_per_exposure": "2/1"
+          }
+        ],
+        "limits": [
+          "Observed means supplied in the declared data; not independently measured or authenticated.",
+          "Finite differences are not derivatives or causal learning estimates.",
+          "Missing observations are not interpolated; NOT_OBSERVED is not never.",
+          "A threshold witness is not sustained success or a general score.",
+          "No ranking, assignment, innate-talent, trust or moral-worth inference."
+        ],
+        "observation_count": 2,
+        "schema": "zero-px.task-profile.v1",
+        "subject_id": "synthetic-sparse_crossing",
+        "threshold": {
+          "exactness_basis": "INCOMPLETE_OBSERVED_INTEGER_PREFIX",
+          "first_observed_reach": {
+            "evidence_id": "sparse_crossing-1",
+            "n": 3,
+            "value": "7/1"
+          },
+          "first_reach_exact": false,
+          "latest_meets_threshold": true,
+          "latest_observation": {
+            "evidence_id": "sparse_crossing-1",
+            "n": 3,
+            "value": "7/1"
+          },
+          "state": "REACHED_OBSERVED",
+          "value": "5/1"
+        }
+      }
+    },
+    {
+      "id": "not_yet_observed",
+      "request": {
+        "subject_id": "synthetic-not_yet_observed",
+        "context": {
+          "task": "synthetic-validation",
+          "environment": "declared-lab-v1",
+          "constraints": "fixed-budget-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "unit": "count",
+          "direction": "maximize",
+          "protocol": "frozen-synthetic-v1"
+        },
+        "threshold": 2,
+        "observations": [
+          {
+            "n": 0,
+            "value": 0,
+            "evidence_id": "not_yet_observed-0"
+          },
+          {
+            "n": 1,
+            "value": 1,
+            "evidence_id": "not_yet_observed-1"
+          }
+        ]
+      },
+      "saved_profile": {
+        "baseline": {
+          "observation": {
+            "evidence_id": "not_yet_observed-0",
+            "n": 0,
+            "value": "0/1"
+          },
+          "state": "OBSERVED"
+        },
+        "context": {
+          "constraints": "fixed-budget-v1",
+          "direction": "maximize",
+          "environment": "declared-lab-v1",
+          "metric": "passed-fixtures",
+          "metric_version": "v1",
+          "protocol": "frozen-synthetic-v1",
+          "task": "synthetic-validation",
+          "unit": "count"
+        },
+        "declared_data_sha256": "297588fd568d6017ef7010d8b9e7c7a93b427b82e715f51a132004265286c0d7",
+        "digest_basis": "CANONICAL_DECLARED_VALUES_NOT_AUTHENTICATION",
+        "finite_differences": [
+          {
+            "delta_n": 1,
+            "delta_value": "1/1",
+            "from_n": 0,
+            "intermediate_exposures_observed": true,
+            "to_n": 1,
+            "value_difference_per_exposure": "1/1"
+          }
+        ],
+        "limits": [
+          "Observed means supplied in the declared data; not independently measured or authenticated.",
+          "Finite differences are not derivatives or causal learning estimates.",
+          "Missing observations are not interpolated; NOT_OBSERVED is not never.",
+          "A threshold witness is not sustained success or a general score.",
+          "No ranking, assignment, innate-talent, trust or moral-worth inference."
+        ],
+        "observation_count": 2,
+        "schema": "zero-px.task-profile.v1",
+        "subject_id": "synthetic-not_yet_observed",
+        "threshold": {
+          "exactness_basis": "NO_REACH_OBSERVED",
+          "first_observed_reach": null,
+          "first_reach_exact": false,
+          "latest_meets_threshold": false,
+          "latest_observation": {
+            "evidence_id": "not_yet_observed-1",
+            "n": 1,
+            "value": "1/1"
+          },
+          "state": "NOT_OBSERVED",
+          "value": "2/1"
+        }
+      }
+    }
+  ],
+  "limits": [
+    "No real person or deployed AI is measured.",
+    "Declared contexts are labels, not independent proof of equal experimental conditions.",
+    "No ranking, automatic assignment, causal learning, trust or moral-worth calculation.",
+    "The private engine and full private tests are not distributed by this data selection.",
+    "Public repository rights status is unchanged; public visibility does not grant a general reuse license."
+  ]
+}
