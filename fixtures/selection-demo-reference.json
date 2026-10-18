@@ -1,0 +1,71 @@
+{
+  "claim_boundary": "Offline declared-input selection and synthetic local vault integration only. Selection is not execution or a reusable authorization; vault access rechecks the grant. No consciousness, clinical calibration, production safety or live tool authority claim.",
+  "receipt_hash": "18035cd98c91800fc8a3564c06dfba3bba3246dce4b2d74d4562590c497bc66a",
+  "schema": "EUP-SELECTION-DEMO/0.1",
+  "selection": {
+    "alpha": 0.75,
+    "alpha_exact": {
+      "denominator": 4,
+      "numerator": 3
+    },
+    "candidates": [
+      {
+        "action_id": "candidate-a",
+        "cvar": null,
+        "reason": "PRIVACY_GRANT_INVALID",
+        "stage": "PRIVACY"
+      },
+      {
+        "action_id": "candidate-b",
+        "cvar": {
+          "denominator": 1,
+          "numerator": 1
+        },
+        "reason": "CVAR_LIMIT_EXCEEDED",
+        "stage": "RISK"
+      },
+      {
+        "action_id": "candidate-c",
+        "cvar": {
+          "denominator": 10,
+          "numerator": 1
+        },
+        "reason": "ELIGIBLE",
+        "stage": "ELIGIBLE"
+      },
+      {
+        "action_id": "candidate-d",
+        "cvar": {
+          "denominator": 1,
+          "numerator": 0
+        },
+        "reason": "ELIGIBLE",
+        "stage": "ELIGIBLE"
+      }
+    ],
+    "care_regime": "GREEN",
+    "consent_policy_version": "EUP/0.1",
+    "policy_version": "EUP-SELECT/0.1",
+    "precaution_upper": 0.2,
+    "regime": "GREEN",
+    "risk_limit": 0.2,
+    "risk_limit_exact": {
+      "denominator": 5,
+      "numerator": 1
+    },
+    "safe_null": false,
+    "schema": "EUP-SELECTION-RECEIPT/0.1",
+    "selected_id": "candidate-c",
+    "selected_performance": 10.0,
+    "selected_performance_exact": {
+      "denominator": 1,
+      "numerator": 10
+    }
+  },
+  "vault_integration": {
+    "private_content_or_grant_in_receipt": false,
+    "separate_grant_check_at_open": true,
+    "subsequent_open_denied_after_revocation": true,
+    "synthetic_plaintext_matched": true
+  }
+}

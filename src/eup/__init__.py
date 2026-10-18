@@ -13,8 +13,22 @@ from .policy import (
     welfare_score,
 )
 from .vault import SealedBlob, SovereignVault
+from .selection import (
+    ActionCandidate,
+    ActionSelector,
+    PrivacyRequirement,
+    SelectionDecision,
+    SelectorConfig,
+    empirical_cvar,
+)
 
 __all__ = [
+    "ActionCandidate",
+    "ActionSelector",
+    "PrivacyRequirement",
+    "SelectionDecision",
+    "SelectorConfig",
+    "empirical_cvar",
     "ConsentAuthority",
     "ConsentDenied",
     "ConsentVerifier",

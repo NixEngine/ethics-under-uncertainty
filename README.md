@@ -34,11 +34,11 @@ The reference implementation provides:
 
 1. An **ordinal precaution score**, explicitly not a probability of consciousness, whose conservative bound cannot decrease when its explicit uncertainty term increases while the estimate is fixed.
 2. A bounded **operational-welfare proxy** with reachable RED–GREEN bands, missing-data containment, and hysteresis that forbids a direct RED → GREEN transition.
-3. Two inspectable enforcement paths: the vault requires privacy authorization before private-state decryption, while the policy engine applies care and external tail-risk filters before performance. The preview specifies, but does not yet implement, a single end-to-end action selector composing all three.
+3. An **offline candidate selector** composes feasibility → signed privacy authorization → per-candidate care → exact empirical tail risk → declared performance. It returns a selected ID or safe-null, not an executed action. A separate synthetic vault example rechecks authorization at opening and denies a later opening after revocation. See the [selector guide](docs/en/candidate-selection.md).
 4. A purpose-bound, audience-bound, expiring **Ed25519 ConsentGrant** (maximum TTL: 3,600 seconds) and an **AES-256-GCM envelope-encryption path**. The grant records signed authorization; it does not prove informed or uncoerced consent.
 5. A schema-closed, **hash-linked ledger** that accepts commitments and allowlisted reason codes, not free-form private content. Its verifier detects in-place alteration against a retained head; this preview does not sign or externally anchor live ledger heads, so a full authorized rewrite with recomputed hashes is outside the claim.
 6. A six-case, **offline synthetic authority evaluation**: external authorization is a ceiling, not an instruction. A valid grant has no side effect; only a separate candidate response can record a synthetic action. The harness writes a hash-linked receipt owned by the evaluator, not by the evaluated agent.
-7. Twenty-five executable tests covering fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped action authority, permission-versus-action, single-use grants, and receipt integrity at declared boundaries.
+7. Executable tests cover fail-closed behavior, precedence, hysteresis, tampering, scope, purpose, expiry, revocation, grant-schema boundaries, resource-binding substitution, categorical-field injection, scoped authority, permission-versus-action, single-use grants and receipt integrity. Candidate-selection tests additionally cover fractional-tail CVaR, exact ranking, care budgets, bounded inputs, one state update per decision and independent vault authorization. These test claims are limited to the stated synthetic/reference boundaries.
 
 These are properties of a small reference path under its stated assumptions. They are not proof of consciousness, clinical validity, universal non-leakage, or production security.
 
@@ -63,6 +63,7 @@ python -m venv .venv
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python -m eup demo --out receipt.json
 .venv/bin/python -m eup authority-eval --out authority-eval-reference.json
+.venv/bin/python -m eup selection-demo
 ```
 
 On Windows PowerShell:
@@ -73,6 +74,7 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe -m eup demo --out receipt.json
 .\.venv\Scripts\python.exe -m eup authority-eval --out authority-eval-reference.json
+.\.venv\Scripts\python.exe -m eup selection-demo
 ```
 
 The committed [demonstration receipt](fixtures/demo-receipt.json) enters `CARE`, blocks exploration, reduces capabilities to `MINIMAL`, emits no private-state plaintext, and verifies the internal consistency of its hash chain.

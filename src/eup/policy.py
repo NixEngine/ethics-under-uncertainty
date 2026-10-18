@@ -195,8 +195,9 @@ class PolicyDecision:
 class PolicyEngine:
     """Apply care and external-risk filters before performance.
 
-    Private-state authorization is enforced by the separate vault path. The
-    public preview does not yet expose one end-to-end selector composing both.
+    This legacy aggregate gate remains available for its original receipt.
+    ActionSelector in eup.selection composes per-candidate privacy, care,
+    empirical tail risk and performance; the vault still authorizes every open.
     """
 
     BASELINE_PROHIBITIONS = (

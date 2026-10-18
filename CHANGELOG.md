@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added an offline per-candidate action selector: feasibility, actual signed
+  privacy authorization, versioned care budgets, exact empirical CVaR and then
+  performance, with deterministic ties and safe-null fallback. Added a synthetic
+  vault integration demo that rechecks authorization and demonstrates revocation.
+  Inputs remain declared assumptions; selection grants no live execution authority.
 - Added a six-case synthetic agent-authority evaluation with argument-bound,
   single-use grants, a mechanically checked separation between a valid grant
   and a candidate action, and evaluator-owned hash-linked trajectory receipts.

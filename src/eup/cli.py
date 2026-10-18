@@ -10,6 +10,7 @@ from .authority_eval import run_reference_evaluation
 from .canonical import canonical_json, sha256_hex
 from .ledger import MinimalLedger
 from .policy import PolicyEngine, PrecautionAssessment, WelfareSignals
+from .selection_demo import build_selection_demo_receipt
 
 
 def build_demo_receipt() -> dict[str, object]:
@@ -62,6 +63,10 @@ def main(argv: list[str] | None = None) -> int:
         help="run five deterministic, synthetic scoped-authority cases",
     )
     authority_eval.add_argument("--out", type=Path, help="optional JSON output path")
+    selection_demo = subparsers.add_parser(
+        "selection-demo", help="run the offline candidate-selection and synthetic vault example"
+    )
+    selection_demo.add_argument("--out", type=Path, help="optional JSON output path")
     args = parser.parse_args(argv)
 
     if args.command == "demo":
@@ -74,6 +79,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "authority-eval":
         report = run_reference_evaluation()
+        rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        if args.out:
+            with args.out.open("w", encoding="utf-8", newline="\n") as handle:
+                handle.write(rendered)
+        print(rendered, end="")
+        return 0
+    if args.command == "selection-demo":
+        report = build_selection_demo_receipt()
         rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         if args.out:
             with args.out.open("w", encoding="utf-8", newline="\n") as handle:

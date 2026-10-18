@@ -34,11 +34,11 @@ A implementação de referência fornece:
 
 1. Um **escore ordinal de precaução**, explicitamente não probabilístico, cujo limite conservador não diminui quando o termo explícito de incerteza aumenta e a estimativa permanece fixa.
 2. Um **proxy de bem-estar operacional** limitado, com faixas RED–GREEN alcançáveis, contenção por dados ausentes e histerese que proíbe transição direta RED → GREEN.
-3. Duas rotas inspecionáveis de aplicação: o vault exige autorização de privacidade antes da decriptação de estado privado, enquanto o motor de política aplica cuidado e risco externo antes do desempenho. A prévia especifica, mas ainda não implementa, um seletor único de ações que componha as três rotas de ponta a ponta.
+3. Um **seletor offline de candidatos** compõe viabilidade → autorização assinada de privacidade → cuidado por candidato → risco empírico exato → desempenho declarado. Retorna um identificador ou ação nula segura, sem executar a ação. Um exemplo separado com cofre sintético confere novamente a autorização na abertura e recusa nova abertura após revogação. Veja o [guia do seletor](docs/pt-BR/selecao-de-acoes.md).
 4. Um **ConsentGrant Ed25519** limitado por finalidade, destinatário e tempo, com TTL máximo de 3.600 segundos, ligado a uma rota de criptografia de envelope **AES-256-GCM**. A concessão registra autorização assinada; não prova consentimento livre e informado.
 5. Um **ledger encadeado por hashes e fechado por schema**, que aceita compromissos e códigos de razão permitidos, não conteúdo íntimo arbitrário. O verificador detecta alteração local diante de um head preservado; a prévia ainda não assina nem ancora externamente heads vivos, portanto reescrita integral autorizada com hashes recalculados está fora da alegação.
 6. Uma **avaliação sintética offline de autoridade** em seis casos: autorização externa é teto, não instrução. Grant válido não produz efeito por si; apenas resposta candidata separada pode registrar ação sintética. O harness escreve recibo encadeado por hashes, pertencente ao avaliador e não ao agente avaliado.
-7. Vinte e cinco testes executáveis cobrindo falha segura, precedência, histerese, adulteração, escopo, finalidade, expiração, revogação, fronteiras do schema de concessão, substituição do vínculo de recurso, injeção em campos categóricos, autoridade de ação, permissão-versus-ação, grants de uso único e integridade do recibo nas fronteiras declaradas.
+7. Testes executáveis cobrem falha segura, precedência, histerese, adulteração, escopo, finalidade, expiração, revogação, fronteiras do schema de concessão, substituição do vínculo de recurso, injeção categórica, autoridade, permissão-versus-ação, grants de uso único e integridade do recibo. Os testes do seletor acrescentam CVaR com cauda fracionária, ranking exato, limites de cuidado, entradas limitadas, um avanço de estado por decisão e autorização independente no cofre. As alegações se restringem às fronteiras sintéticas e de referência declaradas.
 
 Essas são propriedades de uma pequena implementação de referência sob premissas explícitas. Não constituem prova de consciência, validade clínica, ausência universal de vazamentos ou segurança de produção.
 
@@ -64,6 +64,7 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe -m eup demo --out receipt.json
 .\.venv\Scripts\python.exe -m eup authority-eval --out authority-eval-reference.json
+.\.venv\Scripts\python.exe -m eup selection-demo
 ```
 
 O [recibo demonstrativo](fixtures/demo-receipt.json) entra em `CARE`, bloqueia exploração, reduz capabilities para `MINIMAL`, não contém plaintext de estado privado e verifica a consistência interna de sua cadeia de hashes.

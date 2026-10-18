@@ -4,21 +4,22 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from pathlib import Path
-from urllib.parse import unquote
 
 import yaml
 from jsonschema import Draft202012Validator
 
 from eup.authority_eval import run_reference_evaluation
 from eup.cli import build_demo_receipt
+from eup.selection_demo import build_selection_demo_receipt
+from local_links import local_targets
 
 
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_HASH = "D942497DAB71573CA39A7021E6443C4F2AC4516513B92E0847D26BA5FEFB6A71"
 FIXTURE_HASH = "2C2F8E2EB9477F1AD15682F3EDA1572C01A003C2EEC8E136FB4DF1A5C1B2BC89"
 AUTHORITY_FIXTURE_HASH = "6F5CCDA6EAB401DA38F0DF32F5AB0708A847A1CDEBDB9DA84A93FBD754A28701"
+SELECTION_FIXTURE_HASH = "F9BC2DEE2999B65028CAD2CF5D34DB7A15D9F4D79564BDFF93DA10E765D36C67"
 
 
 def sha256(path: Path) -> str:
@@ -29,11 +30,13 @@ def validate_artifacts() -> None:
     archive = ROOT / "archive" / "Blueprint_Etica_do_Desconhecimento_v1.original.md"
     fixture_path = ROOT / "fixtures" / "demo-receipt.json"
     authority_fixture_path = ROOT / "fixtures" / "authority-eval-reference.json"
+    selection_fixture_path = ROOT / "fixtures" / "selection-demo-reference.json"
     assert sha256(archive) == ARCHIVE_HASH, "historical archive digest changed"
     assert sha256(fixture_path) == FIXTURE_HASH, "demonstration fixture digest changed"
     assert (
         sha256(authority_fixture_path) == AUTHORITY_FIXTURE_HASH
     ), "authority evaluation fixture digest changed"
+    assert sha256(selection_fixture_path) == SELECTION_FIXTURE_HASH, "selection fixture digest changed"
 
     fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
     assert fixture == build_demo_receipt(), "fresh demo differs from committed fixture"
@@ -41,6 +44,8 @@ def validate_artifacts() -> None:
     assert (
         authority_fixture == run_reference_evaluation()
     ), "fresh authority evaluation differs from committed fixture"
+    selection_fixture = json.loads(selection_fixture_path.read_text(encoding="utf-8"))
+    assert selection_fixture == build_selection_demo_receipt(), "fresh selection differs from fixture"
 
     schemas = {
         path.name: json.loads(path.read_text(encoding="utf-8"))
@@ -66,17 +71,13 @@ def validate_artifacts() -> None:
 
 
 def validate_local_links() -> None:
-    markdown_link = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)#]+)(?:#[^)]+)?\)")
-    html_link = re.compile(r'href=["\'](?!https?://|mailto:|#)([^"\'#]+)(?:#[^"\']*)?["\']')
     missing: list[str] = []
     for path in ROOT.rglob("*.md"):
         if any(part in {".venv", "__pycache__"} or part.endswith(".egg-info") for part in path.parts):
             continue
         text = path.read_text(encoding="utf-8")
-        targets = [match.group(1) for match in markdown_link.finditer(text)]
-        targets.extend(match.group(1) for match in html_link.finditer(text))
-        for target in targets:
-            resolved = path.parent / unquote(target)
+        for target in local_targets(text):
+            resolved = path.parent / target
             if not resolved.exists():
                 missing.append(f"{path.relative_to(ROOT)} -> {target}")
     assert not missing, "missing local links:\n" + "\n".join(missing)
