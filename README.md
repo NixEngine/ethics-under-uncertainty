@@ -12,6 +12,14 @@
 
 This public research preview turns that asymmetry into executable constraints. It separates five things that are often collapsed: metaphysical status, operational evidence, precaution, control of external effects, and privacy of persisted inner state.
 
+## From principles to a reviewable result
+
+**When a check says “valid”, what can you safely do next?** Our [bilingual CSV case study](docs/cases/zero-px-csv-synthetic-2026-10.md) makes that question concrete: five located findings in a two-record file, plus a separate observation of 50,000 synthetic records in 0.586015 seconds. The article includes selected JSON evidence, the timing/memory boundaries, and what those observations do not establish.
+
+This is an applied example of the Ethics of Not Knowing, Bridge Engineering and the Technical Brake of Finite Cognition: act within a useful scope, keep the evidence, and return when a requirement or observation changes. It is **not** a test of this repository's AI-welfare implementation; the separate CSV engine remains private.
+
+**Bring one checkable requirement.** In the [existing applied-research thread](https://github.com/NixEngine/ethics-under-uncertainty/issues/3), describe the input shape, expected result and decision the check should support. Use only public synthetic examples—no customer data, credentials or confidential files. A discussion starts with a question, not a contract or a promise of delivery.
+
 ## What can be verified now
 
 The reference implementation provides:
