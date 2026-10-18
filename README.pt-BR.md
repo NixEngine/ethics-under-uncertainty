@@ -14,6 +14,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 ## Dos princípios a um resultado examinável
 
+**[Abrir os resultados CSV interativos](<https://zero-px-exactness-demo.junior-gpt.chatgpt.site/csv-case-explorer.html>).** Sem precisar baixar um pacote ou enviar arquivos: filtre os cinco apontamentos e explore as observações de porte registradas separadamente, em português ou inglês. O visualizador apresenta resultados sintéticos salvos; não valida um arquivo novo.
+
 **Quando uma verificação diz “válido”, qual é o próximo passo justificável?** Nosso [estudo de caso CSV bilíngue](docs/cases/zero-px-csv-synthetic-2026-10.md) torna essa pergunta concreta: cinco apontamentos localizados num arquivo de dois registros e, separadamente, uma observação de 50.000 registros sintéticos em 0,586015 segundo. O artigo inclui dados JSON selecionados, as fronteiras das medidas de tempo/memória e o que essas observações não demonstram.
 
 É uma aplicação da Ética do Desconhecimento, da Engenharia de Pontes e do Freio Técnico da Cognição Finita: agir num escopo útil, preservar a evidência e retornar quando uma exigência ou observação mudar. **Não é um teste da implementação de bem-estar de IA deste repositório**; o motor CSV separado permanece privado.
