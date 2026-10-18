@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>Antes da taxa, a pergunta · Zero Px</title>
+  <style>
+    :root { --ink:#182f35; --muted:#51666b; --paper:#f4f5ef; --white:#fff; --line:#cdd7d3; --teal:#086b61; --teal-soft:#e5f3ed; --orange:#98451e; --orange-soft:#fff0e7; --focus:#1b54be; --radius:20px; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.6; }
+    button,input,select { font:inherit; }
+    button,select,input[type="range"] { cursor:pointer; }
+    button { border:1px solid var(--line); border-radius:11px; padding:.65rem 1rem; background:var(--white); color:var(--ink); font-weight:650; }
+    button:hover:not(:disabled) { border-color:var(--teal); background:var(--teal-soft); }
+    button:disabled { cursor:not-allowed; opacity:.55; }
+    :focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+    a { color:var(--teal); text-underline-offset:3px; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { font-size:clamp(2.4rem,6vw,4.8rem); line-height:1.06; letter-spacing:-.055em; max-width:850px; margin:.8rem 0 1.4rem; }
+    h2 { font-size:1.4rem; line-height:1.25; letter-spacing:-.025em; margin-bottom:.65rem; }
+    h3 { font-size:1rem; margin-bottom:.35rem; }
+    .wrap { width:min(1160px,calc(100% - 48px)); margin:auto; }
+    .top { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:28px 0; border-bottom:1px solid var(--line); }
+    .brand { letter-spacing:.14em; text-transform:uppercase; font-size:.79rem; font-weight:800; }
+    .brand span { display:block; font-size:.67rem; letter-spacing:.09em; color:var(--muted); margin-top:3px; }
+    .skip { position:absolute; left:16px; top:-100px; padding:.7rem; background:white; z-index:2; }
+    .skip:focus { top:10px; }
+    .hero { padding:44px 0 30px; }
+    .eyebrow { display:flex; flex-wrap:wrap; gap:8px; font-size:.75rem; font-weight:750; letter-spacing:.07em; text-transform:uppercase; }
+    .tag { border:1px solid var(--line); border-radius:40px; padding:4px 11px; }
+    .tag:first-child { color:var(--teal); border-color:#a1c7b7; background:var(--teal-soft); }
+    .intro { max-width:780px; font-size:1.14rem; color:var(--muted); margin-bottom:0; }
+    .panel { background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:28px; margin-bottom:24px; }
+    .controls { display:grid; grid-template-columns:1.1fr 1fr; gap:32px; }
+    .step { display:inline-flex; width:24px; height:24px; align-items:center; justify-content:center; border-radius:50%; background:var(--ink); color:white; font-size:.7rem; margin-right:8px; vertical-align:2px; }
+    label { display:block; font-weight:700; margin-bottom:10px; }
+    select { width:100%; min-height:50px; padding:10px 35px 10px 12px; border:1px solid #95a9a6; border-radius:10px; background:white; color:var(--ink); }
+    input[type="range"] { width:100%; accent-color:var(--teal); min-height:30px; margin:10px 0; }
+    input[type="range"]:disabled { cursor:not-allowed; opacity:.45; }
+    .help { margin:.7rem 0 0; color:var(--muted); font-size:.86rem; }
+    .mix-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+    .mix-value { font-size:.88rem; font-weight:700; font-variant-numeric:tabular-nums; }
+    .mix-bar { display:flex; height:9px; border-radius:9px; overflow:hidden; background:var(--orange-soft); }
+    .mix-bar span:first-child { background:var(--teal); width:50%; }
+    .mix-bar span:last-child { background:#d38c64; width:50%; }
+    .scale { display:flex; justify-content:space-between; gap:10px; margin-top:5px; font-size:.76rem; color:var(--muted); }
+    .control-bottom { grid-column:1/-1; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; border-top:1px solid var(--line); padding-top:18px; }
+    .control-bottom p { margin:0; max-width:660px; font-size:.85rem; color:var(--muted); }
+    .result-heading { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px; margin:30px 0 16px; }
+    .result-heading h2 { margin:0; }
+    .result-heading span { font-size:.78rem; color:var(--muted); }
+    .question-text { font-size:1.1rem; max-width:950px; margin-bottom:18px; }
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .result-card { border:1px solid #b9d3c8; background:var(--teal-soft); border-radius:var(--radius); padding:25px 28px; }
+    .result-card.b { background:var(--orange-soft); border-color:#e4c5b4; }
+    .result-label { display:flex; gap:8px; align-items:center; font-weight:700; font-size:.92rem; }
+    .letter { display:inline-flex; align-items:center; justify-content:center; width:29px; height:29px; border-radius:50%; background:var(--teal); color:white; }
+    .b .letter { background:var(--orange); }
+    .value { display:block; font-weight:750; letter-spacing:-.055em; font-size:clamp(2.5rem,6vw,4rem); line-height:1.25; margin:12px 0 3px; font-variant-numeric:tabular-nums; color:var(--teal); }
+    .b .value { color:var(--orange); }
+    .result-unit { font-size:.86rem; margin-bottom:12px; color:var(--muted); }
+    .formula { margin:0; padding-top:12px; border-top:1px solid #b9d3c8; font-family:ui-monospace,Consolas,monospace; font-size:.83rem; overflow-wrap:anywhere; }
+    .b .formula { border-top-color:#e4c5b4; }
+    .interpretation { border-left:3px solid var(--teal); padding:2px 0 2px 18px; margin:20px 0 30px; }
+    .interpretation p { margin:0; }
+    .interpretation p + p { margin-top:6px; color:var(--muted); font-size:.92rem; }
+    .table-scroll { overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin-top:18px; }
+    table { border-collapse:collapse; width:100%; text-align:left; font-size:.87rem; }
+    caption { text-align:left; padding:13px 16px; font-weight:700; background:#f5f8f5; }
+    th,td { padding:13px 14px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; vertical-align:top; }
+    thead th { font-size:.76rem; color:var(--muted); background:#f9faf7; }
+    tbody tr:last-child th,tbody tr:last-child td { border-bottom:0; }
+    .raw-table { min-width:760px; }
+    .raw-table td { white-space:nowrap; }
+    .raw-table tbody tr:last-child { background:#f5f8f5; font-weight:700; }
+    .table-note { margin:13px 0 0; font-size:.85rem; color:var(--muted); }
+    .unit-note { margin-bottom:0; color:var(--muted); font-size:.94rem; }
+    .record-head { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+    .counter { font-size:.8rem; white-space:nowrap; border:1px solid var(--line); border-radius:30px; padding:4px 11px; font-variant-numeric:tabular-nums; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+    .primary { color:white; border-color:var(--teal); background:var(--teal); }
+    .primary:hover:not(:disabled) { color:var(--ink); }
+    .status { min-height:1.6em; margin:12px 0 0; color:var(--teal); font-weight:650; font-size:.87rem; }
+    .empty { background:#f5f8f5; border:1px dashed var(--line); padding:18px; border-radius:12px; margin-top:18px; color:var(--muted); font-size:.9rem; }
+    .history-table { min-width:620px; }
+    .history-table td:first-child { font-weight:700; }
+    .limits { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+    .limits p { color:var(--muted); font-size:.91rem; margin:0; }
+    .limits h3 { color:var(--ink); }
+    footer { padding:8px 0 38px; font-size:.81rem; color:var(--muted); }
+    footer p { margin-bottom:8px; }
+    footer nav { display:flex; flex-wrap:wrap; gap:20px; }
+    noscript p { border:2px solid var(--orange); background:white; padding:16px; }
+    [hidden] { display:none !important; }
+    @media (max-width:760px) { .wrap { width:calc(100% - 28px); } .hero { padding-top:30px; } .panel { padding:20px; } .controls,.limits { grid-template-columns:1fr; gap:24px; } .result-card { padding:20px; } .mix-head { flex-wrap:wrap; } .control-bottom { align-items:flex-start; } .record-head { flex-wrap:wrap; gap:8px; } }
+    @media (max-width:430px) { .result-grid { grid-template-columns:1fr; gap:12px; } .result-card { display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; } .result-label { align-self:center; } .value { text-align:right; margin:0; } .result-unit,.formula { grid-column:1/-1; } .value { font-size:3rem; } h1 { font-size:2.65rem; } .top { padding:18px 0; } }
+    @media print { body { background:white; } .wrap { width:100%; } .top button,.controls,.actions { display:none; } .panel,.result-card { break-inside:avoid; } .table-scroll { overflow:visible; } table { min-width:0 !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Pular para a demonstração</a>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">Zero Px<span data-i18n="brandSub">Fundamentos em prática</span></div>
+      <button id="lang" type="button" lang="en" aria-label="Switch to English">English</button>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="title">
+        <div class="eyebrow"><span class="tag" data-i18n="offline">Offline · sem conexão</span><span class="tag" data-i18n="synthetic">Dados sintéticos fixos</span></div>
+        <h1 id="title" data-i18n="title">Antes da taxa,<br>a pergunta</h1>
+        <p class="intro" data-i18n="intro">Os mesmos números podem responder corretamente a perguntas diferentes. Experimente mudar a pergunta — sem mudar os dados nem apagar o caminho.</p>
+      </section>
+      <noscript><p>Esta demonstração precisa de JavaScript local. Não usa rede. Leia o <a href="comparable-rates.md">exemplo completo / full example</a> sem executar a demonstração. This demo needs local JavaScript; it does not use a network connection.</p></noscript>
+      <section class="panel controls" aria-labelledby="controls-title">
+        <div>
+          <h2 id="controls-title"><span class="step" aria-hidden="true">1</span><span data-i18n="ask">Escolha a pergunta</span></h2>
+          <label for="question" data-i18n="questionLabel">O que você quer comparar?</label>
+          <select id="question" aria-describedby="question-help">
+            <option value="count" data-i18n="countOption">Quantidade sinalizada nos lotes</option>
+            <option value="observed_rate" data-i18n="observedOption">Taxa dos lotes observados</option>
+            <option value="common_mix" selected data-i18n="mixOption">Taxa numa composição comum</option>
+          </select>
+          <p id="question-help" class="help" data-i18n="questionHelp">A unidade e o denominador fazem parte da resposta. Nenhuma opção elege um vencedor geral.</p>
+        </div>
+        <div>
+          <h2><span class="step" aria-hidden="true">2</span><span data-i18n="declareMix">Declare a composição</span></h2>
+          <div class="mix-head"><label for="mix" data-i18n="mixLabel">Peso dos casos simples</label><output id="mix-value" class="mix-value" for="mix">50% simples · 50% complexos</output></div>
+          <input id="mix" type="range" min="0" max="100" step="1" value="50" aria-describedby="mix-help">
+          <div class="mix-bar" aria-hidden="true"><span id="simple-bar"></span><span id="complex-bar"></span></div>
+          <div class="scale" aria-hidden="true"><span data-i18n="complexEnd">0% simples</span><span data-i18n="simpleEnd">100% simples</span></div>
+          <p id="mix-help" class="help">Os mesmos pesos são aplicados a A e B. Os lotes originais não mudam.</p>
+        </div>
+        <div class="control-bottom"><p data-i18n="noAutosave">Mudar controles recalcula a resposta, mas não cria registros. Restaurar os controles também não apaga o histórico.</p><button id="reset" type="button" data-i18n="reset">Restaurar 50/50</button></div>
+      </section>
+      <section aria-labelledby="result-title">
+        <div class="result-heading"><h2 id="result-title" data-i18n="resultTitle">Duas respostas à mesma pergunta</h2><span data-i18n="notPrediction">Comparação descritiva, não previsão</span></div>
+        <div id="results" aria-live="polite" aria-atomic="true">
+          <p id="active-question" class="question-text"></p>
+          <div class="result-grid">
+            <article class="result-card" aria-labelledby="label-a"><div id="label-a" class="result-label"><span class="letter">A</span><span data-i18n="method">Método</span></div><output id="result-a" class="value">5%</output><p id="unit-a" class="result-unit"></p><p id="formula-a" class="formula"></p></article>
+            <article class="result-card b" aria-labelledby="label-b"><div id="label-b" class="result-label"><span class="letter">B</span><span data-i18n="method">Método</span></div><output id="result-b" class="value">6%</output><p id="unit-b" class="result-unit"></p><p id="formula-b" class="formula"></p></article>
+          </div>
+          <div class="interpretation"><p id="comparison"></p><p id="boundary"></p></div>
+        </div>
+      </section>
+      <section class="panel" aria-labelledby="raw-title">
+        <h2 id="raw-title" data-i18n="rawTitle">O que não mudou: os quatro pares originais</h2>
+        <p class="unit-note" data-i18n="unitNote">Uma fatura é contada uma vez. “Sinalizada” significa ao menos uma divergência nos campos exigidos, segundo uma referência comum estipulada. Os grupos e a janela de avaliação são comuns por definição neste exemplo, não medições de clientes.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-labelledby="raw-title">
+          <table class="raw-table"><caption data-i18n="rawCaption">Faturas sinalizadas / examinadas, taxas e composição de cada lote</caption><thead><tr><th scope="col" data-i18n="group">Grupo</th><th scope="col" data-i18n="aCounts">A · sinalizadas / examinadas</th><th scope="col" data-i18n="aRate">A · taxa</th><th scope="col" data-i18n="aShare">A · composição</th><th scope="col" data-i18n="bCounts">B · sinalizadas / examinadas</th><th scope="col" data-i18n="bRate">B · taxa</th><th scope="col" data-i18n="bShare">B · composição</th></tr></thead><tbody id="raw-body"></tbody></table>
+        </div>
+        <p class="table-note" data-i18n="compositionNote">Composição = faturas examinadas no grupo ÷ todas as faturas examinadas pelo método. Os totais são iguais (1.100), mas as composições não. ≈ indica arredondamento para exibição.</p>
+      </section>
+      <section class="panel" aria-labelledby="history-title">
+        <div class="record-head"><div><h2 id="history-title"><span class="step" aria-hidden="true">3</span><span data-i18n="keepPath">Registre para poder retornar</span></h2><p class="unit-note" data-i18n="memoryNote">Histórico somente na memória desta página: fechar ou recarregar perde os registros. Exporte antes. Sem armazenamento persistente, rede ou relógio do computador.</p></div><span id="history-count" class="counter">0 / 25</span></div>
+        <div class="actions"><button id="record" class="primary" type="button" data-i18n="record">Registrar comparação</button><button id="export" type="button" disabled data-i18n="export">Exportar histórico · JSON</button></div>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <p id="capacity" class="help" data-i18n="capacity">Limite de 25 registros, sem substituição automática. A exportação inclui somente os registros que você criou e os dados sintéticos da demonstração.</p>
+        <div id="history"><p class="empty" data-i18n="historyEmpty">Nenhum registro ainda. Escolha a pergunta e use “Registrar comparação”.</p></div>
+      </section>
+      <aside class="panel limits" aria-label="Limites e fundamentos" id="limits">
+        <div><h3 data-i18n="limitTitle">O limite faz parte da demonstração</h3><p data-i18n="limitText">Taxas menores não demonstram causa, qualidade geral ou resultados futuros. Contagens sinalizadas não medem pendências de revisão. Esta página não executa os motores CSV ou Farol e não mede seu desempenho.</p></div>
+        <div><h3 data-i18n="foundationTitle">Uma resposta útil, com caminho de retorno</h3><p data-i18n="foundationText">Ética do Desconhecimento, Engenharia de Pontes e Freio Técnico da Cognição Finita: explicitar pergunta, referência e limites; agir sem exigir certeza impossível; revisitar a conclusão quando mudar o contexto. Nova exposição de um problema estatístico conhecido, não descoberta científica.</p></div>
+      </aside>
+    </main>
+    <footer><p data-i18n="credit">Júnior: concepção e orientação dos fundamentos. Nexo/Codex, assistente de IA: elaboração e implementação desta demonstração.</p><p data-i18n="version">Demonstração r1 · conjunto sintético r1 · sem dados pessoais ou de clientes</p><nav aria-label="Referências" id="references"><a href="comparable-rates.md" data-i18n="source">Leia o exemplo e suas condições</a><a href="../../RIGHTS.md" data-i18n="rights">Direitos e atribuições</a></nav></footer>
+  </div>
+  <script>
+    (() => {
+      "use strict";
+      const MAX_RECORDS = 25;
+      const APP_VERSION = "comparable-rates-demo-r1";
+      const SOURCE_SHA256 = "9cbc8183bfebcd5fb8500ed9d86edc089cb3ade4bf4ba404b69e12903b69512e";
+      const freeze = (value) => {
+        if (value && typeof value === "object") {
+          Object.values(value).forEach(freeze);
+          Object.freeze(value);
+        }
+        return value;
+      };
+      const DATA = freeze({
+        version: "synthetic-invoice-discrepancy-r1",
+        synthetic: true,
+        unit: "invoice_counted_once",
+        discrepancy_rule: "at_least_one_discrepancy_in_required_fields_against_stipulated_common_reference",
+        evaluation_window: "same_stipulated_window_for_all_groups_no_calendar_dates",
+        groups: ["simple", "complex"],
+        raw: {
+          A: { simple: { flagged: 1, examined: 100 }, complex: { flagged: 90, examined: 1000 } },
+          B: { simple: { flagged: 20, examined: 1000 }, complex: { flagged: 10, examined: 100 } }
+        }
+      });
+      const TEXT = {
+        pt: {
+          skip:"Pular para a demonstração", brandSub:"Fundamentos em prática", offline:"Offline · sem conexão", synthetic:"Dados sintéticos fixos", title:"Antes da taxa, a pergunta", intro:"Os mesmos números podem responder corretamente a perguntas diferentes. Experimente mudar a pergunta — sem mudar os dados nem apagar o caminho.", ask:"Escolha a pergunta", questionLabel:"O que você quer comparar?", countOption:"Quantidade sinalizada nos lotes", observedOption:"Taxa dos lotes observados", mixOption:"Taxa numa composição comum", questionHelp:"A unidade e o denominador fazem parte da resposta. Nenhuma opção elege um vencedor geral.", declareMix:"Declare a composição", mixLabel:"Peso dos casos simples", complexEnd:"0% simples", simpleEnd:"100% simples", mixHelp:"Os mesmos pesos são aplicados a A e B. Os lotes originais não mudam.", unusedMix:"Composição comum não se aplica a esta pergunta. O peso fica guardado para quando você voltar à comparação padronizada.", noAutosave:"Mudar controles recalcula a resposta, mas não cria registros. Restaurar os controles também não apaga o histórico.", reset:"Restaurar 50/50", resultTitle:"Duas respostas à mesma pergunta", notPrediction:"Comparação descritiva, não previsão", method:"Método", countQuestion:"Quantas faturas dos lotes já entregues foram sinalizadas com divergência?", observedQuestion:"Qual é a taxa de faturas sinalizadas em cada lote observado completo?", mixQuestion:"Como as taxas registradas se comparam numa composição comum?", countUnit:"faturas sinalizadas no lote observado", observedUnit:"das faturas do lote observado", mixUnit:"taxa padronizada na composição escolhida", countComparison:"A: 91 faturas sinalizadas; B: 30. Esta é a contagem pedida, não uma competição de taxas.", countBoundary:"Substituir essas contagens por uma taxa padronizada responderia a outra pergunta. Elas não revelam quantas faturas ainda aguardam revisão ou correção.", observedComparison:"B apresenta a menor taxa agregada observada. Os lotes têm composições diferentes, mesmo com o mesmo total de faturas.", observedBoundary:"A recebeu proporcionalmente mais casos complexos. A taxa agregada não isola essa diferença nem prova qual método causaria menos erros.", mixComparison:"Com estes pesos comuns, A fica 1 ponto percentual abaixo de B. As quatro taxas estipuladas mantêm essa diferença em toda a faixa do controle.", mixBoundary:"Os pesos são uma referência declarada, não novos dados. A comparação não muda os lotes nem prevê resultados, causa ou qualidade geral.", rawTitle:"O que não mudou: os quatro pares originais", unitNote:"Uma fatura é contada uma vez. “Sinalizada” significa ao menos uma divergência nos campos exigidos, segundo uma referência comum estipulada. Os grupos e a janela de avaliação são comuns por definição neste exemplo, não medições de clientes.", rawCaption:"Faturas sinalizadas / examinadas, taxas e composição de cada lote", group:"Grupo", aCounts:"A · sinalizadas / examinadas", aRate:"A · taxa", aShare:"A · composição", bCounts:"B · sinalizadas / examinadas", bRate:"B · taxa", bShare:"B · composição", simple:"Simples", complex:"Complexo", total:"Lote completo", compositionNote:"Composição = faturas examinadas no grupo ÷ todas as faturas examinadas pelo método. Os totais são iguais (1.100), mas as composições não. ≈ indica arredondamento para exibição.", keepPath:"Registre para poder retornar", memoryNote:"Histórico somente na memória desta página: fechar ou recarregar perde os registros. Exporte antes. Sem armazenamento persistente, rede ou relógio do computador.", record:"Registrar comparação", export:"Exportar histórico · JSON", capacity:"Limite de 25 registros, sem substituição automática. A exportação inclui somente os registros que você criou e os dados sintéticos da demonstração.", historyEmpty:"Nenhum registro ainda. Escolha a pergunta e use “Registrar comparação”.", historyCaption:"Registros explícitos desta página, na ordem em que foram criados", sequence:"Ordem", recordedQuestion:"Pergunta", recordedMix:"Pesos simples / complexos", resultA:"Resposta A", resultB:"Resposta B", unused:"não aplicados", changed:"Resposta recalculada. O histórico permanece igual; registre se quiser guardar esta comparação.", resetDone:"Controles restaurados: composição comum 50/50. Todos os registros foram preservados.", saved:"Comparação registrada. Nenhum registro anterior foi alterado.", full:"25 de 25 registros. Limite atingido: nenhum registro será substituído. Exporte o histórico para preservá-lo.", exportRequested:"Exportação JSON solicitada. O arquivo contém apenas os registros explícitos e o conjunto sintético.", exportFailed:"Não foi possível iniciar a exportação. Os registros continuam na memória desta página; não a recarregue.", ready:"Ajuste os controles e registre apenas quando quiser guardar uma comparação.", limitTitle:"O limite faz parte da demonstração", limitText:"Taxas menores não demonstram causa, qualidade geral ou resultados futuros. Contagens sinalizadas não medem pendências de revisão. Esta página não executa os motores CSV ou Farol e não mede seu desempenho.", foundationTitle:"Uma resposta útil, com caminho de retorno", foundationText:"Ética do Desconhecimento, Engenharia de Pontes e Freio Técnico da Cognição Finita: explicitar pergunta, referência e limites; agir sem exigir certeza impossível; revisitar a conclusão quando mudar o contexto. Nova exposição de um problema estatístico conhecido, não descoberta científica.", credit:"Júnior: concepção e orientação dos fundamentos. Nexo/Codex, assistente de IA: elaboração e implementação desta demonstração.", version:"Demonstração r1 · conjunto sintético r1 · sem dados pessoais ou de clientes", source:"Leia o exemplo e suas condições", rights:"Direitos e atribuições", references:"Referências", limits:"Limites e fundamentos", mixWords:"simples · {complex}% complexos"
+        },
+        en: {
+          skip:"Skip to the demo", brandSub:"Foundations in practice", offline:"Offline · no connection", synthetic:"Fixed synthetic data", title:"Before the rate, the question", intro:"The same numbers can correctly answer different questions. Try changing the question — without changing the data or erasing the path.", ask:"Choose the question", questionLabel:"What do you want to compare?", countOption:"Flagged count in delivered batches", observedOption:"Rate in the observed batches", mixOption:"Rate under a common composition", questionHelp:"The unit and denominator are part of the answer. No option selects an overall winner.", declareMix:"Declare the composition", mixLabel:"Weight of simple cases", complexEnd:"0% simple", simpleEnd:"100% simple", mixHelp:"The same weights apply to A and B. The original batches do not change.", unusedMix:"A common composition does not apply to this question. The weight is retained for when you return to the standardized comparison.", noAutosave:"Changing controls recalculates the answer but creates no record. Resetting the controls does not erase the history either.", reset:"Restore 50/50", resultTitle:"Two answers to the same question", notPrediction:"Descriptive comparison, not a prediction", method:"Method", countQuestion:"How many invoices in the delivered batches were flagged with a discrepancy?", observedQuestion:"What is the flagged-invoice rate in each entire observed batch?", mixQuestion:"How do the recorded rates compare under a common composition?", countUnit:"flagged invoices in the observed batch", observedUnit:"of invoices in the observed batch", mixUnit:"standardized rate under the chosen composition", countComparison:"A: 91 flagged invoices; B: 30. This is the requested count, not a contest of rates.", countBoundary:"Replacing these counts with a standardized rate would answer another question. They do not reveal how many invoices still await review or correction.", observedComparison:"B has the lower observed aggregate rate. The batches have different compositions despite having the same total number of invoices.", observedBoundary:"A received proportionally more complex cases. The aggregate rate does not isolate that difference or establish which method would cause fewer errors.", mixComparison:"With these common weights, A is 1 percentage point below B. The four stipulated rates retain this difference across the full slider range.", mixBoundary:"The weights are a declared reference, not new data. The comparison does not change the batches or predict outcomes, causation or overall quality.", rawTitle:"What stayed unchanged: the four original pairs", unitNote:"An invoice is counted once. “Flagged” means at least one discrepancy in required fields against a stipulated common reference. Groups and evaluation window are common by definition in this example, not measurements from customers.", rawCaption:"Flagged / examined invoices, rates and each batch's composition", group:"Group", aCounts:"A · flagged / examined", aRate:"A · rate", aShare:"A · composition", bCounts:"B · flagged / examined", bRate:"B · rate", bShare:"B · composition", simple:"Simple", complex:"Complex", total:"Entire batch", compositionNote:"Composition = invoices examined in the group ÷ all invoices examined by the method. Totals are equal (1,100), but compositions differ. ≈ marks rounding for display.", keepPath:"Record a path you can revisit", memoryNote:"History lives only in this page's memory: closing or reloading loses the records. Export first. No persistent storage, network or computer clock.", record:"Record comparison", export:"Export history · JSON", capacity:"Limit: 25 records, with no automatic replacement. The export contains only the records you created and the demo's synthetic data.", historyEmpty:"No records yet. Choose a question, then select “Record comparison”.", historyCaption:"Explicit records from this page, in creation order", sequence:"Order", recordedQuestion:"Question", recordedMix:"Simple / complex weights", resultA:"Answer A", resultB:"Answer B", unused:"not applied", changed:"Answer recalculated. History is unchanged; record if you want to keep this comparison.", resetDone:"Controls restored: common composition, 50/50. All records have been preserved.", saved:"Comparison recorded. No earlier record was changed.", full:"25 of 25 records. Limit reached: no record will be replaced. Export the history to preserve it.", exportRequested:"JSON export requested. The file contains only explicit records and the synthetic dataset.", exportFailed:"Could not start the export. Records remain in this page's memory; do not reload it.", ready:"Adjust the controls and record only when you want to keep a comparison.", limitTitle:"The boundary is part of the demo", limitText:"Lower rates do not establish causation, overall quality or future outcomes. Flagged counts do not measure a review backlog. This page does not run the CSV or Farol engines or measure their performance.", foundationTitle:"A useful answer, with a way back", foundationText:"Ethics of Not Knowing, Bridge Engineering and the Technical Brake of Finite Cognition: state the question, reference and limits; act without requiring impossible certainty; revisit the conclusion when context changes. A new exposition of a known statistical issue, not a scientific discovery.", credit:"Júnior: conception and direction of the foundations. Nexo/Codex, an AI assistant: elaboration and implementation of this demo.", version:"Demo r1 · synthetic dataset r1 · no personal or customer data", source:"Read the example and its conditions", rights:"Rights and attribution", references:"References", limits:"Boundaries and foundations", mixWords:"simple · {complex}% complex"
+        }
+      };
+      const questionKeys = { count:"countQuestion", observed_rate:"observedQuestion", common_mix:"mixQuestion" };
+      const optionKeys = { count:"countOption", observed_rate:"observedOption", common_mix:"mixOption" };
+      const prefixKeys = { count:"count", observed_rate:"observed", common_mix:"mix" };
+      const $ = (id) => document.getElementById(id);
+      let language = "pt";
+      let statusKey = "ready";
+      const records = [];
+      const t = (key) => TEXT[language][key];
+      const number = (value) => new Intl.NumberFormat(language === "pt" ? "pt-BR" : "en-US", { maximumFractionDigits:2 }).format(value);
+      const fraction = (numerator, denominator) => {
+        let a = Math.abs(numerator), b = denominator;
+        while (b) { const remainder = a % b; a = b; b = remainder; }
+        const divisor = a || 1;
+        return { numerator:numerator / divisor, denominator:denominator / divisor };
+      };
+      const display = (exact, unit) => {
+        const rounded = (Math.abs(exact.numerator) * 100) % exact.denominator !== 0;
+        return `${rounded ? "≈ " : ""}${number(exact.numerator / exact.denominator)}${unit === "percent" ? "%" : ""}`;
+      };
+      const total = (method) => ({ flagged:DATA.raw[method].simple.flagged + DATA.raw[method].complex.flagged, examined:DATA.raw[method].simple.examined + DATA.raw[method].complex.examined });
+      const current = () => {
+        const question = Object.hasOwn(questionKeys, $("question").value) ? $("question").value : "common_mix";
+        const supplied = Number($("mix").value);
+        const simple = Number.isFinite(supplied) ? Math.max(0, Math.min(100, Math.round(supplied))) : 50;
+        return { question, simple, complex:100 - simple };
+      };
+      const calculate = (state) => {
+        const unit = state.question === "count" ? "invoices" : "percent";
+        const output = { unit, A:null, B:null, difference_A_minus_B:null };
+        for (const method of ["A", "B"]) {
+          const raw = DATA.raw[method], sums = total(method);
+          let exact;
+          if (state.question === "count") exact = fraction(sums.flagged, 1);
+          else if (state.question === "observed_rate") exact = fraction(100 * sums.flagged, sums.examined);
+          else exact = fraction(state.simple * raw.simple.flagged * raw.complex.examined + state.complex * raw.complex.flagged * raw.simple.examined, raw.simple.examined * raw.complex.examined);
+          output[method] = { value:exact.numerator / exact.denominator, unit, exact };
+        }
+        const a = output.A.exact, b = output.B.exact;
+        const difference = fraction(a.numerator * b.denominator - b.numerator * a.denominator, a.denominator * b.denominator);
+        output.difference_A_minus_B = { value:difference.numerator / difference.denominator, unit:unit === "percent" ? "percentage_points" : "invoices", exact:difference };
+        return output;
+      };
+      const setStatus = (key) => { statusKey = key; $("status").textContent = t(key); };
+      const formula = (method, state) => {
+        const raw = DATA.raw[method], sums = total(method);
+        if (state.question === "count") return `${raw.simple.flagged} + ${raw.complex.flagged} = ${sums.flagged}`;
+        if (state.question === "observed_rate") return `${sums.flagged} / ${number(sums.examined)} × 100`;
+        const rateSimple = display(fraction(raw.simple.flagged * 100, raw.simple.examined), "percent");
+        const rateComplex = display(fraction(raw.complex.flagged * 100, raw.complex.examined), "percent");
+        return `(${state.simple}/100 × ${rateSimple}) + (${state.complex}/100 × ${rateComplex})`;
+      };
+      const renderResults = () => {
+        const state = current(), values = calculate(state), prefix = prefixKeys[state.question];
+        $("mix").value = String(state.simple);
+        $("mix").disabled = state.question !== "common_mix";
+        const mixText = `${state.simple}% ${t("mixWords").replace("{complex}", state.complex)}`;
+        $("mix-value").textContent = mixText;
+        $("mix").setAttribute("aria-valuetext", mixText);
+        $("mix-help").textContent = t(state.question === "common_mix" ? "mixHelp" : "unusedMix");
+        $("simple-bar").style.width = `${state.simple}%`;
+        $("complex-bar").style.width = `${state.complex}%`;
+        $("active-question").textContent = t(questionKeys[state.question]);
+        for (const method of ["A", "B"]) {
+          const lower = method.toLowerCase();
+          $("result-" + lower).textContent = display(values[method].exact, values.unit);
+          $("unit-" + lower).textContent = t(prefix + "Unit");
+          $("formula-" + lower).textContent = formula(method, state);
+        }
+        $("comparison").textContent = t(prefix + "Comparison");
+        $("boundary").textContent = t(prefix + "Boundary");
+      };
+      const cell = (tag, content) => { const element = document.createElement(tag); element.textContent = content; return element; };
+      const renderRaw = () => {
+        const body = $("raw-body");
+        body.replaceChildren();
+        for (const group of ["simple", "complex", "total"]) {
+          const row = document.createElement("tr"), label = cell("th", t(group));
+          label.scope = "row"; row.append(label);
+          for (const method of ["A", "B"]) {
+            const sums = total(method), raw = group === "total" ? sums : DATA.raw[method][group];
+            row.append(cell("td", `${raw.flagged} / ${number(raw.examined)}`), cell("td", display(fraction(raw.flagged * 100, raw.examined), "percent")), cell("td", display(fraction(raw.examined * 100, sums.examined), "percent")));
+          }
+          body.append(row);
+        }
+      };
+      const renderHistory = () => {
+        const region = $("history");
+        region.replaceChildren();
+        $("history-count").textContent = `${records.length} / ${MAX_RECORDS}`;
+        $("record").disabled = records.length >= MAX_RECORDS;
+        $("export").disabled = records.length === 0;
+        $("capacity").textContent = t(records.length >= MAX_RECORDS ? "full" : "capacity");
+        if (!records.length) { const empty = cell("p", t("historyEmpty")); empty.className = "empty"; region.append(empty); return; }
+        const scroll = document.createElement("div"); scroll.className = "table-scroll"; scroll.tabIndex = 0; scroll.setAttribute("role", "region"); scroll.setAttribute("aria-labelledby", "history-title");
+        const table = document.createElement("table"); table.className = "history-table";
+        table.append(cell("caption", t("historyCaption")));
+        const head = document.createElement("thead"), header = document.createElement("tr");
+        for (const key of ["sequence", "recordedQuestion", "recordedMix", "resultA", "resultB"]) { const th = cell("th", t(key)); th.scope = "col"; header.append(th); }
+        head.append(header); table.append(head);
+        const body = document.createElement("tbody");
+        for (const record of records) {
+          const row = document.createElement("tr");
+          const weights = `${record.weights.simple_percent}% / ${record.weights.complex_percent}%${record.weights.applied ? "" : " · " + t("unused")}`;
+          row.append(cell("td", String(record.sequence)), cell("td", t(optionKeys[record.question.id])), cell("td", weights), cell("td", display(record.outputs.A.exact, record.outputs.A.unit)), cell("td", display(record.outputs.B.exact, record.outputs.B.unit)));
+          body.append(row);
+        }
+        table.append(body); scroll.append(table); region.append(scroll);
+      };
+      const renderLanguage = () => {
+        document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
+        document.title = `${t("title")} · Zero Px`;
+        document.querySelectorAll("[data-i18n]").forEach((element) => { element.textContent = t(element.dataset.i18n); });
+        $("lang").textContent = language === "pt" ? "English" : "Português";
+        $("lang").lang = language === "pt" ? "en" : "pt-BR";
+        $("lang").setAttribute("aria-label", language === "pt" ? "Switch to English" : "Mudar para português");
+        $("limits").setAttribute("aria-label", t("limits"));
+        $("references").setAttribute("aria-label", t("references"));
+        renderResults(); renderRaw(); renderHistory(); setStatus(statusKey);
+      };
+      $("question").addEventListener("change", () => { renderResults(); setStatus("changed"); });
+      $("mix").addEventListener("input", () => { renderResults(); setStatus("changed"); });
+      $("reset").addEventListener("click", () => { $("question").value = "common_mix"; $("mix").value = "50"; renderResults(); setStatus("resetDone"); });
+      $("lang").addEventListener("click", () => { language = language === "pt" ? "en" : "pt"; renderLanguage(); });
+      $("record").addEventListener("click", () => {
+        if (records.length >= MAX_RECORDS) { setStatus("full"); return; }
+        const state = current();
+        const snapshot = {
+          sequence:records.length + 1,
+          question:{ id:state.question, text:{ pt:TEXT.pt[questionKeys[state.question]], en:TEXT.en[questionKeys[state.question]] } },
+          weights:{ simple_percent:state.simple, complex_percent:state.complex, applied:state.question === "common_mix", meaning:state.question === "common_mix" ? "common_reference_for_both_methods" : "retained_control_values_not_applied_to_answer" },
+          dataset:JSON.parse(JSON.stringify(DATA)),
+          outputs:calculate(state),
+          interpretation:{ pt:TEXT.pt[prefixKeys[state.question] + "Comparison"], en:TEXT.en[prefixKeys[state.question] + "Comparison"] },
+          boundary:{ pt:TEXT.pt[prefixKeys[state.question] + "Boundary"], en:TEXT.en[prefixKeys[state.question] + "Boundary"] }
+        };
+        records.push(freeze(snapshot));
+        renderHistory(); setStatus(records.length === MAX_RECORDS ? "full" : "saved");
+      });
+      $("export").addEventListener("click", () => {
+        if (!records.length) return;
+        let url;
+        const link = document.createElement("a");
+        try {
+          const bundle = {
+            schema_version:"comparable-rates-history-v1",
+            demo_version:APP_VERSION,
+            source_document:{ relative_path:"comparable-rates.md", sha256:SOURCE_SHA256 },
+            authorship:{ conception:"Júnior", implementation:"Nexo/Codex — AI assistant" },
+            synthetic_only:true,
+            chronology:"sequence_is_local_record_order_not_a_timestamp_or_external_attestation",
+            numeric_units:"rates_are_percent_on_a_0_to_100_scale; differences_of_rates_are_percentage_points; exact_contains_the_same_value_as_a_rational_fraction",
+            record_limit:MAX_RECORDS,
+            record_count:records.length,
+            records
+          };
+          const blob = new Blob([JSON.stringify(bundle, null, 2) + "\n"], { type:"application/json;charset=utf-8" });
+          url = URL.createObjectURL(blob);
+          link.href = url; link.download = "comparable-rates-demo-r1.json"; link.hidden = true;
+          document.body.append(link); link.click(); setStatus("exportRequested");
+        } catch (_) { setStatus("exportFailed"); }
+        finally { link.remove(); if (url) setTimeout(() => URL.revokeObjectURL(url), 1000); }
+      });
+      renderLanguage();
+    })();
+  </script>
+</body>
+</html>
