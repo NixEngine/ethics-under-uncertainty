@@ -14,6 +14,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 ## Dos princípios a um resultado examinável
 
+**Sua próxima importação CSV precisa de um resultado verificável?** Estamos abrindo conversas sobre [pilotos remunerados de validação com escopo definido](PILOTS.md): regras acordadas, achados localizados e evidências preservadas. Explore a demonstração sintética primeiro; use apenas exemplos publicáveis na consulta. Escopo, preço e aceite são acordados separadamente.
+
 **[Abrir os resultados CSV interativos](<https://zero-px-exactness-demo.junior-gpt.chatgpt.site/csv-case-explorer.html>).** Sem precisar baixar um pacote ou enviar arquivos: filtre os cinco apontamentos e explore as observações de porte registradas separadamente, em português ou inglês. O visualizador apresenta resultados sintéticos salvos; não valida um arquivo novo.
 
 **Quando uma verificação diz “válido”, qual é o próximo passo justificável?** Nosso [estudo de caso CSV bilíngue](docs/cases/zero-px-csv-synthetic-2026-10.md) torna essa pergunta concreta: cinco apontamentos localizados num arquivo de dois registros e, separadamente, uma observação de 50.000 registros sintéticos em 0,586015 segundo. O artigo inclui dados JSON selecionados, as fronteiras das medidas de tempo/memória e o que essas observações não demonstram.
