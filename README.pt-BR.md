@@ -22,6 +22,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Traga um requisito verificável.** Na [conversa de pesquisa aplicada já existente](https://github.com/NixEngine/ethics-under-uncertainty/issues/3), descreva a forma da entrada, o resultado esperado e a decisão que a verificação deve apoiar. Use somente exemplos sintéticos publicáveis—sem dados de clientes, credenciais ou arquivos confidenciais. A conversa começa por uma pergunta, não por um contrato ou promessa de entrega.
 
+**Um estado salvo responde a uma pergunta que mudou?** Nosso [exemplo bilíngue verificável à mão](docs/cases/when-the-question-changes.md) mostra duas histórias com o mesmo resumo e contagens de auditoria diferentes. O retorno sob incerteza vira uma escolha concreta: responder o que o resumo sustenta, buscar a distinção faltante ou iniciar uma medição com fronteira explícita.
+
 ## O que já pode ser verificado
 
 A implementação de referência fornece:
