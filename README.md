@@ -32,6 +32,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Does an observed success settle suitability—or trust?** The [bilingual task-evidence case](docs/cases/task-evidence-without-ranking.md) preserves an initial success followed by decline, a complete prefix, a gap and an unobserved threshold. Four public synthetic input/result pairs make the distinctions inspectable; the separate engine remains private. Task performance is not a measure of honesty or moral worth.
 
+**Three rules passed the same four examples. Did that make them interchangeable?** The [recorded CSV rule comparison](docs/cases/csv-rules-that-tied.md) shows why not: a valid new date separates an overrestrictive allowlist from calendar validation, while an impossible date exposes a text-only rule. Inspect all eight synthetic inputs and 24 recorded classifications, including the moment missing evidence prevented a choice. This is a constructed local experiment, not a general accuracy benchmark.
+
 **A brake also needs a way back.** The optional **Farol reconvergence guard is integrated into the action selector**: after an exception, it requires a declared stable window, freezes sensitive parameters and bounds flexible updates before normal admission resumes. [Run the six-decision source example](docs/reconvergence.md#run-the-source-example) to see a more highly scored candidate refused during return, admitted after recovery, and refused again after drift. [Português](docs/pt-BR/reconvergencia.md). These are synthetic decisions, not executed actions or proof of an operationally safe return.
 
 ## What can be verified now

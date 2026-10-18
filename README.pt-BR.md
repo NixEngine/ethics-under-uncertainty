@@ -32,6 +32,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Um sucesso observado resolve a adequação — ou a confiança?** O [caso bilíngue de evidência por tarefa](docs/cases/task-evidence-without-ranking.md) preserva sucesso inicial seguido de queda, prefixo completo, lacuna e patamar não observado. Quatro pares sintéticos públicos de entrada/resultado tornam as distinções examináveis; o motor separado continua privado. Desempenho não mede honestidade ou valor moral.
 
+**Três regras acertaram os mesmos quatro exemplos. Isso as tornou equivalentes?** A [comparação registrada de regras CSV](docs/cases/csv-rules-that-tied.md) mostra por que não: uma data válida nova distingue uma lista restritiva da validação de calendário, enquanto uma data impossível expõe a regra de texto livre. Examine as oito entradas sintéticas e 24 classificações registradas, inclusive o momento em que a falta de evidência impediu uma escolha. É um experimento local construído, não um benchmark de acurácia geral.
+
 **Um freio também precisa de um caminho de volta.** A guarda opcional de **reconvergência do Farol está integrada ao seletor de ações**: após uma exceção, exige uma janela estável declarada, congela parâmetros sensíveis e limita ajustes flexíveis antes da admissão normal. [Execute o exemplo de seis decisões a partir do código-fonte](docs/pt-BR/reconvergencia.md#execute-o-exemplo-a-partir-do-código-fonte) para ver um candidato com pontuação maior recusado durante o retorno, admitido após a recuperação e novamente recusado diante de deriva. [English](docs/reconvergence.md). São decisões sintéticas, não ações executadas nem prova de retorno operacional seguro.
 
 ## O que já pode ser verificado

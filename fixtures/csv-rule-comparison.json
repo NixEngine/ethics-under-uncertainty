@@ -1,0 +1,623 @@
+{
+  "schema": "zero-px.public-csv-rule-comparison.v1",
+  "data_kind": "DELIBERATELY_SYNTHETIC",
+  "provenance": {
+    "type": "SELECTED_PROJECTION_OF_SAVED_PRIVATE_EXECUTION",
+    "producer_runs": 24,
+    "native_verifier_runs": 24,
+    "private_measurements_sha256": "c3dce08f1868bec8ccacdd9c6c395819d13651065398dd1da08fc3e017fe7546",
+    "private_oracle_sha256": "c426f5732db607744b0c65ab903cd6975f3481fce194d7b621b21ff619abb445",
+    "runtime": "Windows / CPython 3.14; private CSV engine and adapter",
+    "full_receipts_distributed": false,
+    "engine_distributed": false,
+    "new_execution_for_publication": false,
+    "externally_authenticated": false
+  },
+  "import_contract": {
+    "header": [
+      "id",
+      "data",
+      "status"
+    ],
+    "id": "Nonempty full ASCII integer format with optional sign; no positivity/range requirement.",
+    "uniqueness": "The original id string must be distinct within each file; no numeric-equivalence normalization.",
+    "data": "Nonempty valid Gregorian calendar date in exact YYYY-MM-DD format.",
+    "status": "Nonempty exact literal open or settled.",
+    "unchanged_source": "Validation does not normalize, repair, convert, trim or rewrite source CSV bytes."
+  },
+  "profiles": [
+    {
+      "id": "a_seen_dates",
+      "rules": {
+        "version": 1,
+        "encoding": "utf-8",
+        "delimiter": ",",
+        "columns": [
+          {
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "max_chars": 16
+          },
+          {
+            "name": "data",
+            "type": "iso_date",
+            "required": true,
+            "max_chars": 10,
+            "enum": [
+              "2028-06-10",
+              "2028-06-11"
+            ]
+          },
+          {
+            "name": "status",
+            "type": "text",
+            "required": true,
+            "max_chars": 16,
+            "enum": [
+              "open",
+              "settled"
+            ]
+          }
+        ],
+        "duplicate_key": [
+          "id"
+        ],
+        "limits": {
+          "max_bytes": 4096,
+          "max_rows": 16,
+          "max_field_chars": 64,
+          "max_diagnostics": 64
+        }
+      }
+    },
+    {
+      "id": "b_iso",
+      "rules": {
+        "version": 1,
+        "encoding": "utf-8",
+        "delimiter": ",",
+        "columns": [
+          {
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "max_chars": 16
+          },
+          {
+            "name": "data",
+            "type": "iso_date",
+            "required": true,
+            "max_chars": 10
+          },
+          {
+            "name": "status",
+            "type": "text",
+            "required": true,
+            "max_chars": 16,
+            "enum": [
+              "open",
+              "settled"
+            ]
+          }
+        ],
+        "duplicate_key": [
+          "id"
+        ],
+        "limits": {
+          "max_bytes": 4096,
+          "max_rows": 16,
+          "max_field_chars": 64,
+          "max_diagnostics": 64
+        }
+      }
+    },
+    {
+      "id": "c_text",
+      "rules": {
+        "version": 1,
+        "encoding": "utf-8",
+        "delimiter": ",",
+        "columns": [
+          {
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "max_chars": 16
+          },
+          {
+            "name": "data",
+            "type": "text",
+            "required": true,
+            "max_chars": 10
+          },
+          {
+            "name": "status",
+            "type": "text",
+            "required": true,
+            "max_chars": 16,
+            "enum": [
+              "open",
+              "settled"
+            ]
+          }
+        ],
+        "duplicate_key": [
+          "id"
+        ],
+        "limits": {
+          "max_bytes": 4096,
+          "max_rows": 16,
+          "max_field_chars": 64,
+          "max_diagnostics": 64
+        }
+      }
+    }
+  ],
+  "input_files": [
+    {
+      "case": "n0_seen_1",
+      "batch": 0,
+      "csv_utf8": "id,data,status\n8201,2028-06-10,open\n",
+      "bytes": 36,
+      "sha256": "362d196472eb0937be724cf005dc8513adb3750e79c160540ce1e40f27ed66d7",
+      "should_accept": true,
+      "reason": "All declared constraints hold; date is in the fixed initial allowlist."
+    },
+    {
+      "case": "n0_seen_2",
+      "batch": 0,
+      "csv_utf8": "id,data,status\n8202,2028-06-11,settled\n",
+      "bytes": 39,
+      "sha256": "f31e16633ab1b203edae7de7270b2138cffc9b56644b4f5cbe78604acff798a2",
+      "should_accept": true,
+      "reason": "All declared constraints hold; the other allowlisted date and status are used."
+    },
+    {
+      "case": "n0_invalid_id",
+      "batch": 0,
+      "csv_utf8": "id,data,status\n82X3,2028-06-10,open\n",
+      "bytes": 36,
+      "sha256": "59d8b43214087ade49def1a7668af3f671c701b1253724563109337d78c33407",
+      "should_accept": false,
+      "reason": "82X3 is not an ASCII integer."
+    },
+    {
+      "case": "n0_invalid_status",
+      "batch": 0,
+      "csv_utf8": "id,data,status\n8204,2028-06-10,paused\n",
+      "bytes": 38,
+      "sha256": "c2bbe9ccfb66a3044f86a402a825b748a6554a14ff54d805dbe345f23017718c",
+      "should_accept": false,
+      "reason": "paused is outside the declared status enum."
+    },
+    {
+      "case": "n1_new_date",
+      "batch": 1,
+      "csv_utf8": "id,data,status\n8301,2028-06-12,open\n",
+      "bytes": 36,
+      "sha256": "4694f27207f3a9a1e89d7c7275f0e34a87586c3776a73aeb82de5f7034bf7ec1",
+      "should_accept": true,
+      "reason": "2028-06-12 is a valid date; the import contract does not restrict dates to those in batch 0."
+    },
+    {
+      "case": "n1_impossible_date",
+      "batch": 1,
+      "csv_utf8": "id,data,status\n8302,2028-06-31,open\n",
+      "bytes": 36,
+      "sha256": "d1b0ac431491abacf10b9e63ac78e0a78add7cedc4efe6c129ee69ef01dd6b12",
+      "should_accept": false,
+      "reason": "June has 30 days: 2028-06-31 is impossible, although its ten text characters are permitted."
+    },
+    {
+      "case": "n1_duplicate",
+      "batch": 1,
+      "csv_utf8": "id,data,status\n8303,2028-06-10,open\n8303,2028-06-11,settled\n",
+      "bytes": 60,
+      "sha256": "10fc1955340d4f3bab92d4ea0f926a9447f48b8942af7dc1c78c6bcfa6e94079",
+      "should_accept": false,
+      "reason": "The exact id string 8303 repeats; each row is otherwise valid under every configuration."
+    },
+    {
+      "case": "n1_invalid_status",
+      "batch": 1,
+      "csv_utf8": "id,data,status\n8304,2028-06-11,void\n",
+      "bytes": 36,
+      "sha256": "b67f0ced770ae8a418e62e66d1d64c174f8c623855105df47e872f1c53b5b054",
+      "should_accept": false,
+      "reason": "void is outside the declared status enum; its date is in the initial allowlist."
+    }
+  ],
+  "classifications": [
+    {
+      "id": "n0_a_seen_dates_n0_seen_1",
+      "n": 0,
+      "profile": "a_seen_dates",
+      "case": "n0_seen_1",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_a_seen_dates_n0_seen_2",
+      "n": 0,
+      "profile": "a_seen_dates",
+      "case": "n0_seen_2",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_a_seen_dates_n0_invalid_id",
+      "n": 0,
+      "profile": "a_seen_dates",
+      "case": "n0_invalid_id",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n0_a_seen_dates_n0_invalid_status",
+      "n": 0,
+      "profile": "a_seen_dates",
+      "case": "n0_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n0_b_iso_n0_seen_1",
+      "n": 0,
+      "profile": "b_iso",
+      "case": "n0_seen_1",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_b_iso_n0_seen_2",
+      "n": 0,
+      "profile": "b_iso",
+      "case": "n0_seen_2",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_b_iso_n0_invalid_id",
+      "n": 0,
+      "profile": "b_iso",
+      "case": "n0_invalid_id",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n0_b_iso_n0_invalid_status",
+      "n": 0,
+      "profile": "b_iso",
+      "case": "n0_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n0_c_text_n0_seen_1",
+      "n": 0,
+      "profile": "c_text",
+      "case": "n0_seen_1",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_c_text_n0_seen_2",
+      "n": 0,
+      "profile": "c_text",
+      "case": "n0_seen_2",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n0_c_text_n0_invalid_id",
+      "n": 0,
+      "profile": "c_text",
+      "case": "n0_invalid_id",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n0_c_text_n0_invalid_status",
+      "n": 0,
+      "profile": "c_text",
+      "case": "n0_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_a_seen_dates_n1_new_date",
+      "n": 1,
+      "profile": "a_seen_dates",
+      "case": "n1_new_date",
+      "should_accept": true,
+      "observed_accept": false,
+      "outcome": "false_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_a_seen_dates_n1_impossible_date",
+      "n": 1,
+      "profile": "a_seen_dates",
+      "case": "n1_impossible_date",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_a_seen_dates_n1_duplicate",
+      "n": 1,
+      "profile": "a_seen_dates",
+      "case": "n1_duplicate",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_a_seen_dates_n1_invalid_status",
+      "n": 1,
+      "profile": "a_seen_dates",
+      "case": "n1_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_b_iso_n1_new_date",
+      "n": 1,
+      "profile": "b_iso",
+      "case": "n1_new_date",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n1_b_iso_n1_impossible_date",
+      "n": 1,
+      "profile": "b_iso",
+      "case": "n1_impossible_date",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_b_iso_n1_duplicate",
+      "n": 1,
+      "profile": "b_iso",
+      "case": "n1_duplicate",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_b_iso_n1_invalid_status",
+      "n": 1,
+      "profile": "b_iso",
+      "case": "n1_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_c_text_n1_new_date",
+      "n": 1,
+      "profile": "c_text",
+      "case": "n1_new_date",
+      "should_accept": true,
+      "observed_accept": true,
+      "outcome": "true_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n1_c_text_n1_impossible_date",
+      "n": 1,
+      "profile": "c_text",
+      "case": "n1_impossible_date",
+      "should_accept": false,
+      "observed_accept": true,
+      "outcome": "false_accept",
+      "status": "CLEAN"
+    },
+    {
+      "id": "n1_c_text_n1_duplicate",
+      "n": 1,
+      "profile": "c_text",
+      "case": "n1_duplicate",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    },
+    {
+      "id": "n1_c_text_n1_invalid_status",
+      "n": 1,
+      "profile": "c_text",
+      "case": "n1_invalid_status",
+      "should_accept": false,
+      "observed_accept": false,
+      "outcome": "true_reject",
+      "status": "FINDINGS"
+    }
+  ],
+  "scores": [
+    {
+      "n": 0,
+      "profile": "a_seen_dates",
+      "correct": 4,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 2,
+        "true_reject": 2,
+        "false_accept": 0,
+        "false_reject": 0
+      },
+      "execution_ids": [
+        "n0_a_seen_dates_n0_seen_1",
+        "n0_a_seen_dates_n0_seen_2",
+        "n0_a_seen_dates_n0_invalid_id",
+        "n0_a_seen_dates_n0_invalid_status"
+      ]
+    },
+    {
+      "n": 0,
+      "profile": "b_iso",
+      "correct": 4,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 2,
+        "true_reject": 2,
+        "false_accept": 0,
+        "false_reject": 0
+      },
+      "execution_ids": [
+        "n0_b_iso_n0_seen_1",
+        "n0_b_iso_n0_seen_2",
+        "n0_b_iso_n0_invalid_id",
+        "n0_b_iso_n0_invalid_status"
+      ]
+    },
+    {
+      "n": 0,
+      "profile": "c_text",
+      "correct": 4,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 2,
+        "true_reject": 2,
+        "false_accept": 0,
+        "false_reject": 0
+      },
+      "execution_ids": [
+        "n0_c_text_n0_seen_1",
+        "n0_c_text_n0_seen_2",
+        "n0_c_text_n0_invalid_id",
+        "n0_c_text_n0_invalid_status"
+      ]
+    },
+    {
+      "n": 1,
+      "profile": "a_seen_dates",
+      "correct": 3,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 0,
+        "true_reject": 3,
+        "false_accept": 0,
+        "false_reject": 1
+      },
+      "execution_ids": [
+        "n1_a_seen_dates_n1_new_date",
+        "n1_a_seen_dates_n1_impossible_date",
+        "n1_a_seen_dates_n1_duplicate",
+        "n1_a_seen_dates_n1_invalid_status"
+      ]
+    },
+    {
+      "n": 1,
+      "profile": "b_iso",
+      "correct": 4,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 1,
+        "true_reject": 3,
+        "false_accept": 0,
+        "false_reject": 0
+      },
+      "execution_ids": [
+        "n1_b_iso_n1_new_date",
+        "n1_b_iso_n1_impossible_date",
+        "n1_b_iso_n1_duplicate",
+        "n1_b_iso_n1_invalid_status"
+      ]
+    },
+    {
+      "n": 1,
+      "profile": "c_text",
+      "correct": 3,
+      "denominator": 4,
+      "confusion": {
+        "true_accept": 1,
+        "true_reject": 2,
+        "false_accept": 1,
+        "false_reject": 0
+      },
+      "execution_ids": [
+        "n1_c_text_n1_new_date",
+        "n1_c_text_n1_impossible_date",
+        "n1_c_text_n1_duplicate",
+        "n1_c_text_n1_invalid_status"
+      ]
+    }
+  ],
+  "selection_snapshots": [
+    {
+      "rows_present": 12,
+      "batch": 0,
+      "state": "SELECTION_EVALUATED",
+      "selected_id": "a_seen_dates",
+      "missing_ids": [],
+      "selector_calls": 1,
+      "welfare_updates": 1
+    },
+    {
+      "rows_present": 20,
+      "batch": 1,
+      "state": "EVIDENCE_INSUFFICIENT",
+      "selected_id": null,
+      "missing_ids": [
+        "c_text"
+      ],
+      "selector_calls": 0,
+      "welfare_updates": 0
+    },
+    {
+      "rows_present": 24,
+      "batch": 1,
+      "state": "SELECTION_EVALUATED",
+      "selected_id": "b_iso",
+      "missing_ids": [],
+      "selector_calls": 1,
+      "welfare_updates": 1
+    }
+  ],
+  "limits": [
+    "Eight constructed files, not a random sample or general accuracy estimate.",
+    "Rules are fixed; batch composition changes. No training or causal learning is measured.",
+    "A/C are deliberately over/under-restrictive relative to the intended import contract.",
+    "Each error costs one point here; real false-accept/reject costs need not be equal.",
+    "Risk/care/permission inputs are declared neutral synthetic assumptions, not learned from these scores.",
+    "Selection is not execution or authority; task scores do not measure trust or moral worth.",
+    "Public projection supports inspection of inputs/arithmetic, not independent replication or authentication of private runs."
+  ]
+}
