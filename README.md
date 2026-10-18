@@ -22,6 +22,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Bring one checkable requirement.** In the [existing applied-research thread](https://github.com/NixEngine/ethics-under-uncertainty/issues/3), describe the input shape, expected result and decision the check should support. Use only public synthetic examples—no customer data, credentials or confidential files. A discussion starts with a question, not a contract or a promise of delivery.
 
+**Can a checkpoint answer a newly changed question?** Our [bilingual, hand-checkable example](docs/cases/when-the-question-changes.md) shows two histories with the same retained state but different audit counts. It turns return-under-uncertainty into a practical choice: answer what the summary supports, seek the missing distinction, or begin a new measurement with an explicit boundary.
+
 ## What can be verified now
 
 The reference implementation provides:
