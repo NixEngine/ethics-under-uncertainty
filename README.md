@@ -28,6 +28,8 @@ This is an applied example of the Ethics of Not Knowing, Bridge Engineering and 
 
 **Can a correct number still leave the decision unresolved?** Our [bilingual worked example](docs/cases/when-numbers-need-meaning.md) starts with the same 02:15 offset and two possible reference times. It shows which checks can proceed, how an urgent action can state its assumption, and how a later clarification changes only dependent results. The arithmetic is synthetic and hand-checkable, not a new software capability.
 
+**Can a lower rate in every group become a higher rate overall?** Our [bilingual case on comparable rates](docs/cases/comparable-rates.md) works through two synthetic invoice batches. Different case mixes reverse the aggregate comparison; a common reference mix answers a different question. The counterexample preserves the original flagged-invoice counts when those are what the question asks for. This is a hand-checkable exposition, not a new CSV or Farol feature.
+
 **Could a low-scoring item still be indispensable?** The [bilingual finite-attention example](docs/cases/finite-attention-and-return.md) compares two selections under the same three-part budget. It separates local signal from task requirements, records what remains unexamined and explains why the implemented action selector does not establish complete coverage. This is a hand-worked research exposition, not a new runtime feature.
 
 **Does an observed success settle suitability—or trust?** The [bilingual task-evidence case](docs/cases/task-evidence-without-ranking.md) preserves an initial success followed by decline, a complete prefix, a gap and an unobserved threshold. Four public synthetic input/result pairs make the distinctions inspectable; the separate engine remains private. Task performance is not a measure of honesty or moral worth.
@@ -136,4 +138,3 @@ The public edition is an editorial and technical collaboration between **Júnior
 Júnior is the human originator, legal author, rights holder, and responsible publisher. Codex contributed audit, formalization, reference implementation, tests, translation, and release preparation. No institutional sponsorship, partnership, or endorsement is claimed.
 
 No general reuse license has been granted. [RIGHTS.md](RIGHTS.md) provides only a narrow permission to execute an unmodified local copy for non-commercial evaluation and falsification. Public visibility is not the same as open-source licensing.
-

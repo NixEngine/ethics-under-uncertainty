@@ -28,6 +28,8 @@ Esta prévia pública transforma essa assimetria em restrições executáveis. O
 
 **Um número correto ainda pode deixar a decisão em aberto?** Nosso [exemplo bilíngue](docs/cases/when-numbers-need-meaning.md) parte do mesmo deslocamento de 02:15 e de duas referências possíveis. Mostra quais verificações podem avançar, como uma ação urgente pode explicitar sua premissa e como um esclarecimento posterior altera apenas resultados dependentes. A conta é sintética e conferível à mão, não uma nova função de software.
 
+**Uma taxa menor em cada grupo pode virar uma taxa maior no total?** O [caso bilíngue de taxas comparáveis](docs/cases/comparable-rates.md) examina dois lotes sintéticos de faturas. Composições diferentes invertem a comparação agregada; uma composição comum responde a outra pergunta. O contraexemplo preserva a contagem original de faturas sinalizadas quando é isso que a pergunta solicita. É uma exposição conferível à mão, não uma nova função CSV ou Farol.
+
 **Uma parte com pontuação baixa ainda pode ser indispensável?** O [exemplo bilíngue de atenção finita](docs/cases/finite-attention-and-return.md) compara duas escolhas sob o mesmo orçamento de três partes. Separa sinal local de exigência da tarefa, registra o que ficou sem exame e explica por que o seletor de ações implementado não demonstra cobertura completa. É uma exposição de pesquisa conferível à mão, não uma nova função executável.
 
 **Um sucesso observado resolve a adequação — ou a confiança?** O [caso bilíngue de evidência por tarefa](docs/cases/task-evidence-without-ranking.md) preserva sucesso inicial seguido de queda, prefixo completo, lacuna e patamar não observado. Quatro pares sintéticos públicos de entrada/resultado tornam as distinções examináveis; o motor separado continua privado. Desempenho não mede honestidade ou valor moral.
@@ -125,4 +127,3 @@ A edição pública é uma colaboração editorial e técnica entre **Júnior + 
 Júnior é o idealizador humano, autor jurídico, titular dos direitos e responsável pela publicação. Codex contribuiu com auditoria, formalização, implementação de referência, testes, tradução e preparação do lançamento. Não se afirma patrocínio, parceria ou endosso institucional.
 
 Não foi concedida licença geral de reutilização. [RIGHTS.md](RIGHTS.md) oferece apenas permissão estreita para executar uma cópia local não modificada em avaliação e falsificação não comerciais. Visibilidade pública não equivale a licenciamento open source.
-
