@@ -12,6 +12,14 @@
 
 Esta prévia pública transforma essa assimetria em restrições executáveis. O protocolo separa cinco coisas frequentemente confundidas: estatuto metafísico, evidência operacional, precaução, controle de efeitos externos e privacidade do estado interno persistido.
 
+## Dos princípios a um resultado examinável
+
+**Quando uma verificação diz “válido”, qual é o próximo passo justificável?** Nosso [estudo de caso CSV bilíngue](docs/cases/zero-px-csv-synthetic-2026-10.md) torna essa pergunta concreta: cinco apontamentos localizados num arquivo de dois registros e, separadamente, uma observação de 50.000 registros sintéticos em 0,586015 segundo. O artigo inclui dados JSON selecionados, as fronteiras das medidas de tempo/memória e o que essas observações não demonstram.
+
+É uma aplicação da Ética do Desconhecimento, da Engenharia de Pontes e do Freio Técnico da Cognição Finita: agir num escopo útil, preservar a evidência e retornar quando uma exigência ou observação mudar. **Não é um teste da implementação de bem-estar de IA deste repositório**; o motor CSV separado permanece privado.
+
+**Traga um requisito verificável.** Na [conversa de pesquisa aplicada já existente](https://github.com/NixEngine/ethics-under-uncertainty/issues/3), descreva a forma da entrada, o resultado esperado e a decisão que a verificação deve apoiar. Use somente exemplos sintéticos publicáveis—sem dados de clientes, credenciais ou arquivos confidenciais. A conversa começa por uma pergunta, não por um contrato ou promessa de entrega.
+
 ## O que já pode ser verificado
 
 A implementação de referência fornece:
