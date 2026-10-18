@@ -1,3 +1,6 @@
+> **Explore os resultados / Explore the results**  
+> [Demonstração interativa portátil (HTML) / Portable interactive viewer](../demos/csv-case-explorer.html). No GitHub, use **Download raw file**, salve o HTML e abra-o no navegador. Sem instalação ou upload: são observações sintéticas já publicadas, não uma nova validação. / On GitHub, choose **Download raw file**, save the HTML and open it in a browser. No installation or upload: this explores already-published synthetic observations, not a new validation. Aplicam-se os [direitos do repositório / repository rights](../../RIGHTS.md); o motor CSV original permanece privado / the original CSV engine remains private.
+
 # CSV: menos procura manual, mais clareza sobre onde revisar
 
 Regras verificadas, posições para revisar e limites explícitos: dois exemplos sintéticos do Zero Px CSV mostram um resultado útil sem prometer que os dados são “verdadeiros”.
